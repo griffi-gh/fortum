@@ -4,4 +4,5 @@ CREATE TABLE IF NOT EXISTS users {
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR NOT NULL,
   created_on TIMESTAMP NOT NULL,
+  last_activity TIMESTAMP NOT NULL,
 }

@@ -36,7 +36,7 @@ async fn register(data: Form<RegisterData>, mut db: Connection<MainDatabase>) ->
     return Err(BadRequest(Some("Invalid password")));
   }
   let password_hash = scrypt_simple(&data.password, &SCRYPT_PARAMS).unwrap();
-  sqlx::query("INSERT VALUES($1, $2, $3) INTO users;")
+  sqlx::query("INSERT INTO users (username, email, password_hash) VALUES($1, $2, $3);")
     .bind(&data.username)
     .bind(&data.email)
     .bind(password_hash)
