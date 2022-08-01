@@ -40,7 +40,7 @@ async fn register(data: Form<RegisterData>, mut db: Connection<MainDatabase>) ->
 
   //Check if username was used before
   //TODO this is inefficient
-  let email_used: bool = sqlx::query("SELECT not COUNT(*) = 0 FROM users WITH email = $1 LIMIT 1")
+  let email_used: bool = sqlx::query("SELECT not COUNT(*) = 0 FROM users WHERE email = $1 LIMIT 1")
     .bind(&data.email)
     .fetch_one(&mut *db).await
     .unwrap().try_get(0).unwrap();
