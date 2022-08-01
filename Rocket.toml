@@ -1,2 +1,2 @@
 [default.databases.main]
-url = "postgres://postgres:0000@localhost:5432"
+url = "postgres://postgres:0000@localhost:5432/forum"
