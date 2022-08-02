@@ -7,6 +7,7 @@ edition = "2021"
 regex = "1"
 lazy_static = "1.4"
 rust-crypto = "0.2"
+dotenv = "0.15"
 
 [dependencies.rocket]
 version = "0.5.0-rc.2"
@@ -19,4 +20,4 @@ features = ["sqlx_postgres"]
 [dependencies.sqlx]
 version = "0.5"
 default-features = false
-features = ["macros", "offline", "migrate", "postgres"]
+features = ["offline", "migrate", "postgres"]

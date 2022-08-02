@@ -7,6 +7,7 @@ use rocket_db_pools::{Database, Connection};
 use sqlx::{self, Row};
 use regex::Regex;
 use crypto::scrypt::{scrypt_simple, ScryptParams};
+use dotenv::dotenv;
 
 lazy_static! {
   static ref EMAIL_REGEX: Regex = Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})").unwrap();
@@ -61,5 +62,6 @@ async fn register(data: Form<RegisterData>, mut db: Connection<MainDatabase>) ->
 
 #[launch]
 fn rocket() -> _ {
+  dotenv().ok();
   rocket::build().attach(MainDatabase::init()).mount("/api", routes![register])
 }
