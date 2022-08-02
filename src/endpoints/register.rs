@@ -42,8 +42,9 @@ pub async fn register(data: Form<RegisterData>, mut db: Connection<MainDatabase>
   let token = {
     let mut data = [0u8; 16];
     thread_rng().fill(&mut data);
-    base64::encode(data)
+    base64::encode_config(data, base64::URL_SAFE)
   };
+  debug_assert!(token.len() == 24, "Invalid token length");
   sqlx::query("INSERT INTO users (username, email, password_hash, token) VALUES($1, $2, $3, $4);")
     .bind(&data.username)
     .bind(&data.email)
