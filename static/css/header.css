@@ -1,0 +1,11 @@
+#header {
+  display: flex;
+  padding: .5rem;
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 0 .33rem rgba(0,0,0,.5);
+}
+#header_title {
+  font-weight: thin;
+  font-size: 1.25rem;
+}

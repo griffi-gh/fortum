@@ -1,7 +1,18 @@
 {% extends "stuff/base" %}
+
 {% block title %}
   Main page
 {% endblock title %}
+
+{% block head %}
+  {{ super() }}
+  <style>
+    #content {
+      padding: 1rem;
+    }
+  </style>
+{% endblock head %}
+
 {% block content %}
   <h1>Index</h1>
   <p class="important">

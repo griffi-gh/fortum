@@ -5,12 +5,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/global.css">
   <title>{% block title %}{% endblock title %}</title>
   {% endblock head %}
 </head>
 <body>
   {% include "stuff/header" %}
-  {% block content %}{% endblock content %}
+  <main id="content" class="content main">
+    {% block content %}{% endblock content %}
+  </main>
   {% include "stuff/footer" %}
 </body>
 </html>

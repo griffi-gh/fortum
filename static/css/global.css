@@ -1,0 +1,12 @@
+@import url("./const.css");
+@import url("./footer.css");
+@import url("./header.css");
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-rendering: optimizeSpeed;
+}
