@@ -7,5 +7,8 @@ CREATE TABLE users (
   created_on TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
   last_activity TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
   user_role role_type NOT NULL DEFAULT 'user',
-  token VARCHAR(24) NOT NULL CHECK (length(token) = 24) --16 byte token = 24 byte base64
+  token VARCHAR(24) UNIQUE NOT NULL CHECK (length(token) = 24) --16 byte token = 24 byte base64
+);
+CREATE TABLE posts (
+
 );
