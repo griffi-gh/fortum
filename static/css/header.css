@@ -1,11 +1,26 @@
 #header {
   display: flex;
-  padding: .5rem;
   background: var(--color-primary);
   color: white;
   box-shadow: 0 0 .33rem rgba(0,0,0,.5);
 }
 #header_title {
+  padding: .5rem;
   font-weight: thin;
   font-size: 1.25rem;
+}
+#header_login {
+  margin-left: auto;
+}
+.header_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: .5rem;
+  background: var(--color-dark);
+  transition: .25s;
+}
+.header_button:hover {
+  background: var(--color-darker);
 }
