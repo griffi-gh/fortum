@@ -417,8 +417,10 @@ dependencies = [
 name = "forum"
 version = "0.1.0"
 dependencies = [
+ "base64",
  "dotenv",
  "lazy_static",
+ "rand 0.8.5",
  "regex",
  "rocket",
  "rocket_db_pools",

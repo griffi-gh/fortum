@@ -1,4 +1,5 @@
 use rocket::form::Form;
+use rocket::http::{Cookie, CookieJar};
 use rocket::response::status::{BadRequest, NoContent};
 use crypto::scrypt::scrypt_check;
 use rocket_db_pools::Connection;
@@ -20,15 +21,16 @@ pub async fn login(data: Form<LoginData>, mut db: Connection<MainDatabase>, cook
   if !PASSWORD_REGEX.is_match(&data.password) {
     return Err(BadRequest(Some("Invalid password")));
   }
-  let hashed_password = sqlx::query("SELECT password_hash FROM users WHERE email = $1")
+  let row = sqlx::query("SELECT password_hash, token FROM users WHERE email = $1")
     .bind(&data.email)
     .fetch_optional(&mut *db).await
     .unwrap();
-  if let Some(hashed_password) = hashed_password {
-    let hashed_password: String = hashed_password.try_get(0).unwrap();
+  if let Some(row) = row {
+    let hashed_password: String = row.try_get(0).unwrap();
+    let token: String = row.try_get(1).unwrap();
     //Assume that the password is in valid format
     if scrypt_check(&data.password, &hashed_password).unwrap() { 
-      
+      cookies.add_private(Cookie::build("auth", token).secure(true).finish());
       Ok(NoContent)
     } else {
       Err(BadRequest(Some("Incorrect password")))

@@ -6,3 +6,4 @@ lazy_static! {
   pub static ref PASSWORD_REGEX: Regex = Regex::new(r".{8,}").unwrap();
   pub static ref SCRYPT_PARAMS: ScryptParams = ScryptParams::new(14, 8, 1);
 }
+pub const AUTH_COOKIE_NAME: &str = "auth";

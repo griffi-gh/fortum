@@ -5,6 +5,7 @@ use rocket_db_pools::Connection;
 use crate::MainDatabase;
 use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX, SCRYPT_PARAMS};
 use sqlx::{self, Row};
+use rand::{thread_rng, Rng};
 
 #[derive(FromForm)]
 pub struct RegisterData {
@@ -38,10 +39,16 @@ pub async fn register(data: Form<RegisterData>, mut db: Connection<MainDatabase>
 
   //Register user
   let password_hash = scrypt_simple(&data.password, &SCRYPT_PARAMS).unwrap();
-  sqlx::query("INSERT INTO users (username, email, password_hash) VALUES($1, $2, $3);")
+  let token = {
+    let mut data = [0u8; 16];
+    thread_rng().fill(&mut data);
+    base64::encode(data)
+  };
+  sqlx::query("INSERT INTO users (username, email, password_hash, token) VALUES($1, $2, $3, $4);")
     .bind(&data.username)
     .bind(&data.email)
     .bind(password_hash)
+    .bind(token)
     .execute(&mut *db).await
     .unwrap(); //handle error?
   Ok(NoContent)
