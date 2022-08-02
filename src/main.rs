@@ -2,7 +2,7 @@
 #[macro_use] extern crate lazy_static;
 use rocket::form::Form;
 use rocket::response::status::{BadRequest, NoContent};
-//use rocket::tokio::join;
+use rocket::figment::providers::Env;
 use rocket_db_pools::{Database, Connection};
 use sqlx::{self, Row};
 use regex::Regex;
@@ -63,5 +63,8 @@ async fn register(data: Form<RegisterData>, mut db: Connection<MainDatabase>) ->
 #[launch]
 fn rocket() -> _ {
   dotenv().ok();
-  rocket::build().attach(MainDatabase::init()).mount("/api", routes![register])
+  let figment = rocket::Config::figment()
+    .merge(Env::raw().only(&["PORT"]))
+    .merge(Env::raw().only(&["DATABASE_URL"]));
+  rocket::custom(figment).attach(MainDatabase::init()).mount("/api", routes![register])
 }
