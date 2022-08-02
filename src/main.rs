@@ -9,7 +9,10 @@ use std::env;
 pub mod consts;
 pub mod endpoints;
 
-use endpoints::register::register;
+use endpoints::{
+  register::register,
+  login::login,
+};
 
 #[derive(Database)]
 #[database("main")]
@@ -22,5 +25,5 @@ fn rocket() -> _ {
   let figment = rocket::Config::figment()
     .merge(Env::raw().only(&["PORT"]))
     .merge(("databases", map!["main" => map!["url" => db_url]]));
-  rocket::custom(figment).attach(MainDatabase::init()).mount("/api", routes![register])
+  rocket::custom(figment).attach(MainDatabase::init()).mount("/api", routes![register, login])
 }
