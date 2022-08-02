@@ -13,7 +13,7 @@ pub struct LoginData {
 }
 
 #[post("/login", data = "<data>")]
-pub async fn login(data: Form<LoginData>, mut db: Connection<MainDatabase>) -> Result<NoContent, BadRequest<&'static str>> {
+pub async fn login(data: Form<LoginData>, mut db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Result<NoContent, BadRequest<&'static str>> {
   if !EMAIL_REGEX.is_match(&data.email) {
     return Err(BadRequest(Some("Invalid email")));
   }
@@ -28,6 +28,7 @@ pub async fn login(data: Form<LoginData>, mut db: Connection<MainDatabase>) -> R
     let hashed_password: String = hashed_password.try_get(0).unwrap();
     //Assume that the password is in valid format
     if scrypt_check(&data.password, &hashed_password).unwrap() { 
+      
       Ok(NoContent)
     } else {
       Err(BadRequest(Some("Incorrect password")))
