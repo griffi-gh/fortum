@@ -2,12 +2,13 @@
 #[macro_use] extern crate lazy_static;
 use rocket::form::Form;
 use rocket::response::status::{BadRequest, NoContent};
-use rocket::figment::providers::Env;
+use rocket::figment::{providers::Env, util::map};
 use rocket_db_pools::{Database, Connection};
 use sqlx::{self, Row};
 use regex::Regex;
 use crypto::scrypt::{scrypt_simple, ScryptParams};
 use dotenv::dotenv;
+use std::env;
 
 lazy_static! {
   static ref EMAIL_REGEX: Regex = Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})").unwrap();
@@ -63,8 +64,9 @@ async fn register(data: Form<RegisterData>, mut db: Connection<MainDatabase>) ->
 #[launch]
 fn rocket() -> _ {
   dotenv().ok();
+  let db_url = env::var("DATABASE_URL").unwrap();
   let figment = rocket::Config::figment()
     .merge(Env::raw().only(&["PORT"]))
-    .merge(Env::raw().only(&["DATABASE_URL"]));
+    .merge(("databases", map!["main" => map!["url" => db_url]]));
   rocket::custom(figment).attach(MainDatabase::init()).mount("/api", routes![register])
 }
