@@ -1,4 +1,7 @@
 {% extends "stuff/base" %}
+{% block title %}
+  Main page
+{% endblock title %}
 {% block content %}
   <h1>Index</h1>
   <p class="important">
