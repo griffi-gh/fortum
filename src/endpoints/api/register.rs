@@ -12,11 +12,11 @@ pub struct RegisterData {
 }
 
 #[post("/register", data = "<data>")]
-pub async fn register(data: Form<RegisterData>, db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Result<Created<&'static str>, BadRequest<&'static str>> {
+pub async fn register(data: Form<RegisterData>, db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Result<NoContent, BadRequest<&'static str>> {
   match MainDatabase::register(db, &data.email, &data.username, &data.password).await {
     Ok(token) => {
       cookies.add_private(Cookie::build("auth", token).secure(true).finish());
-      Ok(Created::new("/register?success"))
+      Ok(NoContent)
     }
     Err(error) => Err(BadRequest(Some(error)))
   }
