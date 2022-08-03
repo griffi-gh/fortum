@@ -5,10 +5,10 @@
     Forum
   </div>
   <div id="header-align-right">
-    <a href="/register" id="header-login" class="header-button style-outline nocolor">
+    <a href="/register" id="header-login" class="styled-button style-outline nocolor">
       Sign up
     </a>
-    <a href="/login" id="header-login" class="header-button with-shadow nocolor">
+    <a href="/login" id="header-login" class="styled-button with-shadow nocolor">
       <span class="icon-login"></span>
       Log in
     </a>

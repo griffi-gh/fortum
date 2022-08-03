@@ -15,6 +15,7 @@
       <h1>Sign up</h1>
       {% if success %}
         <p>Your account was created successfully</p>
+        <a class="styled-button" href="/">Go home</a>
       {% else %}
         <form action="/api/register" method="post" class="flex-center">
           <input type="email" name="email" placeholder="E-mail" class="block">

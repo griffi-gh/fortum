@@ -22,30 +22,3 @@
   align-items: center;
   margin-left: auto;
 }
-.header-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: .4rem 1rem;
-  background: var(--color-primary);
-  color: white;
-  border: 1px solid var(--color-primary);
-  transition: .25s;
-  border-radius: 999rem;
-  margin: .2rem;
-}
-.header-button.style-outline {
-  background: transparent;
-  color: var(--color-primary-dark);
-  border: 1px solid var(--color-primary);
-}
-.header-button.with-shadow {
-  box-shadow: 0 0 .1rem rgba(0,0,0,.33);
-}
-.header-button:hover {
-  background: var(--color-primary-dark);
-}
-.header-button.style-outline:hover {
-  background: var(--color-primary-light-slight);
-}
