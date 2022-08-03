@@ -63,9 +63,9 @@ impl MainDatabase {
       .unwrap();
     if let Some(row) = row {
       let hashed_password: String = row.try_get(0).unwrap();
-      let token: String = row.try_get(1).unwrap();
       //Assume that the password is in valid format
       if scrypt_check(&password, &hashed_password).unwrap() { 
+        let token: String = row.try_get(1).unwrap();
         Ok(token)
       } else {
         Err("Incorrect password")
