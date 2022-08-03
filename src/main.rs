@@ -2,11 +2,12 @@
 #[macro_use] extern crate lazy_static;
 use rocket::figment::{providers::Env, util::map};
 use rocket::fs::FileServer;
-use rocket_db_pools::Database;
 use rocket_dyn_templates::Template;
+use rocket_db_pools::Database;
 use dotenv::dotenv;
 use std::env;
 
+pub mod db;
 pub mod consts;
 pub mod endpoints;
 
@@ -23,10 +24,6 @@ use endpoints::{
   }
 };
 
-#[derive(Database)]
-#[database("main")]
-pub struct MainDatabase(sqlx::PgPool);
-
 #[launch]
 fn rocket() -> _ {
   dotenv().ok();
@@ -35,7 +32,7 @@ fn rocket() -> _ {
     .merge(Env::raw().only(&["PORT", "SECRET_KEY"]))
     .merge(("databases", map!["main" => map!["url" => db_url]]));
   rocket::custom(figment)
-    .attach(MainDatabase::init())
+    .attach(db::MainDatabase::init())
     .attach(Template::fairing())
     .mount("/", routes![fe_index, fe_register, fe_login])
     .mount("/api", routes![api_register, api_login, api_logout])
