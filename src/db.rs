@@ -1,4 +1,3 @@
-use rocket::serde::{self, Deserialize};
 use rocket_db_pools::{Database, Connection};
 use sqlx::{self, PgPool, Row};
 use crypto::scrypt::{scrypt_simple, scrypt_check};
@@ -7,7 +6,7 @@ use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX, SCRYPT_PARAMS};
 use time::PrimitiveDateTime;
 
 #[derive(sqlx::Type, Default)]
-#[sqlx(rename = "role_type", rename_all = "lowercase")]
+#[sqlx(type_name = "role_type", rename_all = "lowercase")]
 pub enum UserRole {
   Banned,
   Unverified,
