@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Google Sans';
+    src: local('Google Sans Regular'), local('Google-Sans-Regular'),
+        url('GoogleSans-Regular.woff2') format('woff2'),
+        url('GoogleSans-Regular.woff') format('woff'),
+        url('GoogleSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }

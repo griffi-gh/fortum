@@ -4,18 +4,11 @@
   Main page
 {% endblock title %}
 
-{% block head %}
-  {{ super() }}
-  <style>
-    #content {
-      padding: 1rem;
-    }
-  </style>
-{% endblock head %}
-
 {% block content %}
-  <h1>Index</h1>
-  <p class="important">
-    Welcome to my awesome homepage.
-  </p>
+  <div id="content-padding">
+    <h1>Index</h1>
+    <p class="important">
+      Welcome to my awesome homepage.
+    </p>
+  </div>
 {% endblock content %}
