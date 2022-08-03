@@ -21,6 +21,7 @@ use endpoints::{
     index::index as fe_index,
     login::login as fe_login,
     register::register as fe_register,
+    register::register_success as fe_register_success,
   }
 };
 
@@ -34,7 +35,7 @@ fn rocket() -> _ {
   rocket::custom(figment)
     .attach(db::MainDatabase::init())
     .attach(Template::fairing())
-    .mount("/", routes![fe_index, fe_register, fe_login])
+    .mount("/", routes![fe_index, fe_register, fe_register_success, fe_login])
     .mount("/api", routes![api_register, api_login, api_logout])
     .mount("/static", FileServer::from("./static/"))
 }
