@@ -1,7 +1,8 @@
 use rocket_dyn_templates::{Template, context};
+use crate::common::TemplateVars;
 
 #[get("/")]
-pub fn index() -> Template {
+pub fn index(vars: TemplateVars) -> Template {
   Template::render("index", context! {
     
   })

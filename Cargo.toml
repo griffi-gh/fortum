@@ -22,7 +22,7 @@ features = ["sqlx_postgres"]
 [dependencies.sqlx]
 version = "0.5"
 default-features = false
-features = ["offline", "migrate", "postgres"]
+features = ["offline", "migrate", "postgres", "time"]
 
 [dependencies.rocket_dyn_templates]
 version = "0.1.0-rc.2"

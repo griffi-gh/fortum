@@ -3,6 +3,29 @@ use sqlx::{self, PgPool, Row};
 use crypto::scrypt::{scrypt_simple, scrypt_check};
 use rand::{Rng, thread_rng};
 use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX, SCRYPT_PARAMS};
+use sqlx::time::PrimitiveDateTime;
+
+#[derive(Deserialize, Default)]
+#[serde(crate = "rocket::serde", rename_all = "lowercase")]
+pub enum UserRole {
+  Banned,
+  Unverified,
+  #[default]
+  User,
+  Moderator,
+  Admin
+}
+
+pub struct User {
+  user_id: u32,
+  username: String,
+  email: String,
+  password_hash: String,
+  created_on: SystemTime,
+  last_activity: SystemTime,
+  user_role: UserRole,
+  token: String,
+}
 
 #[derive(Database)]
 #[database("main")]
@@ -69,14 +92,37 @@ impl MainDatabase {
       None => { return Err("User doesn't exist"); }
     };
     //Get info from the row
-    let (hashed_password, token): (String, String) = (
-      row.try_get(0).unwrap(),
-      row.try_get(1).unwrap()
-    );
+    let (hashed_password, token): (String, String) = (row.get(0), row.get(1));
     //Check hash (assuming it's is in valid format)
     match scrypt_check(&password, &hashed_password).unwrap() { 
       true => Ok(token),
       false => Err("Incorrect password")
     }
+  }
+
+  /// Returns user id
+  pub async fn get_token_user(mut db: Connection<Self>, token: &str) -> Option<u32> {
+    let result = sqlx::query("SELECT user_id FROM users WHERE token = $1")
+      .bind(token)
+      .fetch_optional(&mut *db).await
+      .unwrap();
+    result.map(|row| row.get(0))
+  }
+
+  pub async fn get_user(mut db: Connection<Self>, user_id: u32) -> Option<User> {
+    let result = sqlx::query("SELECT user_id, username, email, password_hash, created_on, last_activity, user_role, token FROM users WHERE user_id = $1")
+      .bind(user_id)
+      .fetch_optional(&mut *db).await
+      .unwrap();
+    result.map(|row| User {
+      user_id: row.get(0),
+      username: row.get(1),
+      email: row.get(2),
+      password_hash: row.get(3),
+      created_on: row.get(4),
+      last_activity: row.get(5),
+      user_role: row.get(6),
+      token: row.get(7),
+    })
   }
 }

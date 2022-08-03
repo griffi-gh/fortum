@@ -1,4 +1,4 @@
-CREATE TYPE role_type AS ENUM ('user', 'moderator', 'admin');
+CREATE TYPE role_type AS ENUM ('banned', 'unverified', 'user', 'moderator', 'admin');
 CREATE TABLE users (
   user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   username VARCHAR(15) NOT NULL,
