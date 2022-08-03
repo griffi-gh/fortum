@@ -51,27 +51,32 @@ impl MainDatabase {
 
   /// Returns token
   pub async fn login(mut db: Connection<Self>, email: &str, password: &str) -> Result<String, &'static str> {
+    //Verify stuff
     if !EMAIL_REGEX.is_match(email) {
       return Err("Invalid email");
     }
     if !PASSWORD_REGEX.is_match(password) {
       return Err("Invalid password");
     }
+    //Perform query
     let row = sqlx::query("SELECT password_hash, token FROM users WHERE email = $1")
       .bind(&email)
       .fetch_optional(&mut *db).await
       .unwrap();
-    if let Some(row) = row {
-      let hashed_password: String = row.try_get(0).unwrap();
-      //Assume that the password is in valid format
-      if scrypt_check(&password, &hashed_password).unwrap() { 
-        let token: String = row.try_get(1).unwrap();
-        Ok(token)
-      } else {
-        Err("Incorrect password")
-      }
-    } else {
-      Err("User doesn't exist")
+    //Check if user exists
+    let row = match row {
+      Some(row) => row,
+      None => { return Err("User doesn't exist"); }
+    };
+    //Get info from the row
+    let (hashed_password, token): (String, String) = (
+      row.try_get(0).unwrap(),
+      row.try_get(1).unwrap()
+    );
+    //Check hash (assuming it's is in valid format)
+    match scrypt_check(&password, &hashed_password).unwrap() { 
+      true => Ok(token),
+      false => Err("Incorrect password")
     }
   }
 }
