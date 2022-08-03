@@ -288,21 +288,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "crc"
-version = "2.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49fc9a695bca7f35f5f4c15cddc84415f66a74ea78eef08e90c5024f2b540e23"
-dependencies = [
- "crc-catalog",
-]
-
-[[package]]
-name = "crc-catalog"
-version = "1.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ccaeedb56da03b09f598226e25e80088cb4cd25f316e6e4df7d695f0feeb1403"
-
-[[package]]
 name = "crossbeam-queue"
 version = "0.3.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -512,6 +497,7 @@ dependencies = [
  "rocket_dyn_templates",
  "rust-crypto",
  "sqlx",
+ "time 0.2.27",
 ]
 
 [[package]]
@@ -2041,7 +2027,6 @@ dependencies = [
  "bitflags",
  "byteorder",
  "bytes",
- "crc",
  "crossbeam-queue",
  "dirs",
  "either",

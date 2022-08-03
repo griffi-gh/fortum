@@ -1,7 +1,6 @@
-use rocket::{http::CookieJar, request::{FromRequest, Outcome}, Request, serde::Deserialize};
+use rocket::{http::CookieJar, request::{FromRequest, Outcome}, Request};
 use rocket_db_pools::Connection;
-use std::marker::PhantomData;
-use crate::db::{MainDatabase, User, UserRole};
+use crate::db::MainDatabase;
 use crate::consts::AUTH_COOKIE_NAME;
 
 fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {

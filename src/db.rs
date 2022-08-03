@@ -1,12 +1,13 @@
+use rocket::serde::{self, Deserialize};
 use rocket_db_pools::{Database, Connection};
 use sqlx::{self, PgPool, Row};
 use crypto::scrypt::{scrypt_simple, scrypt_check};
 use rand::{Rng, thread_rng};
 use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX, SCRYPT_PARAMS};
-use sqlx::time::PrimitiveDateTime;
+use time::PrimitiveDateTime;
 
-#[derive(Deserialize, Default)]
-#[serde(crate = "rocket::serde", rename_all = "lowercase")]
+#[derive(sqlx::Type, Default)]
+#[sqlx(rename = "role_type", rename_all = "lowercase")]
 pub enum UserRole {
   Banned,
   Unverified,
@@ -21,8 +22,8 @@ pub struct User {
   username: String,
   email: String,
   password_hash: String,
-  created_on: SystemTime,
-  last_activity: SystemTime,
+  created_on: PrimitiveDateTime,
+  last_activity: PrimitiveDateTime,
   user_role: UserRole,
   token: String,
 }
