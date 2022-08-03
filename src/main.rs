@@ -12,12 +12,14 @@ pub mod endpoints;
 
 use endpoints::{
   api::{
-    register::register,
-    login::login,
-    logout::logout,
+    register::register as api_register,
+    login::login as api_login,
+    logout::logout as api_logout,
   },
   frontend::{
-    index::index
+    index::index as fe_index,
+    login::login as fe_login,
+    register::register as fe_register,
   }
 };
 
@@ -35,7 +37,7 @@ fn rocket() -> _ {
   rocket::custom(figment)
     .attach(MainDatabase::init())
     .attach(Template::fairing())
-    .mount("/", routes![index])
-    .mount("/api", routes![register, login, logout])
+    .mount("/", routes![fe_index, fe_register, fe_login])
+    .mount("/api", routes![api_register, api_login, api_logout])
     .mount("/static", FileServer::from("./static/"))
 }

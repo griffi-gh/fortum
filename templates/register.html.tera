@@ -1,0 +1,19 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Sign up
+{% endblock title %}
+
+{% block content %}
+  <div id="content-padding">
+    <div class="flex-center">
+      <h1>Sign up</h1>
+      <form action="/api/register" method="post" class="flex-center">
+        <input type="email" name="email" placeholder="E-mail" class="block">
+        <input type="text" name="username" placeholder="Username" class="block">
+        <input type="password" name="password" placeholder="Password" class="block">
+        <input type="submit" value="Submit" class="block">
+      </form>
+    </div>
+  </div>
+{% endblock content %}

@@ -1,5 +1,7 @@
 <header class="header" id="header">
-  <div id="header-title">
+  <a href="/" id="header-title" class="nocolor">
+    <span class="icon-emo-laugh header-logo header-logo-no-hover"></span>
+    <span class="icon-emo-grin header-logo header-logo-hover"></span>
     Forum
   </div>
   <div id="header-align-right">
@@ -7,7 +9,8 @@
       Sign up
     </a>
     <a href="/login" id="header-login" class="header-button with-shadow nocolor">
-      <span class="icon-login"></span>Log in
+      <span class="icon-login"></span>
+      Log in
     </a>
   </div>
 </header>

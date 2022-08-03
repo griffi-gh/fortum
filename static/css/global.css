@@ -19,3 +19,13 @@ body {
 #content > :is(#content-padding, .content-padding), #content.content-padding {
   padding: 1rem;
 }
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.block {
+  display: block;
+}
