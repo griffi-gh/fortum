@@ -7,21 +7,32 @@
 {% block head %}
   {{ super() }}
   <script src="/static/js/register.js" defer async></script>
+  <style>
+    .register-success {
+      font-size: 5rem;
+      margin: 0;
+      color: green;
+    }
+  </style>
 {% endblock head %}
 
 {% block content %}
   <div id="content-padding">
     <div class="flex-center">
       <h1>Sign up</h1>
+      {% if error %}
+        <p class="error">{{error}}</p>
+      {% endif %}
       {% if success %}
-        <p>Your account was created successfully</p>
+        <div class="register-success icon-ok-circled"></div>
+        <p class="margin-bottom-only">Your account was created successfully</p>
         <a class="styled-button" href="/">Go home</a>
       {% else %}
-        <form action="/api/register" method="post" class="flex-center">
+        <form action="#" method="post" class="flex-center">
           <input type="email" name="email" placeholder="E-mail" class="block">
           <input type="text" name="username" placeholder="Username" class="block">
           <input type="password" name="password" placeholder="Password" class="block">
-          <input type="submit" value="Submit" class="block">
+          <input type="submit" value="Submit" class="block styled-button">
         </form>
       {% endif %}
     </div>

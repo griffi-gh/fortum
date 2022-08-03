@@ -10,19 +10,13 @@ use std::env;
 pub mod db;
 pub mod consts;
 pub mod endpoints;
+pub mod common;
 
 use endpoints::{
-  api::{
-    register::register as api_register,
-    login::login as api_login,
-    logout::logout as api_logout,
-  },
-  frontend::{
-    index::index as fe_index,
-    login::login as fe_login,
-    register::register as fe_register,
-    register::register_success as fe_register_success,
-  }
+  index::index,
+  register::{register, post_register, register_success},
+  login::{login, post_login},
+  logout::logout,
 };
 
 #[launch]
@@ -35,7 +29,6 @@ fn rocket() -> _ {
   rocket::custom(figment)
     .attach(db::MainDatabase::init())
     .attach(Template::fairing())
-    .mount("/", routes![fe_index, fe_register, fe_register_success, fe_login])
-    .mount("/api", routes![api_register, api_login, api_logout])
+    .mount("/", routes![index, login, post_login, register, register_success, post_register, logout])
     .mount("/static", FileServer::from("./static/"))
 }

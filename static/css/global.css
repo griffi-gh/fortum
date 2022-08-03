@@ -30,3 +30,20 @@ body {
 .block {
   display: block;
 }
+.no-margin {
+  margin: 0;
+}
+.small-margin {
+  margin: .25rem;
+}
+.margin-bottom-only {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+p.error {
+  background: rgba(255,20,20,.3);
+  padding: 2px 5px;
+  margin: .5rem;
+  border-radius: .5rem;
+  border: 1px solid rgb(255,20,20);
+}
