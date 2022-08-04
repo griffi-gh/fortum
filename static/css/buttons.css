@@ -83,12 +83,19 @@
   background-position: 999rem;
   padding-left: 3px;
   padding-right: 3px;
-  transition: color .33s, transform .33s;
+  transition: color .33s, border-color .33s, transform .33s;
   color: gray;
 }
 .styled-input > :is(input:focus, input:not(:placeholder-shown)) ~ label {
-  transition: color .33s, transform .33s, background-position 0.001s linear .165s;
+  transition: color .33s, border-color .33s, transform .33s, background-position 0.001s linear .165s;
   transform: translate(1.25rem, -.25em) scale(.9);
   background-position: 0rem;
   color: black;
+}
+.styled-input > input:invalid:not(:placeholder-shown) {
+  color: var(--color-error, red);
+  border-color: var(--color-error, red);
+}
+.styled-input > input:invalid:not(:placeholder-shown) ~ label {
+  color: var(--color-error, red);
 }

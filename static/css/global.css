@@ -44,22 +44,12 @@ body {
   align-items: center;
   text-align: center;
 }
-.block {
-  display: block;
-}
-.no-margin {
-  margin: 0;
-}
-.display-none {
-  display: none;
-}
-.small-margin {
-  margin: .25rem;
-}
-.margin-bottom-only {
-  margin: 0;
-  margin-bottom: 1rem;
-}
+.block { display: block; }
+.no-margin { margin: 0; }
+.display-none { display: none; }
+.small-margin { margin: .25rem; }
+.margin-bottom-only { margin: 0; margin-bottom: 1rem; }
+
 .error {
   color: var(--color-error);
   margin: .5rem;

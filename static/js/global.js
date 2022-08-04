@@ -11,3 +11,6 @@ Array.from(document.getElementsByClassName("form-with-loading")).forEach(form =>
     subm.disabled = true;
   });
 });
+
+const utils = {};
+window.utils = utils;
