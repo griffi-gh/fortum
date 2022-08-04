@@ -77,7 +77,7 @@
   left: 0;
   pointer-events: none;
   transform: translate(1.5rem, calc((1rem + 1em) / 3)) scale(1.1);
-  background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background)) 1%, var(--background-color, var(--color-background)) 49%, white 51%, white 99%, transparent 100%);
+  background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, white 51%, white 99%, transparent 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: 999rem;
