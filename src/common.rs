@@ -1,4 +1,7 @@
-use rocket::{http::CookieJar, request::{FromRequest, Outcome}, Request};
+use rocket::http::CookieJar;
+use rocket::Request;
+use rocket::request::{FromRequest, Outcome};
+use rocket::serde::Serialize;
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
 use crate::consts::AUTH_COOKIE_NAME;
@@ -10,6 +13,8 @@ fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
   }
 }
 
+#[derive(Serialize)]
+#[serde(crate = "rocket::serde")]
 pub struct TemplateVars {
   pub token: Option<String>
 }
