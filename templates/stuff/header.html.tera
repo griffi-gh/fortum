@@ -1,5 +1,5 @@
 <form action="/logout" method="post" class="display-none">
-  <input type="submit" id="actual-logout-button">
+  <input type="submit" id="actual-logout-button" value="">
 </form>
 <header class="header" id="header">
   <a href="/" id="header-title" class="nocolor">
@@ -32,3 +32,6 @@
     {% endif %}
   </div>
 </header>
+<div class="display-none">
+
+</div>

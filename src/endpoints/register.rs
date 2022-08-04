@@ -2,21 +2,18 @@ use rocket::form::Form;
 use rocket::response::Redirect;
 use rocket::http::{Cookie, CookieJar};
 use rocket_db_pools::Connection;
-use crate::db::MainDatabase;
 use rocket_dyn_templates::{Template, context};
+use crate::db::MainDatabase;
+use crate::common::TemplateVars;
 
 #[get("/register/success")]
-pub fn register_success() -> Template {
-  Template::render("register", context! {
-    success: true
-  })
+pub fn register_success(vars: TemplateVars) -> Template {
+  Template::render("register", context! { success: true, vars })
 }
 
 #[get("/register?<error>")]
-pub fn register(error: Option<&str>) -> Template {
-  Template::render("register", context! {
-    error
-  })
+pub fn register(error: Option<&str>, vars: TemplateVars) -> Template {
+  Template::render("register", context! { error, vars })
 }
 
 #[derive(FromForm)]

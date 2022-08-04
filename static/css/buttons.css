@@ -35,6 +35,9 @@
 .styled-button:hover {
   background: var(--color-primary-dark);
 }
+.styled-button:active {
+  background: var(--color-primary-darker);
+}
 .styled-button.style-outline:hover {
   background: var(--color-primary-light-slight);
 }

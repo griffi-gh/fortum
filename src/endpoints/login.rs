@@ -4,12 +4,11 @@ use rocket::http::{Cookie, CookieJar};
 use rocket::response::Redirect;
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
+use crate::common::TemplateVars;
 
 #[get("/login?<error>")]
-pub fn login(error: Option<&str>) -> Template {
-  Template::render("login", context! {
-    error
-  })
+pub fn login(error: Option<&str>, vars: TemplateVars) -> Template {
+  Template::render("login", context! { error, vars })
 }
 
 #[derive(FromForm)]
