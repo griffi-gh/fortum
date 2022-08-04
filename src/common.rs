@@ -40,6 +40,7 @@ impl<'r> FromRequest<'r> for Authentication {
       MainDatabase::get_token_user(db, &token).await
     } else { None };
     let valid = token.is_some() && user_id.is_some();
+    //TODO maybe fail if no auth??
     Outcome::Success(Self {
       valid, token, user_id
     })
