@@ -14,30 +14,35 @@
   <div id="content-padding">
     <div class="flex-center">
       <h1>Log in</h1>
-      <p class="error display-none" id="js_error">Error</p>
-      {% if error %}
-        <p class="error">{{error}}</p>
-      {% endif %}
-      <form action="#" method="post" class="form-with-loading flex-center" id="login-form">
-        <div class="styled-input">
-          <input type="email" name="email" required="required" id="input-email" placeholder=" " size="40">
-          <label for="input-email">Email</label>
-        </div>
-        <div class="styled-input">
-          <input type="password" name="password" required="required" id="input-password" placeholder=" " size="40">
-          <label for="input-password">Password</label>
-        </div>   
-        <button type="submit" class="block styled-button">
-          <div class="styled-button-icons">
-            <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
-            <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
+      {% if vars.user %}
+        <p class="error">You are already logged in</p>
+        <a class="nocolor custom" href="/">Go home</a>
+      {% else %}
+        <p class="error display-none" id="js_error">Error</p>
+        {% if error %}
+          <p class="error">{{error}}</p>
+        {% endif %}
+        <form action="#" method="post" class="form-with-loading flex-center" id="login-form">
+          <div class="styled-input">
+            <input type="email" name="email" required="required" id="input-email" placeholder=" " size="40">
+            <label for="input-email">Email</label>
           </div>
-          <span>Login</span> 
-        </button>
-      </form>
-      <p>
-        Don't have an account yet? <a href="/register" class="nocolor custom">Sign up</a>
-      </p>
+          <div class="styled-input">
+            <input type="password" name="password" required="required" id="input-password" placeholder=" " size="40">
+            <label for="input-password">Password</label>
+          </div>   
+          <button type="submit" class="block styled-button">
+            <div class="styled-button-icons">
+              <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
+              <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
+            </div>
+            <span>Login</span> 
+          </button>
+        </form>
+        <p>
+          Don't have an account yet? <a href="/register" class="nocolor custom">Sign up</a>
+        </p>
+      {% endif %}
     </div>
   </div>
 {% endblock content %}

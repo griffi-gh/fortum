@@ -14,43 +14,48 @@
   <div id="content-padding">
     <div class="flex-center">
       <h1>Sign up</h1>
-      <p class="error display-none" id="js_error">Error</p>
-      {% if error %}
-        <p class="error">{{error}}</p>
-      {% endif %}
-      {% if success %}
-        <div class="register-success icon-ok-circled"></div>
-        <p class="margin-bottom-only">Your account was created successfully</p>
-        <a class="styled-button" href="/">Go home</a>
+      {% if vars.user %}
+        <p class="error">You are already logged in</p>
+        <a class="nocolor custom" href="/">Go home</a>
       {% else %}
-        <form action="#" method="post" class="form-with-loading" id="reg-form">
-          <div class="styled-input" id="form-section-email">
-            <input type="email" name="email" required="required" id="input-email" placeholder=" ">
-            <label for="input-email">Email</label>
-          </div>
-          <div class="styled-input" id="form-section-username">
-            <input type="text" name="username" required="required" id="input-username" placeholder=" ">
-            <label for="input-username">Username</label>
-          </div>
-          <div class="styled-input" id="form-section-password">
-            <input type="password" name="password" required="required" id="input-password" placeholder=" ">
-            <label for="input-password">Password</label>
-          </div>   
-          <div class="styled-input" id="form-section-repeat">
-            <input type="password" name="repeat_password" required="required" id="input-repeat" placeholder=" ">
-            <label for="input-repeat">Repeat password</label>
-          </div>       
-          <button type="submit" class="block styled-button" id="reg-submit-btn">
-            <div class="styled-button-icons">
-              <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
-              <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
+        {% if success %}
+          <div class="register-success icon-ok-circled"></div>
+          <p class="margin-bottom-only">Your account was created successfully</p>
+          <a class="styled-button" href="/">Go home</a>
+        {% else %}
+          {% if error %}
+            <p class="error">{{error}}</p>
+          {% endif %}
+          <p class="error display-none" id="js_error">Error</p>
+          <form action="#" method="post" class="form-with-loading" id="reg-form">
+            <div class="styled-input" id="form-section-email">
+              <input type="email" name="email" required="required" id="input-email" placeholder=" ">
+              <label for="input-email">Email</label>
             </div>
-            <span>Submit</span> 
-          </button>
-        </form>
-        <p>
-          Already have an account? <a href="/login" class="nocolor custom">Log in</a>
-        </p>
+            <div class="styled-input" id="form-section-username">
+              <input type="text" name="username" required="required" id="input-username" placeholder=" ">
+              <label for="input-username">Username</label>
+            </div>
+            <div class="styled-input" id="form-section-password">
+              <input type="password" name="password" required="required" id="input-password" placeholder=" ">
+              <label for="input-password">Password</label>
+            </div>   
+            <div class="styled-input" id="form-section-repeat">
+              <input type="password" name="repeat_password" required="required" id="input-repeat" placeholder=" ">
+              <label for="input-repeat">Repeat password</label>
+            </div>       
+            <button type="submit" class="block styled-button" id="reg-submit-btn">
+              <div class="styled-button-icons">
+                <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
+                <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
+              </div>
+              <span>Submit</span> 
+            </button>
+          </form>
+          <p>
+            Already have an account? <a href="/login" class="nocolor custom">Log in</a>
+          </p>
+        {% endif %}
       {% endif %}
     </div>
   </div>

@@ -11,15 +11,3 @@ Array.from(document.getElementsByClassName("form-with-loading")).forEach(form =>
     subm.disabled = true;
   });
 });
-
-
-if (document.getElementById("header")) {
-  const ups = document.getElementById("user-profile-section");
-  const lob = document.getElementById("log-out");
-  lob.addEventListener('click', event => {
-    event.stopPropagation();
-  })
-  ups.addEventListener('click', event => {
-    event.preventDefault();
-  });
-} 

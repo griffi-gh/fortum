@@ -1,3 +1,4 @@
+<script src="/static/js/header.js" async defer></script>
 <form action="/logout" method="post" class="display-none">
   <input type="submit" id="actual-logout-button" value="">
 </form>
