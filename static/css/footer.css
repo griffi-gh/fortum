@@ -1,3 +1,7 @@
 #footer {
   margin-top: auto;
+  text-align: center;
+  background: white;
+  border-top: 1px solid lightgray;
+  box-shadow: 0 0 .2rem rgba(0,0,0,.5);
 }

@@ -1,9 +1,10 @@
 #header {
   display: flex;
   background: white;
-  box-shadow: 0 0 .33rem rgba(0,0,0,.5);
+  box-shadow: 0 0 .2rem rgba(0,0,0,.5);
   overflow: hidden;
   align-items: center;
+  border-bottom: 1px solid lightgray;
 }
 #header-title {
   display: block;
