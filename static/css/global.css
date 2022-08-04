@@ -14,9 +14,15 @@
 }
 body {
   margin: 0;
+  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  background: var(--color-background);
+
   font-family: 'Google Sans', Verdana, Geneva, Tahoma, sans-serif;
   text-rendering: optimizeSpeed;
-  background: var(--color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
