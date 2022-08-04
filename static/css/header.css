@@ -9,7 +9,6 @@
 #header-title {
   display: block;
   padding: .5rem;
-  font-weight: thin;
   font-size: 1.25rem;
 }
 #header-title:hover .header-logo-no-hover, .header-logo-hover {
@@ -23,3 +22,48 @@
   align-items: center;
   margin-left: auto;
 }
+#user-profile-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+#user-profile-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#user-profile-icon img {
+  border-radius: 50%;
+  background-color: darkslateblue;
+}
+#user-profile-username-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 .5rem;
+  overflow: hidden;
+  position: relative;
+}
+#user-profile-loggedinas {
+  color: gray;
+  font-size: .75rem;
+}
+#user-profile-username {
+  font-size: .9rem;
+}
+#user-profile-loggedinas {
+  display: grid;
+}
+#user-profile-loggedinas > * {
+  grid-column: 1;
+  grid-row: 1;
+  transition: opacity .33s;
+} 
+#loggedinas-text { opacity: 1; z-index: 1; }
+#logout-button { opacity: 0; z-index: 2; }
+#user-profile-section:hover #loggedinas-text { opacity: 0; }
+#user-profile-section:hover #logout-button { opacity: 1; }

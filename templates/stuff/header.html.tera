@@ -1,16 +1,35 @@
+<form action="/logout" method="post" class="display-none">
+  <input type="submit" id="actual-logout-button">
+</form>
+
 <header class="header" id="header">
   <a href="/" id="header-title" class="nocolor">
     <span class="icon-emo-laugh header-logo header-logo-no-hover"></span>
     <span class="icon-emo-grin header-logo header-logo-hover"></span>
     Forum
-  </div>
+  </a>
   <div id="header-align-right">
-    <a href="/register" id="header-login" class="styled-button style-outline nocolor">
-      Sign up
-    </a>
-    <a href="/login" id="header-login" class="styled-button with-shadow nocolor">
-      <span class="icon-login"></span>
-      Log in
-    </a>
+    {% if vars.token %}
+      <div id="user-profile-section">
+        <div id="user-profile-icon">
+          <img src="/static/images/user.jpg" alt="User icon" width="32" height="32">
+        </div>
+        <div id="user-profile-username-section">
+          <span id="user-profile-loggedinas">
+            <span id="loggedinas-text">Logged in as</span>
+            <label for="actual-logout-button" class="link-custom" id="logout-button">Log out?</label>
+          </span>
+          <span id="user-profile-username">UsernameLol1233</span>
+        </div>
+      </div>
+    {% else %}
+      <a href="/register" id="header-login" class="styled-button style-outline">
+        Sign up
+      </a>
+      <a href="/login" id="header-login" class="styled-button with-shadow">
+        <span class="icon-login"></span>
+        Log in
+      </a>
+    {% endif %}
   </div>
 </header>

@@ -12,7 +12,8 @@
   color: inherit;
   text-decoration: none;
 }
-a.custom {
+a.custom, .link-custom {
+  cursor: pointer;
   font-weight: bold;
   color: var(--color-primary, darkblue);
   text-decoration: underline;
@@ -37,6 +38,7 @@ body {
 #content > :is(#content-padding, .content-padding), #content.content-padding {
   padding: 1rem;
 }
+
 .flex-center {
   display: flex;
   flex-direction: column;
