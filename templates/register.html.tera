@@ -7,13 +7,7 @@
 {% block head %}
   {{ super() }}
   <script src="/static/js/register.js" defer async></script>
-  <style>
-    .register-success {
-      font-size: 5rem;
-      margin: 0;
-      color: green;
-    }
-  </style>
+  <link rel="stylesheet" href="/static/css/register.css">
 {% endblock head %}
 
 {% block content %}
@@ -28,14 +22,27 @@
         <p class="margin-bottom-only">Your account was created successfully</p>
         <a class="styled-button" href="/">Go home</a>
       {% else %}
-        <form action="#" method="post" class="flex-center" id="reg-form">
-          <input type="email" name="email" placeholder="E-mail" class="block">
-          <input type="text" name="username" placeholder="Username" class="block">
-          <input type="password" name="password" placeholder="Password" class="block">
+        <form action="#" method="post" class="form-with-loading" id="reg-form">
+          <div class="styled-input" id="form-section-email">
+            <input type="email" name="email" required="required" id="input-email" placeholder=" ">
+            <label for="input-email">Email</label>
+          </div>
+          <div class="styled-input" id="form-section-username">
+            <input type="text" name="username" required="required" id="input-username" placeholder=" ">
+            <label for="input-username">Username</label>
+          </div>
+          <div class="styled-input" id="form-section-password">
+            <input type="password" name="password" required="required" id="input-password" placeholder=" ">
+            <label for="input-password">Password</label>
+          </div>   
+          <div class="styled-input" id="form-section-repeat">
+            <input type="password" name="repeat_password" required="required" id="input-repeat" placeholder=" ">
+            <label for="input-repeat">Repeat password</label>
+          </div>       
           <button type="submit" class="block styled-button" id="reg-submit-btn">
             <div class="styled-button-icons">
-              <span class="styled-button-icon styled-button-icon-selected icon-right-open" id="reg-icon-cont"></span> 
-              <span class="styled-button-icon icon-spin6 animate-spin" id="reg-icon-loading"></span> 
+              <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
+              <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
             </div>
             <span>Submit</span> 
           </button>

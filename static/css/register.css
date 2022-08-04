@@ -1,0 +1,35 @@
+#reg-form {
+  display: grid;
+  justify-items: stretch;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "email email"
+    "username username"
+    "password repeat"
+    "submit submit";
+}
+#form-section-email {
+  grid-area: email;
+}
+#form-section-username {
+  grid-area: username;
+}
+#form-section-password {
+  grid-area: password;
+}
+#form-section-repeat {
+  grid-area: repeat;
+}
+#reg-submit-btn {
+  grid-area: submit;
+}
+
+#reg-form .styled-button {
+  margin: .4rem;
+}
+.register-success {
+  font-size: 5rem;
+  margin: 0;
+  color: green;
+}

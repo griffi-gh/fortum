@@ -1,3 +1,5 @@
+/*styled-button*/
+
 .styled-button:where(a, a:hover, a:visited, a:active),
 .styled-button :where(a, a:hover, a:visited, a:active) {
   color: inherit;
@@ -47,4 +49,46 @@
 }
 .styled-button > .styled-button-icons > .styled-button-icon:not(.styled-button-icon-selected) {
   opacity: 0;
+}
+
+/*styled-input*/
+
+.styled-input {
+  --margin: .4rem;
+  position: relative;
+  display: flex;
+}
+.styled-input > input {
+  flex: 2;
+  display: block;
+  border-radius: 999rem;
+  border: 1px solid gray;
+  padding: .4rem 1rem;
+  margin: var(--margin);
+}
+.styled-input > input:focus {
+  outline: none;
+  border-width: 2px;
+  margin: calc(var(--margin) - 1px);
+}
+.styled-input > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform: translate(1.5rem, calc((1rem + 1em) / 3)) scale(1.1);
+  background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background)) 1%, var(--background-color, var(--color-background)) 49%, white 51%, white 99%, transparent 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 999rem;
+  padding-left: 3px;
+  padding-right: 3px;
+  transition: color .5s, transform .5s;
+  color: gray;
+}
+.styled-input > :is(input:focus, input:not(:placeholder-shown)) ~ label {
+  transition: color .5s, transform .5s, background-position 0.01s linear .25s;
+  transform: translate(1.25rem, -.25em) scale(.9);
+  background-position: 0rem;
+  color: black;
 }
