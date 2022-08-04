@@ -48,6 +48,9 @@
             <span>Submit</span> 
           </button>
         </form>
+        <p>
+          Already have an account? <a href="/login" class="nocolor custom">Log in</a>
+        </p>
       {% endif %}
     </div>
   </div>

@@ -12,6 +12,14 @@
   color: inherit;
   text-decoration: none;
 }
+a.custom {
+  font-weight: bold;
+  color: var(--color-primary, darkblue);
+  text-decoration: underline;
+}
+a.custom:hover {
+  color: var(--color-primary-dark, blue);
+}
 body {
   margin: 0;
   
