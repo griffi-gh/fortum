@@ -17,6 +17,7 @@ use endpoints::{
   register::{register, post_register, register_success},
   login::{login, post_login},
   logout::logout,
+  user::{user, user_id},
 };
 
 #[launch]
@@ -29,6 +30,6 @@ fn rocket() -> _ {
   rocket::custom(figment)
     .attach(db::MainDatabase::init())
     .attach(Template::fairing())
-    .mount("/", routes![index, login, post_login, register, register_success, post_register, logout])
+    .mount("/", routes![index, login, post_login, register, register_success, post_register, logout, user, user_id])
     .mount("/static", FileServer::from("./static/"))
 }

@@ -3,7 +3,5 @@ use crate::common::TemplateVars;
 
 #[get("/")]
 pub fn index(vars: TemplateVars) -> Template {
-  Template::render("index", context! {
-    vars
-  })
+  Template::render("index", context! { vars })
 }
