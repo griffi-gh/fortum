@@ -14,6 +14,7 @@
   <div id="content-padding">
     <div class="flex-center">
       <h1>Sign up</h1>
+      <p class="error display-none" id="js_error">Error</p>
       {% if error %}
         <p class="error">{{error}}</p>
       {% endif %}

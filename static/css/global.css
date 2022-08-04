@@ -17,6 +17,8 @@ body {
   font-family: 'Google Sans', Verdana, Geneva, Tahoma, sans-serif;
   text-rendering: optimizeSpeed;
   background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 #content > :is(#content-padding, .content-padding), #content.content-padding {
   padding: 1rem;
@@ -34,6 +36,9 @@ body {
 .no-margin {
   margin: 0;
 }
+.display-none {
+  display: none;
+}
 .small-margin {
   margin: .25rem;
 }
@@ -41,10 +46,18 @@ body {
   margin: 0;
   margin-bottom: 1rem;
 }
-p.error {
-  background: rgba(255,20,20,.3);
-  padding: 2px 5px;
+.error {
+  color: var(--color-error);
   margin: .5rem;
-  border-radius: .5rem;
-  border: 1px solid rgb(255,20,20);
+}
+.error::before {
+  content: '\e83d';
+  display: inline-block;
+  font-family: fontello;
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  line-height: 1em;
+  margin-right: .2em;
+  margin-left: .4em;
 }
