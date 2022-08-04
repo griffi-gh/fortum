@@ -1,3 +1,4 @@
+use rocket::serde::Serialize;
 use rocket_db_pools::{Database, Connection};
 use sqlx::{self, PgPool, Row};
 use crypto::scrypt::{scrypt_simple, scrypt_check};
@@ -5,7 +6,8 @@ use rand::{Rng, thread_rng};
 use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX, SCRYPT_PARAMS};
 use time::PrimitiveDateTime;
 
-#[derive(sqlx::Type, Default)]
+#[derive(Serialize, sqlx::Type, Default)]
+#[serde(crate="rocket::serde", rename_all = "lowercase")]
 #[sqlx(type_name = "role_type", rename_all = "lowercase")]
 pub enum UserRole {
   Banned,
@@ -16,13 +18,20 @@ pub enum UserRole {
   Admin
 }
 
+#[derive(Serialize)]
+#[serde(crate="rocket::serde")]
 pub struct User {
-  user_id: u32,
+  user_id: i32,
   username: String,
   email: String,
   password_hash: String,
+
+  //These are not serialized until i find a workaround
+  #[serde(skip_serializing)]
   created_on: PrimitiveDateTime,
+  #[serde(skip_serializing)]
   last_activity: PrimitiveDateTime,
+
   user_role: UserRole,
   token: String,
 }
@@ -112,6 +121,23 @@ impl MainDatabase {
   pub async fn get_user(mut db: Connection<Self>, user_id: u32) -> Option<User> {
     let result = sqlx::query("SELECT user_id, username, email, password_hash, created_on, last_activity, user_role, token FROM users WHERE user_id = $1")
       .bind(user_id)
+      .fetch_optional(&mut *db).await
+      .unwrap();
+    result.map(|row| User {
+      user_id: row.get(0),
+      username: row.get(1),
+      email: row.get(2),
+      password_hash: row.get(3),
+      created_on: row.get(4),
+      last_activity: row.get(5),
+      user_role: row.get(6),
+      token: row.get(7),
+    })
+  }
+
+  pub async fn get_user_by_token(mut db: Connection<Self>, token: &str) -> Option<User> {
+    let result = sqlx::query("SELECT user_id, username, email, password_hash, created_on, last_activity, user_role, token FROM users WHERE token = $1")
+      .bind(token)
       .fetch_optional(&mut *db).await
       .unwrap();
     result.map(|row| User {

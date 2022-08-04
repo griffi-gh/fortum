@@ -8,8 +8,8 @@
     Forum
   </a>
   <div id="header-align-right">
-    {% if vars.token %}
-      <div id="user-profile-section">
+    {% if vars.user %}
+      <a href="user" class="nocolor" id="user-profile-section">
         <div id="user-profile-icon">
           <img src="/static/images/user.jpg" alt="User icon" width="32" height="32">
         </div>
@@ -18,9 +18,9 @@
             <span id="loggedinas-text">Logged in as</span>
             <label for="actual-logout-button" class="link-custom" id="logout-button">Log out?</label>
           </span>
-          <span id="user-profile-username">UsernameLol1233</span>
+          <span id="user-profile-username">{{ vars.user.username }}</span>
         </div>
-      </div>
+      </a>
     {% else %}
       <a href="/register" id="header-login" class="styled-button style-outline">
         Sign up

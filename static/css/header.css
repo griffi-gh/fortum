@@ -3,7 +3,7 @@
   background: white;
   box-shadow: 0 0 .33rem rgba(0,0,0,.25);
   overflow: hidden;
-  align-items: center;
+  align-items: stretch;
   border-bottom: 1px solid lightgray;
 }
 #header-title {
@@ -19,7 +19,7 @@
 }
 #header-align-right {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   margin-left: auto;
 }
 #user-profile-section {
@@ -28,6 +28,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  transition: background .33s, border-left-color .33s;
+  padding-left: .5rem;
+  border-left: 1px solid transparent;
+}
+#user-profile-section:hover {
+  background-color: rgba(0,0,0,.125);
+  border-left-color: rgba(0,0,0,.25);
 }
 #user-profile-icon {
   display: flex;

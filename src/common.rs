@@ -3,7 +3,7 @@ use rocket::Request;
 use rocket::request::{FromRequest, Outcome};
 use rocket::serde::Serialize;
 use rocket_db_pools::Connection;
-use crate::db::MainDatabase;
+use crate::db::{MainDatabase, User};
 use crate::consts::AUTH_COOKIE_NAME;
 
 fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
@@ -16,15 +16,20 @@ fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
 #[derive(Serialize)]
 #[serde(crate = "rocket::serde")]
 pub struct TemplateVars {
-  pub token: Option<String>
+  pub user: Option<User>
 }
 #[rocket::async_trait]
 impl<'r> FromRequest<'r> for TemplateVars {
   type Error = ();
   async fn from_request(req: &'r Request<'_>) -> Outcome<Self, Self::Error> {
     let jar = req.cookies();
+    let token = get_token(jar);
+    let db = req.guard::<Connection<MainDatabase>>().await.succeeded().unwrap();
+    let user = if let Some(token) = token {
+      MainDatabase::get_user_by_token(db, &token).await
+    } else { None };
     Outcome::Success(Self {
-      token: get_token(jar)
+      user: user,
     })
   }
 }
