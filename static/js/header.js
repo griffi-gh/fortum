@@ -7,4 +7,6 @@ if (document.getElementById("header")) {
   ups.addEventListener('click', event => {
     event.preventDefault();
   });
-} 
+} else {
+  console.warn('No header???');
+}
