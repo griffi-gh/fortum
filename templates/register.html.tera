@@ -28,11 +28,17 @@
         <p class="margin-bottom-only">Your account was created successfully</p>
         <a class="styled-button" href="/">Go home</a>
       {% else %}
-        <form action="#" method="post" class="flex-center">
+        <form action="#" method="post" class="flex-center" id="reg-form">
           <input type="email" name="email" placeholder="E-mail" class="block">
           <input type="text" name="username" placeholder="Username" class="block">
           <input type="password" name="password" placeholder="Password" class="block">
-          <input type="submit" value="Submit" class="block styled-button">
+          <button type="submit" class="block styled-button" id="reg-submit-btn">
+            <div class="styled-button-icons">
+              <span class="styled-button-icon styled-button-icon-selected icon-right-open" id="reg-icon-cont"></span> 
+              <span class="styled-button-icon icon-spin6 animate-spin" id="reg-icon-loading"></span> 
+            </div>
+            <span>Submit</span> 
+          </button>
         </form>
       {% endif %}
     </div>
