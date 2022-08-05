@@ -1,0 +1,7 @@
+{% macro post(p) %}
+  <div class="post">
+    <p>{{ p.username }}</p>
+    <h2><b>{{ p.title }}</b></h2>
+    <p>{{ p.content }}</p>
+  </div>
+{% endmacro input %}

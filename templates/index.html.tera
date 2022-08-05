@@ -7,8 +7,8 @@
 {% block content %}
   <div id="content-padding">
     <h1>Index</h1>
-    <p class="important">
-      Welcome to my awesome homepage.
-    </p>
+    {% for post in posts %}
+
+    {% endfor %}
   </div>
 {% endblock content %}
