@@ -27,7 +27,7 @@
             <input type="email" name="email" required="required" id="input-email" placeholder=" " size="40">
             <label for="input-email">Email</label>
           </div>
-          <div class="styled-input">
+          <div class="styled-input show-caps">
             <input type="password" name="password" required="required" id="input-password" placeholder=" " size="40">
             <label for="input-password">Password</label>
           </div>   

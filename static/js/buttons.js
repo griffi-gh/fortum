@@ -1,7 +1,7 @@
 //Caps lock indicator
 {
   let prevCapsState = false;
-  const styledFields = document.getElementsByClassName('styled-input');
+  const styledFields = document.querySelectorAll('.styled-input.show-caps');
   document.body.addEventListener('keydown', event => {
     const caps = !!(event.getModifierState && event.getModifierState('CapsLock'));
     if (prevCapsState !== caps) {

@@ -117,14 +117,13 @@
   background-color: white !important;
 }
 /*Caps lock indicator*/
-.styled-input.caps::after {
-  content: '\f139';
-
+.styled-input.show-caps.caps::after {
+  content: 'A \25B2';
+  
+  /* content: '\f139'; */
+  /* font-family: fontello;*/
+  /* line-height: 1em;  */
   display: inline-block;
-  font-family: fontello;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1em;
 
   position: absolute;
   right: 0;
@@ -133,12 +132,13 @@
 
   pointer-events: none;
 
+  font-style: normal;
   font-weight: bold;
   font-size: .85rem;
   color: gray;
   z-index: 999;
 
   background: white;
-  border-radius: 50%;
+  border-radius: 999rem;
   padding: 3px;
 }

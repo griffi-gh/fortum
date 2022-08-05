@@ -10,5 +10,13 @@ CREATE TABLE users (
   token VARCHAR(24) UNIQUE NOT NULL CHECK (length(token) = 24) --16 byte token = 24 byte base64
 );
 CREATE TABLE posts (
-
+  post_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  author INTEGER,
+  title VARCHAR(255) NOT NULL,
+  content VARCHAR(3000),
+  created_on TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
+  score INTEGER,
+  FOREIGN KEY(author) 
+    REFERENCES users(user_id)
+    ON DELETE SET NULL
 );
