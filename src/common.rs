@@ -16,14 +16,14 @@ fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
 
 #[derive(Serialize)]
 pub struct TemplatePost {
-  pub username: String,
+  pub username: Option<String>,
   pub profile_image: Option<String>, 
   pub title: String, 
   pub content: Option<String>, 
   pub created_on: chrono::DateTime<chrono::Utc>, 
   pub topic_name: String, 
   pub votes: i64,
-  pub user_id: i32,
+  pub user_id: Option<i32>,
 }
 impl TemplatePost {
   pub fn from_pg_row(row: PgRow) -> Self {
