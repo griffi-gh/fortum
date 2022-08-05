@@ -48,3 +48,4 @@ CREATE TABLE votes (
     REFERENCES users(user_id)
     ON DELETE CASCADE
 );
+INSERT INTO topics (topic_name) VALUES('main');
