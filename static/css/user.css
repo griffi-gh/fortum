@@ -1,0 +1,44 @@
+:root {
+  --pfp-size: 200px;
+}
+#user-banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  min-height: 15rem;
+  max-height: 32rem;
+  overflow: hidden;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,.5);
+}
+#pfp-overlay {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+#pfp-overlay img {
+  margin-left: 2rem;
+  border-radius: 50%;
+  width: var(--pfp-size);
+  height: var(--pfp-size);
+  box-shadow: 0 0 5px 1px rgba(0,0,0,.5), 0 0 0 10px var(--color-background);
+}
+#pfp-overlay-spacer {
+  display: block;
+  width: 0;
+  height: 0;
+  margin-bottom: calc(var(--pfp-size) / 2);
+}
+@media only screen and (max-width: 600px) {
+  #pfp-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #pfp-overlay img {
+    margin: 0;
+  }
+}

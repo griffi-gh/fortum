@@ -11,6 +11,7 @@
   {% endblock head %}
 </head>
 <body>
+  {% block body_top %}{% endblock body_top %}
   {% include "stuff/header" %}
   <main id="content" class="content main">
     {% block content %}{% endblock content %}

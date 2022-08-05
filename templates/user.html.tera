@@ -4,8 +4,24 @@
   Main page
 {% endblock title %}
 
+{% block body_top %}
+  <span id="--header-enable-blur"></span>
+{% endblock body_top %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/static/css/user.css">
+{% endblock head %}
+
 {% block content %}
-  <div id="content-padding">
+  <div id="user-banner">
+    <img src="/static/images/background/0.jpg" alt="Banner image">
+  </div>
+  <div id="pfp-overlay">
+    <img src="/static/images/user.jpg" alt="Profile image" width="200" height="200">
+  </div>
+  <div id="pfp-overlay-spacer"></div>
+  <div class="content-padding">
     <h1>User page</h1>
   </div>
 {% endblock content %}
