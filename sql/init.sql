@@ -15,7 +15,8 @@ CREATE TABLE posts (
   title VARCHAR(255) NOT NULL,
   content VARCHAR(3000),
   created_on TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
-  score INTEGER,
+  votes INTEGER,
+  voters INTEGER [], /* Contains user identifiers */
   FOREIGN KEY(author) 
     REFERENCES users(user_id)
     ON DELETE SET NULL
