@@ -1,6 +1,14 @@
-Array.from(document.getElementsByClassName('styled-input')).forEach(field => {
-  field.addEventListener('keydown', function( event ) {
-    const caps = event.getModifierState && event.getModifierState('CapsLock');
-    field.classList.toggle('caps', caps);
+//Caps lock indicator
+{
+  let prevCapsState = false;
+  const styledFields = document.getElementsByClassName('styled-input');
+  document.body.addEventListener('keydown', event => {
+    const caps = !!(event.getModifierState && event.getModifierState('CapsLock'));
+    if (prevCapsState !== caps) {
+      prevCapsState = caps;
+      Array.from(styledFields).forEach(field => {
+        field.classList.toggle('caps', caps);
+      });
+    }
   });
-})
+}

@@ -60,6 +60,7 @@
   --margin: .4rem;
   position: relative;
   display: flex;
+  z-index: 0;
 }
 .styled-input > input {
   flex: 2;
@@ -68,6 +69,7 @@
   border: 1px solid gray;
   padding: .4rem 1rem;
   margin: var(--margin);
+  z-index: 1;
 }
 .styled-input > label {
   position: absolute;
@@ -83,6 +85,7 @@
   padding-right: 3px;
   transition: color .33s 0s, border-color .33s, transform .33s;
   color: gray;
+  z-index: 2;
 }
 /* Thiccer outline while focused */
 .styled-input > input:focus {
@@ -112,4 +115,30 @@
 }
 .styled-input > input[data-autocompleted] {
   background-color: white !important;
+}
+/*Caps lock indicator*/
+.styled-input.caps::after {
+  content: '\f139';
+
+  display: inline-block;
+  font-family: fontello;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1em;
+
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-1rem, -50%);
+
+  pointer-events: none;
+
+  font-weight: bold;
+  font-size: .85rem;
+  color: gray;
+  z-index: 999;
+
+  background: white;
+  border-radius: 50%;
+  padding: 3px;
 }
