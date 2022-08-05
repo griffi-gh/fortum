@@ -104,7 +104,7 @@ impl MainDatabase {
     //Get info from the row
     let (hashed_password, token): (String, String) = (row.get(0), row.get(1));
     //Check hash (assuming it's is in valid format)
-    match argon2::verify_encoded(&password, hashed_password.as_bytes()).unwrap() { 
+    match argon2::verify_encoded(&hashed_password, password.as_bytes()).unwrap() { 
       true => Ok(token),
       false => Err("Incorrect password")
     }

@@ -14,14 +14,14 @@
   <div id="content-padding">
     <div class="flex-center">
       <h1>Sign up</h1>
-      {% if vars.user %}
-        <p class="error">You are already logged in</p>
-        <a class="nocolor custom" href="/">Go home</a>
+      {% if success %}
+        <div class="register-success icon-ok-circled"></div>
+        <p class="margin-bottom-only">Your account was created successfully</p>
+        <a class="styled-button" href="/">Go home</a>
       {% else %}
-        {% if success %}
-          <div class="register-success icon-ok-circled"></div>
-          <p class="margin-bottom-only">Your account was created successfully</p>
-          <a class="styled-button" href="/">Go home</a>
+        {% if vars.user %}
+          <p class="error">You are already logged in</p>
+          <a class="nocolor custom" href="/">Go home</a>
         {% else %}
           {% if error %}
             <p class="error">{{error}}</p>
