@@ -6,7 +6,7 @@ pub fn user(vars: TemplateVars) -> Template {
   Template::render("user", context! { vars })
 }
 
-#[get("/user/<id>")]
-pub fn user_id(vars: TemplateVars, id: u32) -> Template {
+#[get("/user/<_id>")]
+pub fn user_id(vars: TemplateVars, _id: u32) -> Template {
   Template::render("user", context! { vars })
 }

@@ -5,6 +5,7 @@ use rocket::serde::Serialize;
 use rocket_db_pools::Connection;
 use crate::db::{MainDatabase, User};
 use crate::consts::AUTH_COOKIE_NAME;
+use sqlx::{self, Row, postgres::PgRow};
 
 fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
   match cookies.get_private(AUTH_COOKIE_NAME) {
@@ -14,7 +15,31 @@ fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
 }
 
 #[derive(Serialize)]
-#[serde(crate = "rocket::serde")]
+pub struct TemplatePost {
+  pub username: String,
+  pub profile_image: Option<String>, 
+  pub title: String, 
+  pub content: Option<String>, 
+  pub created_on: chrono::DateTime<chrono::Utc>, 
+  pub topic_name: String, 
+  pub votes: i64,
+}
+impl TemplatePost {
+  pub fn from_pg_row(row: PgRow) -> Self {
+    Self {
+      username: row.get(0),
+      profile_image: row.get(1),
+      title: row.get(2),
+      content: row.get(3),
+      created_on: row.get(4),
+      topic_name: row.get(5),
+      votes: row.get(6),
+    }
+  }
+}
+
+
+#[derive(Serialize)]
 pub struct TemplateVars {
   pub user: Option<User>
 }

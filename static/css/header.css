@@ -81,14 +81,18 @@
 #user-profile-section:hover #loggedinas-text { opacity: 0; }
 #user-profile-section:hover #logout-button { opacity: 1; }
 
-#--header-enable-blur {
-  display: none;
-}
-#--header-enable-blur ~ #header {
-  position: fixed;
-  inset: 0;
-  bottom: unset;
+/* NEW HEADER STYLE */
+/* TODO merge into the top selector */ 
+#header {
   background: rgba(255,255,255,.79);
   border-bottom-color: rgba(128,128,128,.33);
   backdrop-filter: blur(5px);
+}
+#--make-header-fixed {
+  display: none;
+}
+#--make-header-fixed ~ #header {
+  position: fixed;
+  inset: 0;
+  bottom: unset;
 }

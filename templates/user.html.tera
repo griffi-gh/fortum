@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block body_top %}
-  <span id="--header-enable-blur"></span>
+  <span id="--make-header-fixed"></span>
 {% endblock body_top %}
 
 {% block head %}

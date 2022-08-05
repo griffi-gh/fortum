@@ -10,21 +10,30 @@ rust-argon2 = "1.0"
 dotenv = "0.15"
 rand = "0.8"
 base64 = "0.13.0"
-time = "0.2.27"
 
+# ROCKET STUFF
 [dependencies.rocket]
 version = "0.5.0-rc.2"
 features = ["json", "secrets"]
+
+[dependencies.rocket_dyn_templates]
+version = "0.1.0-rc.2"
+features = ["tera"]
 
 [dependencies.rocket_db_pools]
 version = "0.1.0-rc.2"
 features = ["sqlx_postgres"]
 
+# OTHER STUFF
 [dependencies.sqlx]
 version = "0.5"
 default-features = false
-features = ["offline", "postgres", "time", "macros"]
+features = ["offline", "postgres", "chrono", "macros"]
 
-[dependencies.rocket_dyn_templates]
-version = "0.1.0-rc.2"
-features = ["tera"]
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
+
+[dependencies.chrono]
+version = "0.4.20"
+features = ["serde"]

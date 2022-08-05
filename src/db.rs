@@ -4,11 +4,10 @@ use sqlx::{self, PgPool, Row};
 use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
 use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX};
-use time::PrimitiveDateTime;
 
 #[derive(Serialize, sqlx::Type, Default)]
-#[serde(crate="rocket::serde", rename_all = "lowercase")]
 #[sqlx(type_name = "role_type", rename_all = "lowercase")]
+#[serde(rename_all = "lowercase")]
 pub enum UserRole {
   Banned,
   Unverified,
@@ -19,17 +18,14 @@ pub enum UserRole {
 }
 
 #[derive(Serialize)]
-#[serde(crate="rocket::serde")]
 pub struct User {
   user_id: i32,
   username: String,
   email: String,
   password_hash: String,
   //These are not serialized until i find a workaround
-  #[serde(skip_serializing)]
-  created_on: PrimitiveDateTime,
-  #[serde(skip_serializing)]
-  last_activity: PrimitiveDateTime,
+  created_on: chrono::DateTime<chrono::Utc>,
+  last_activity: chrono::DateTime<chrono::Utc>,
   //-------------------------------------------------
   user_role: UserRole,
   token: String,

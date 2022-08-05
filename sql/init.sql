@@ -27,6 +27,7 @@ CREATE TABLE posts (
   content VARCHAR(3000),
   created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
   topic INTEGER NOT NULL,
+  votes BIGINT NOT NULL,
   FOREIGN KEY(author) 
     REFERENCES users(user_id)
     ON DELETE SET NULL,
