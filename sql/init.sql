@@ -7,7 +7,9 @@ CREATE TABLE users (
   created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
   last_activity TIMESTAMPTZ NOT NULL DEFAULT now(),
   user_role role_type NOT NULL DEFAULT 'user',
-  token VARCHAR(24) UNIQUE NOT NULL CHECK (length(token) = 24) --16 byte token = 24 byte base64
+  token VARCHAR(24) UNIQUE NOT NULL CHECK (length(token) = 24), --16 byte token = 24 byte base64
+  profile_image VARCHAR,
+  banner_image VARCHAR
 );
 CREATE TABLE topics (
   topic_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
