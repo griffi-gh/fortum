@@ -11,7 +11,7 @@
 
 {% block content %}
   <div id="content-padding">
-    <h1>Index</h1>
+    <h1>Posts</h1>
     {% for post in posts %}
       {{ partials::post(post = post) }}
     {% endfor %}
