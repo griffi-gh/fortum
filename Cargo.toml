@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 regex = "1"
 lazy_static = "1.4"
-rust-crypto = "0.2"
+rust-argon2 = "1.0"
 dotenv = "0.15"
 rand = "0.8"
 base64 = "0.13.0"

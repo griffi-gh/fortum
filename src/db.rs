@@ -1,9 +1,9 @@
 use rocket::serde::Serialize;
 use rocket_db_pools::{Database, Connection};
 use sqlx::{self, PgPool, Row};
-use crypto::scrypt::{scrypt_simple, scrypt_check};
+use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
-use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX, SCRYPT_PARAMS};
+use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX};
 use time::PrimitiveDateTime;
 
 #[derive(Serialize, sqlx::Type, Default)]
@@ -25,13 +25,12 @@ pub struct User {
   username: String,
   email: String,
   password_hash: String,
-
   //These are not serialized until i find a workaround
   #[serde(skip_serializing)]
   created_on: PrimitiveDateTime,
   #[serde(skip_serializing)]
   last_activity: PrimitiveDateTime,
-
+  //-------------------------------------------------
   user_role: UserRole,
   token: String,
 }
@@ -64,7 +63,9 @@ impl MainDatabase {
     }
   
     //Register user
-    let password_hash = scrypt_simple(&password, &SCRYPT_PARAMS).unwrap();
+    let mut salt = [0u8; 16];
+    thread_rng().fill(&mut salt);
+    let password_hash = argon2::hash_encoded(password.as_bytes(), &salt[..], &ArgonConfig::default()).unwrap();
     let token = {
       let mut data = [0u8; 16];
       thread_rng().fill(&mut data);
@@ -103,7 +104,7 @@ impl MainDatabase {
     //Get info from the row
     let (hashed_password, token): (String, String) = (row.get(0), row.get(1));
     //Check hash (assuming it's is in valid format)
-    match scrypt_check(&password, &hashed_password).unwrap() { 
+    match argon2::verify_encoded(&password, hashed_password.as_bytes()).unwrap() { 
       true => Ok(token),
       false => Err("Incorrect password")
     }
