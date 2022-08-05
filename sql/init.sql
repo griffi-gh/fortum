@@ -9,14 +9,18 @@ CREATE TABLE users (
   user_role role_type NOT NULL DEFAULT 'user',
   token VARCHAR(24) UNIQUE NOT NULL CHECK (length(token) = 24) --16 byte token = 24 byte base64
 );
+CREATE TYPE voter AS (
+  user_id INTEGER,
+  vote BOOLEAN
+); 
 CREATE TABLE posts (
   post_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   author INTEGER,
   title VARCHAR(255) NOT NULL,
   content VARCHAR(3000),
   created_on TIMESTAMP NOT NULL DEFAULT (now() AT TIME ZONE 'utc'),
-  votes INTEGER,
-  voters INTEGER [], /* Contains user identifiers */
+  score INTEGER NOT NULL DEFAULT 0,
+  voters voter [], -- Contains user identifiers
   FOREIGN KEY(author) 
     REFERENCES users(user_id)
     ON DELETE SET NULL
