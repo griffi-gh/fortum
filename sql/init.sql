@@ -9,6 +9,15 @@ CREATE TABLE users (
   user_role role_type NOT NULL DEFAULT 'user',
   token VARCHAR(24) UNIQUE NOT NULL CHECK (length(token) = 24) --16 byte token = 24 byte base64
 );
+CREATE TABLE topics (
+  topic_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  topic_name VARCHAR(30) UNIQUE NOT NULL,
+  created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
+  creator INTEGER,
+  FOREIGN KEY(creator) 
+    REFERENCES users(user_id)
+    ON DELETE SET NULL
+);
 CREATE TABLE posts (
   post_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   author INTEGER,
@@ -21,7 +30,7 @@ CREATE TABLE posts (
     ON DELETE SET NULL,
   FOREIGN KEY(topic) 
     REFERENCES topics(topic_id)
-    ON DELETE CASCADE,
+    ON DELETE CASCADE
 );
 CREATE TABLE votes (
   vote_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -35,9 +44,4 @@ CREATE TABLE votes (
   FOREIGN KEY(user_id) 
     REFERENCES users(user_id)
     ON DELETE CASCADE
-);
-CREATE TABLE topics (
-  topic_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  topic_name VARCHAR(30) UNIQUE NOT NULL,
-  created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
 );
