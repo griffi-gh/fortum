@@ -17,7 +17,7 @@ pub async fn index(vars: TemplateVars, mut db: Connection<MainDatabase>) -> Temp
         posts.votes AS votes,
         users.user_id AS user_id
       FROM posts
-      INNER JOIN users ON users.user_id = posts.author
+      LEFT JOIN users ON users.user_id = posts.author
       INNER JOIN topics ON topics.topic_id = posts.topic
       ORDER BY votes DESC
       LIMIT 25;
