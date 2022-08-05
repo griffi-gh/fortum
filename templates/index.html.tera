@@ -4,11 +4,16 @@
   Main page
 {% endblock title %}
 
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/static/css/posts.css">
+{% endblock head %}
+
 {% block content %}
   <div id="content-padding">
     <h1>Index</h1>
     {% for post in posts %}
-
+      {{ partials::post(post = post) }}
     {% endfor %}
   </div>
 {% endblock content %}

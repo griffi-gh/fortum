@@ -1,7 +1,31 @@
-{% macro post(p) %}
+{% macro post(post) %}
   <div class="post">
-    <p>{{ p.username }}</p>
-    <h2><b>{{ p.title }}</b></h2>
-    <p>{{ p.content }}</p>
+    <div class="post-votes-section">
+      <div class="post-upvote post-vote-icon icon-angle-circled-up"></div>
+      <div>{{ post.votes }}</div>
+      <div class="post-downvote post-vote-icon icon-angle-circled-down"></div>
+    </div>
+    <div class="post-main-section">
+      <div class="post-author">
+        <a class="nocolor" href="/user/{{ post.user_id }}">
+          {% if post.profile_image %}
+          <img class="post-pfp" src="{{ post.profile_image }}" alt="">
+          {% else %}
+            <img class="post-pfp" src="/static/images/user.jpg" alt="">
+          {% endif %}
+          <div class="post-username">
+            <span class="post-username-lol">{{ post.username }}</span>
+            <span class="post-postedin">posted in</span>
+            <a href="/topic/{{ post.topic_name }}" class="nocolor post-topic">{{ post.topic_name }}</a>
+          </div>
+        </a>
+      </div>
+      <h2 class="post-title">{{ post.title }}</h2>
+      {% if post.content %}
+        <p class="post-content">
+          {{ post.content }}
+        </p>
+      {% endif %}
+    </div>
   </div>
-{% endmacro input %}
+{% endmacro post %}

@@ -1,4 +1,3 @@
-{% import "stuff/macros" as macros %}
 {% import "stuff/partials" as partials %}
 <!DOCTYPE html>
 <html lang="en">

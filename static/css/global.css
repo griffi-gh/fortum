@@ -21,6 +21,9 @@ a.custom, .link-custom {
 a.custom:hover {
   color: var(--color-primary-dark, blue);
 }
+img {
+  display: block;
+}
 body {
   margin: 0;
   

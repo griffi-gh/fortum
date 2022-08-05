@@ -1,0 +1,89 @@
+.post {
+  display: flex;
+  flex-direction: row;
+  background: white;
+  padding: 1rem;
+  padding-left: 0;
+  border-radius: .5rem;
+  border: 1px solid gray;
+}
+
+.post-votes-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.post-vote-icon {
+  font-size: 1.5rem;
+  padding: 0 .8rem;
+}
+.post-upvote {
+  color: green;
+}
+.post-downvote {
+  color: darkred;
+}
+
+.post-main-section {
+  flex: 1;
+}
+
+.post-author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.2rem;
+}
+.post-pfp {
+  display: block;
+  background-color: black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: .5rem;
+}
+.post-postedin {
+  color: gray;
+}
+.post-topic {
+  display: inline-block; 
+  text-align: center;
+  background: rgb(233, 62, 96); /* TODO this should be generated somehow */
+  color: white;
+  padding: .2rem .4rem;
+  border-radius: .2rem;
+  transition: .33s;
+  text-rendering: geometricPrecision;
+}
+.post-topic::before {
+  content: '#';
+  text-rendering: geometricPrecision;
+  display: inline-block;
+  transform: scale(1.1);
+  padding-right: .3rem;
+}
+.post-topic:hover {
+  transform: scale(1.05) rotate(-4deg);
+  box-shadow: 0 0 .1rem rgba(0, 0, 0, .5);
+}
+/* .post-topic::after {
+  content: '#';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: scale(1.5);
+  color: rgba(255,255,255,.5)
+} */
+
+.post-title {
+  margin: 0;
+  margin-top: .25rem;
+}
+.post-content {
+  margin: 0;
+  margin-top: .25rem;
+  background-color: var(--color-background);
+  padding: 1rem;
+  border-radius: .5rem;
+}

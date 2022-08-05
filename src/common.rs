@@ -23,6 +23,7 @@ pub struct TemplatePost {
   pub created_on: chrono::DateTime<chrono::Utc>, 
   pub topic_name: String, 
   pub votes: i64,
+  pub user_id: i32,
 }
 impl TemplatePost {
   pub fn from_pg_row(row: PgRow) -> Self {
@@ -34,6 +35,7 @@ impl TemplatePost {
       created_on: row.get(4),
       topic_name: row.get(5),
       votes: row.get(6),
+      user_id: row.get(7),
     }
   }
 }
