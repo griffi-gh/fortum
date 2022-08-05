@@ -8,13 +8,17 @@
     <div class="post-main-section">
       <div class="post-author">
         <a class="nocolor" href="/user/{{ post.user_id }}">
+
           {% if post.profile_image %}
           <img class="post-pfp" src="{{ post.profile_image }}" alt="">
           {% else %}
             <img class="post-pfp" src="/static/images/user.jpg" alt="">
           {% endif %}
+
           <div class="post-username">
-            <span class="post-username-lol">{{ post.username }}</span>
+            <span class="post-username-lol">
+              {% if post.username %} {{ post.username }} {% else %} [anonymous] {% endif %}
+            </span>
             <span class="post-postedin">posted in</span>
             <a href="/topic/{{ post.topic_name }}" class="nocolor post-topic">{{ post.topic_name }}</a>
           </div>
