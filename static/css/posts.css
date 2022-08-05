@@ -14,14 +14,25 @@
   align-items: center;
 }
 .post-vote-icon {
+  cursor: pointer;
   font-size: 1.5rem;
   padding: 0 .8rem;
+  transition: .33s;
 }
 .post-upvote {
   color: green;
 }
 .post-downvote {
   color: darkred;
+}
+.post-vote-icon:hover {
+  filter: brightness(150%);
+}
+.post-upvote:hover {
+  transform: translateY(-12.5%) scale(1.1);
+}
+.post-downvote:hover {
+  transform: translateY(12.5%) scale(1.1);
 }
 
 .post-main-section {
