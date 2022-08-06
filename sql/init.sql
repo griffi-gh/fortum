@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS comment_votes CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
 DROP TABLE IF EXISTS topics CASCADE;
 DROP TABLE IF EXISTS posts CASCADE;
 DROP TABLE IF EXISTS votes CASCADE;
@@ -49,6 +51,29 @@ CREATE TABLE votes (
   voted_on TIMESTAMPTZ NOT NULL DEFAULT now(),
   FOREIGN KEY(post_id) 
     REFERENCES posts(post_id)
+    ON DELETE CASCADE,
+  FOREIGN KEY(user_id) 
+    REFERENCES users(user_id)
+    ON DELETE CASCADE
+);
+CREATE TABLE comments (
+  comment_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  author INTEGER,
+  content VARCHAR(500) NOT NULL,
+  created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
+  votes BIGINT NOT NULL DEFAULT 0,
+  FOREIGN KEY(author) 
+    REFERENCES users(user_id)
+    ON DELETE SET NULL
+);
+CREATE TABLE comment_votes (
+  vote_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  comment_id INTEGER NOT NULL,
+  user_id INTEGER,
+  vote BOOLEAN NOT NULL,
+  voted_on TIMESTAMPTZ NOT NULL DEFAULT now(),
+  FOREIGN KEY(comment_id) 
+    REFERENCES comments(comment_id)
     ON DELETE CASCADE,
   FOREIGN KEY(user_id) 
     REFERENCES users(user_id)
