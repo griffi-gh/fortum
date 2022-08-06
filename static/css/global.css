@@ -42,7 +42,6 @@ body {
 #content > :is(#content-padding, .content-padding), #content.content-padding {
   padding: 1rem;
 }
-
 .flex-center {
   display: flex;
   flex-direction: column;
@@ -50,23 +49,24 @@ body {
   align-items: center;
   text-align: center;
 }
-.inline-flex {
-  display: inline-flex;
-}
+.inline-flex { display: inline-flex; }
+.flex-row { flex-direction: row;}
 .block { display: block; }
 .no-margin { margin: 0; }
 .display-none { display: none; }
 .small-margin { margin: .25rem; }
 .margin-bottom-only { margin: 0; margin-bottom: 1rem; }
 
-.warning, .error {
+.warning, .error, .success {
   margin: .5rem;
 }
 .error { color: var(--color-error); }
 .warning { color: var(--color-warn); }
+.success { color: var(--color-success); }
 .warning::before { content: '\e83c'; }
 .error::before { content: '\e83d'; }
-.warning::before, .error::before {
+.success::before { content: '\e81a'; }
+.warning::before, .error::before, .success::before {
   display: inline-block;
   font-family: fontello;
   font-style: normal;

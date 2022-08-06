@@ -7,4 +7,5 @@
   --color-primary-darker: #003a6b;
   --color-error: #eb0000;
   --color-warn: var(--color-primary); /* Yellow doesn't look good on gray bg */
+  --color-success: #008000;
 }

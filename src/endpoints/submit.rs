@@ -5,6 +5,7 @@ use rocket_dyn_templates::{Template, context};
 use crate::db::MainDatabase;
 use crate::common::{Authentication, TemplateVars};
 use crate::endpoints::login::rocket_uri_macro_login;
+use crate::endpoints::post::rocket_uri_macro_post;
 
 #[derive(FromForm)]
 pub struct PostSubmitData<'a> {
@@ -22,7 +23,7 @@ pub async fn submit(error: Option<&str>, vars: TemplateVars) -> Template {
 pub async fn submit_post(data: Form<PostSubmitData<'_>>, db: Connection<MainDatabase>, auth: Authentication) -> Redirect {
   if !auth.valid { return Redirect::to(uri!(login(error = Some("Log in before posting stuff")))); }
   match MainDatabase::submit_post(db, Some(auth.user_id.unwrap()), data.topic, &data.title, data.body).await {
-    Ok(_) => Redirect::to(uri!("/post/todo_insert_id_here?success")),
+    Ok(id) => Redirect::to(uri!(post(id = id, success = true))),
     Err(err) => Redirect::to(uri!(submit(error = Some(err)))),
   }
 }

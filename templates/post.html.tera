@@ -1,0 +1,23 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Post
+{% endblock title %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/static/css/posts.css">
+{% endblock head %}
+
+{% block content %}
+  <div id="content-padding">
+    {% if success %}
+      <div class="success flex-center flex-row">Your post was created successfully</div>
+    {% endif %}
+    {% if post %}
+      {{ partials::post(post = post) }}
+    {% else %}
+      <span class="error">Post not found</span>
+    {% endif %}
+  </div>
+{% endblock content %}
