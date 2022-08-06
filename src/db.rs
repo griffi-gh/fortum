@@ -169,8 +169,8 @@ impl MainDatabase {
       .fetch_optional(&mut *db).await
       .unwrap()
       .map(|x| {
-        let len: i32 = x.get(0);
-        len == 0
+        let len: i64 = x.get(0);
+        len > 0
       })
       .unwrap_or_default();
     if !topic_exists {
