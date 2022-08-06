@@ -99,3 +99,11 @@
   padding: 1rem;
   border-radius: .5rem;
 }
+
+.post-npl-emote {
+  color: var(--color-warn);
+  font-size: 5rem;
+}
+.post-npl-emote.icon-emo-beer {
+  transform: translateX(-25%);
+}

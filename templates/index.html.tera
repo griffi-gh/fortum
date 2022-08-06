@@ -13,8 +13,6 @@
   <div id="content-padding">
     <h1>Posts</h1>
     <p>Top 25 posts of all time</p>
-    {% for post in posts %}
-      {{ partials::post(post = post) }}
-    {% endfor %}
+    {{ partials::post_view(posts = posts) }}
   </div>
 {% endblock content %}

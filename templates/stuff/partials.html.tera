@@ -33,3 +33,16 @@
     </div>
   </div>
 {% endmacro post %}
+
+{% macro post_view(posts) %}
+  {% if posts.0 %}
+    {% for post in posts %}
+      {{ post(post = post) }}
+    {% endfor %}
+  {% else %}
+    <p class="post-no-posts-loaded flex-center">
+      <span class="post-npl-emote icon-emo-beer"></span>
+      <span class="post-npl-text warning">No posts loaded</span>
+    </p>
+  {% endif %}
+{% endmacro post_view %}

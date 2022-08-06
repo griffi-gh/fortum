@@ -152,4 +152,8 @@ impl MainDatabase {
   pub async fn fetch_posts(mut db: Connection<Self>, topic: Option<&str>, ) {
     todo!();
   }
+
+  pub async fn submit_post(mut db: Connection<Self>, user_id: Option<i32>, topic_id: i32, title: &str, body: Option<&str>) -> Result<(), &'static str> {
+    Ok(())
+  }
 }
