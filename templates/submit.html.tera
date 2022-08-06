@@ -11,6 +11,9 @@
 {% block content %}
   <div id="content-padding">
     <h1>Submit</h1>
+    {% if error %}
+      <p class="error">{{error}}</p>
+    {% endif %}
     <form action="#" method="POST" class="form-with-loading">
       <input type="hidden" name="topic" value="1">
       {{ partials::styled_input(name = "title", placeholder = "Title", required = true) }}
