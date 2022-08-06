@@ -18,6 +18,9 @@
   border-radius: 999rem;
   margin: .2rem;
 }
+.styled-button.inline-button {
+  display: inline-flex;
+}
 .styled-button:not(:disabled) {
   cursor: pointer;
 }

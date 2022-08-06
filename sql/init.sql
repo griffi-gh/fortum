@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS posts CASCADE;
 DROP TABLE IF EXISTS votes CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TYPE IF EXISTS role_type; 
-
+--
 CREATE TYPE role_type AS ENUM ('banned', 'unverified', 'user', 'moderator', 'admin');
 CREATE TABLE users (
   user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -14,10 +14,11 @@ CREATE TABLE users (
   password_hash VARCHAR NOT NULL,
   created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
   last_activity TIMESTAMPTZ NOT NULL DEFAULT now(),
-  user_role role_type NOT NULL DEFAULT 'user',
+  user_role role_type NOT NULL DEFAULT 'unverified',
   token VARCHAR(24) UNIQUE NOT NULL CHECK (length(token) = 24), --16 byte token = 24 byte base64
   profile_image VARCHAR,
-  banner_image VARCHAR
+  banner_image VARCHAR,
+  email_verify VARCHAR UNIQUE DEFAULT md5(random()::text)
 );
 CREATE TABLE topics (
   topic_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

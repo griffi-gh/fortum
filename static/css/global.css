@@ -26,6 +26,7 @@ img {
 }
 body {
   margin: 0;
+  padding: 0;
   
   min-height: 100vh;
   display: flex;
@@ -49,6 +50,9 @@ body {
   align-items: center;
   text-align: center;
 }
+.inline-flex {
+  display: inline-flex;
+}
 .block { display: block; }
 .no-margin { margin: 0; }
 .display-none { display: none; }
@@ -70,4 +74,15 @@ body {
   line-height: 1em;
   margin-right: .2em;
   margin-left: .4em;
+}
+.warning-block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  background: var(--color-primary-light-slight);
+  border-radius: .5rem;
+  border: 1px solid var(--color-primary);
 }

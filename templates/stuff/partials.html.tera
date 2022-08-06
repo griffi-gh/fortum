@@ -66,3 +66,18 @@
     <span>{% if value %}{{ value }}{% else %}Submit{% endif %}</span> 
   </button>
 {% endmacro styled_submit_button %}
+
+{% macro account_status_warnings() %}
+  {% if vars.user %}
+    {% if vars.user.user_role == "unverified" %}
+      <div class="flex-center">
+        <div class="warning-block">
+          <span class="warning">Your email address is not verified</span>
+          <a href="/verify" class="color styled-button inline-button">Verify</a>
+        </div>
+      </div>
+    {% elif vars.user.user_role == "banned" %}
+      <span class="error">Your account is suspended</span>
+    {% endif %}
+  {% endif %}
+{% endmacro account_status_warnings %}
