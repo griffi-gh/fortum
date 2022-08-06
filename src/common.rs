@@ -74,7 +74,7 @@ impl<'r> FromRequest<'r> for Authentication {
     let token = get_token(jar);
     let user_id = if let Some(token) = token.clone() {
       let db = req.guard::<Connection<MainDatabase>>().await.succeeded().unwrap();
-      MainDatabase::get_token_user(db, &token).await
+      MainDatabase::get_user_id_by_token(db, &token).await
     } else { None };
     let valid = token.is_some() && user_id.is_some();
     //TODO maybe fail if no auth??
