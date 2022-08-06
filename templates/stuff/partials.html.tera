@@ -34,16 +34,20 @@
   </div>
 {% endmacro post %}
 
+{% macro something_gone(text) %}
+  <p class="something-gone flex-center">
+    <span class="npl-emote icon-emo-beer"></span>
+    <span class="npl-text warning">{{ text }}</span>
+  </p>
+{% endmacro something_gone %}
+
 {% macro post_view(posts) %}
   {% if posts.0 %}
     {% for post in posts %}
       {{ partials::post(post = post) }}
     {% endfor %}
   {% else %}
-    <p class="post-no-posts-loaded flex-center">
-      <span class="post-npl-emote icon-emo-beer"></span>
-      <span class="post-npl-text warning">No posts loaded</span>
-    </p>
+    {{ partials::something_gone(text = "No posts loaded") }}
   {% endif %}
 {% endmacro post_view %}
 

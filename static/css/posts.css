@@ -8,6 +8,16 @@
   border: 1px solid gray;
   margin-bottom: 1rem;
 }
+@media only screen and (min-width: 1000px) {
+  .post {
+    max-width: 75vw;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .post {
+    max-width: 50vw;
+  }
+}
 
 .post-votes-section {
   display: flex;
@@ -100,10 +110,10 @@
   border-radius: .5rem;
 }
 
-.post-npl-emote {
+.npl-emote {
   color: var(--color-warn);
   font-size: 5rem;
 }
-.post-npl-emote.icon-emo-beer {
+.npl-emote.icon-emo-beer {
   transform: translateX(-25%);
 }

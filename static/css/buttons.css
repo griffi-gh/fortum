@@ -73,6 +73,8 @@
   padding: .4rem 1rem;
   margin: var(--margin);
   z-index: 1;
+  /* width: 25vw;
+  min-width: 20ch; */
 }
 .styled-input > label {
   position: absolute;
