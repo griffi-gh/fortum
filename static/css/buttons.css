@@ -87,6 +87,11 @@
   color: gray;
   z-index: 2;
 }
+@-moz-document url-prefix() {
+  .styled-input > input:autofill ~ label {
+    background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, #fffcc8 51%, #fffcc8 99%, transparent 100%);
+  }
+}
 /* Thiccer outline while focused */
 .styled-input > input:focus {
   outline: none;
@@ -116,6 +121,7 @@
 .styled-input > input[data-autocompleted] {
   background-color: white !important;
 }
+
 /*Caps lock indicator*/
 .styled-input.show-caps.caps::after {
   content: 'A \25B2';
