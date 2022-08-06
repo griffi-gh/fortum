@@ -12,8 +12,8 @@
 {% block content %}
   <div id="content-padding">
     {{ partials::account_status_warnings() }}
-    <h1>Posts</h1>
-    <p>
+    <h1 class="text-center">Posts</h1>
+    <p class="text-center">
       Top 25 posts of all time<br>
       <a href="/submit" class="nocolor custom">Submit here</a>
     </p>
