@@ -3,11 +3,13 @@ use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
 use crate::common::TemplateVars;
 
+#[get("/user")]
+pub async fn user_self(vars: TemplateVars) -> Template {
+  Template::render("user", context! { vars, self_page: true })
+}
+
 #[get("/user/<id>")]
-pub async fn user(vars: TemplateVars, id: Option<u32>, db: Connection<MainDatabase>) -> Template {
-  let user = match id {
-    Some(id) => MainDatabase::get_user(db, id).await,
-    None => None
-  };
-  Template::render("user", context! { vars, user, self_page: id.is_none() })
+pub async fn user(vars: TemplateVars, id: u32, db: Connection<MainDatabase>) -> Template {
+  let user = MainDatabase::get_user(db, id).await;
+  Template::render("user", context! { vars, user })
 }

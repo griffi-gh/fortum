@@ -4,10 +4,6 @@
   User
 {% endblock title %}
 
-{% block body_top %}
-  <span id="--make-header-fixed"></span>
-{% endblock body_top %}
-
 {% block head %}
   {{ super() }}
   <link rel="stylesheet" href="/static/css/user.css">
@@ -33,10 +29,14 @@
       <h1>User page</h1>
     </div>
   {% else %}
-    {% if self_page %}
-      <div class="error">Log in</div>
-    {% else %}
-      <div class="error">User not found</div>
-    {% endif %}
+    <p class="flex-center">
+      <span class="error">User not found</span>
+    </p>
   {% endif %}
 {% endblock content %}
+
+{% block body_top %}
+  {% if user %}
+    <div id="--make-header-fixed"></div>
+  {% endif %}
+{% endblock body_top %}

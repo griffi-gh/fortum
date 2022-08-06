@@ -17,7 +17,7 @@ use endpoints::{
   register::{register, post_register, register_success},
   login::{login, post_login},
   logout::logout,
-  user::user,
+  user::{user, user_self},
   submit::{submit, submit_post},
   post::post,
 };
@@ -37,7 +37,7 @@ fn rocket() -> _ {
       register, post_register, register_success,
       login, post_login,
       logout, 
-      user,
+      user, user_self,
       submit, submit_post,
       post
     ])
