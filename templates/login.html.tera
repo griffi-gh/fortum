@@ -1,7 +1,7 @@
 {% extends "stuff/base" %}
 
 {% block title %}
-  Log in
+  Login
 {% endblock title %}
 
 {% block head %}

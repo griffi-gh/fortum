@@ -1,7 +1,8 @@
-<script src="/static/js/header.js" async defer></script>
-<form action="/logout" method="post" class="display-none">
-  <input type="submit" id="actual-logout-button" value="">
-</form>
+<noscript>
+  <form action="/logout" method="post" class="display-none">
+    <input type="submit" id="actual-logout-button" value="">
+  </form>
+</noscript>
 <header class="header" id="header">
   <a href="/" id="header-title" class="nocolor">
     <span class="icon-emo-laugh header-logo header-logo-no-hover"></span>

@@ -5,3 +5,4 @@ pub mod logout;
 pub mod register;
 pub mod user;
 pub mod submit;
+pub mod verify;

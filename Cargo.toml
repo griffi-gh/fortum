@@ -16,5 +16,5 @@ rust-argon2 = "1.0"
 dotenv = "0.15"
 rand = "0.8"
 base64 = "0.13"
-lettre = "0.10"
-# rust-s3 = "0.32"
+# lettre = "0.10" TODO FOR VERIFICATION
+# rust-s3 = "0.32" TODO FOR STORING USER UPLOADS (on filebase?)

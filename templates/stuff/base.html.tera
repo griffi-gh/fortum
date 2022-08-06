@@ -8,8 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="/static/js/global.js" async defer></script>
   <script src="/static/js/buttons.js" async defer></script>
+  <script src="/static/js/header.js" async defer></script>
   <link rel="stylesheet" href="/static/css/global.css">
-  <title>{% block title %}{% endblock title %}</title>
+  <title>Forum: {% block title %}{% endblock title %}</title>
   {% endblock head %}
 </head>
 <body>

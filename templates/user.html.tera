@@ -1,7 +1,7 @@
 {% extends "stuff/base" %}
 
 {% block title %}
-  Main page
+  User
 {% endblock title %}
 
 {% block body_top %}

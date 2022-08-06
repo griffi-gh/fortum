@@ -1,13 +1,14 @@
-if (document.getElementById("header")) {
-  // const ups = document.getElementById("user-profile-section");
-  // const lob = document.getElementById("logout-button");
-  // lob.addEventListener('click', event => {
-  //   event.stopPropagation();
-  // })
-  // ups.addEventListener('click', event => {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  // });
-} else {
-  console.warn('No header???');
+const logoutButton = document.getElementById('logout-button');
+if (logoutButton) {
+  logoutButton.for = "";
+  logoutButton.addEventListener('click', async event => {
+    event.preventDefault();
+    event.stopPropagation();
+    await fetch('/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+    console.log('Logged out');
+    document.location.reload();
+  });
 }
