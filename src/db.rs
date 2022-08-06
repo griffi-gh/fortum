@@ -149,11 +149,40 @@ impl MainDatabase {
       })
   }
 
-  pub async fn fetch_posts(mut db: Connection<Self>, topic: Option<&str>, ) {
-    todo!();
-  }
+  // pub async fn fetch_posts(mut db: Connection<Self>, topic: Option<&str>, ) {
+  //   todo!();
+  // }
 
-  pub async fn submit_post(mut db: Connection<Self>, user_id: Option<i32>, topic_id: i32, title: &str, body: Option<&str>) -> Result<(), &'static str> {
+  // Assumes that user exists!
+  pub async fn submit_post(mut db: Connection<Self>, author: Option<i32>, topic_id: i32, title: &str, body: Option<&str>) -> Result<(), &'static str> {
+    if title.trim().is_empty() {
+      return Err("Empty post title"); 
+    }
+    let mut body = body;
+    if let Some(body_inner) = body {
+      if body_inner.trim().is_empty() {
+        body = None;
+      }
+    }
+    let topic_exists = sqlx::query("SELECT LENGTH(*) FROM topics WHERE topic_id = $1 LIMIT 1")
+      .bind(topic_id)
+      .fetch_optional(&mut *db).await
+      .unwrap()
+      .map(|x| {
+        let len: i32 = x.get(0);
+        len == 0
+      })
+      .unwrap_or_default();
+    if !topic_exists {
+      return Err("Topic doensn't exist");
+    }
+    sqlx::query("INSERT INTO posts (author, topic, title, content) VALUES($1, $2, $3, $4)")
+      .bind(author)
+      .bind(topic_id)
+      .bind(title)
+      .bind(body)
+      .execute(&mut *db).await
+      .unwrap();
     Ok(())
   }
 }

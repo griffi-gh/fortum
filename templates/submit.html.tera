@@ -1,0 +1,18 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Submit a post
+{% endblock title %}
+
+{% block head %}
+  {{ super() }}
+{% endblock head %}
+
+{% block content %}
+  <div id="content-padding">
+    <h1>Submit</h1>
+    <form action="#">
+      
+    </form>
+  </div>
+{% endblock content %}

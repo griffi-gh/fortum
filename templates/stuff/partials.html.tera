@@ -46,3 +46,10 @@
     </p>
   {% endif %}
 {% endmacro post_view %}
+
+{% macro styled_input(name, id, placeholder = "", is_password = false, required = false, size = 40) %}
+  <div class="styled-input {% if is_password %}show_caps{% endif %}">
+    <input type="{% if is_password %}password{% else %}text{% endif %}" name="{{ name }}" {% if required %} required="required" {% endif %}  id="styled-input-id-{{ id }}" placeholder=" " size="{{size}}">
+    <label for="styled-input-id-{{ id }}">{{ placeholder }}</label>
+  </div>  
+{% endmacro styled_input %}
