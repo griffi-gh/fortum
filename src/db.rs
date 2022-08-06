@@ -164,7 +164,7 @@ impl MainDatabase {
         body = None;
       }
     }
-    let topic_exists = sqlx::query("SELECT LENGTH(*) FROM topics WHERE topic_id = $1 LIMIT 1")
+    let topic_exists = sqlx::query("SELECT COUNT(*) FROM topics WHERE topic_id = $1 LIMIT 1")
       .bind(topic_id)
       .fetch_optional(&mut *db).await
       .unwrap()

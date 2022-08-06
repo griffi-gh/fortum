@@ -20,7 +20,7 @@ pub async fn submit(error: Option<&str>, vars: TemplateVars) -> Template {
 
 #[post("/submit", data = "<data>")]
 pub async fn submit_post(data: Form<PostSubmitData<'_>>, db: Connection<MainDatabase>, auth: Authentication) -> Redirect {
-  if !auth.valid { return Redirect::to(uri!(login(error = Some("Log in before postring stuff")))); }
+  if !auth.valid { return Redirect::to(uri!(login(error = Some("Log in before posting stuff")))); }
   match MainDatabase::submit_post(db, Some(auth.user_id.unwrap()), data.topic, &data.title, data.body).await {
     Ok(_) => Redirect::to(uri!("/post/todo_insert_id_here?success")),
     Err(err) => Redirect::to(uri!(submit(error = Some(err)))),
