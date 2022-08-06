@@ -9,6 +9,12 @@
   <link rel="stylesheet" href="/static/css/user.css">
 {% endblock head %}
 
+{% block body_top %}
+  {% if user or self_page %}
+    <div id="--make-header-fixed"></div>
+  {% endif %}
+{% endblock body_top %}
+
 {% block content %}
   {% if self_page %}
     {% set user = vars.user %}
@@ -34,9 +40,3 @@
     </p>
   {% endif %}
 {% endblock content %}
-
-{% block body_top %}
-  {% if user %}
-    <div id="--make-header-fixed"></div>
-  {% endif %}
-{% endblock body_top %}
