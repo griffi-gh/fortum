@@ -1,10 +1,10 @@
 {% macro post(post, post_page=false) %}
   <div class="post">
-    <noscript>
+    {# <noscript>
       <form action="/vote" method="POST">
         <input type="hidden" name="post_id" value="{{}}">
       </form>
-    </noscript>
+    </noscript> #}
     <div class="post-votes-section">
       <div class="post-upvote post-vote-icon icon-angle-circled-up"></div>
       <div>{{ post.votes }}</div>
@@ -37,10 +37,12 @@
           {{ post.content }}
         </p>
       {% endif %}
-      {% if post_page %}
-        <a class="nocolor styled-button style-outline">
-          <span class="icon-export"></span>View post
-        </a>
+      {% if not post_page %}
+        <div class="post-action-row">
+          <a href="/post/{{ post.post_id }}" class="nocolor styled-button inline-button style-outline">
+            <span class="icon-export"></span>View post
+          </a>
+        </div>
       {% endif %}
     </div>
   </div>

@@ -110,6 +110,10 @@
   border-radius: .5rem;
 }
 
+.post-action-row {
+  margin-top: .33rem;
+}
+
 .npl-emote {
   color: var(--color-warn);
   font-size: 5rem;

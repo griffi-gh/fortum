@@ -1,5 +1,6 @@
 :root {
   --pfp-size: 200px;
+  --pfp-margin-left: 2rem;
 }
 #user-banner {
   width: 100%;
@@ -20,17 +21,31 @@
   transform: translateY(-50%);
 }
 #pfp-overlay img {
-  margin-left: 2rem;
+  margin-left: var(--pfp-margin-left);
   border-radius: 50%;
   width: var(--pfp-size);
   height: var(--pfp-size);
   box-shadow: 0 0 5px 1px rgba(0,0,0,.5), 0 0 0 10px var(--color-background);
 }
 #pfp-overlay-spacer {
-  display: block;
-  width: 0;
-  height: 0;
-  margin-bottom: calc(var(--pfp-size) / 2);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: calc(var(--pfp-size) / 2);
+  margin: 0;
+  padding-left: calc(var(--pfp-size) + var(--pfp-margin-left) + 2rem);
+}
+#user-username, #user-username-mobile {
+  padding: 0;
+  margin: 0;
+  font-size: 3rem;
+}
+#user-username-mobile {
+  display: none;
+  text-align: center;
+  padding-top: 1rem;
+  font-weight: normal;
 }
 @media only screen and (max-width: 600px) {
   #pfp-overlay {
@@ -40,5 +55,11 @@
   }
   #pfp-overlay img {
     margin: 0;
+  }
+  #user-username {
+    display: none;
+  }
+  #user-username-mobile {
+    display: block;
   }
 }

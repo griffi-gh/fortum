@@ -14,14 +14,29 @@
 {% endblock head %}
 
 {% block content %}
-  <div id="user-banner">
-    <img src="/static/images/background/0.jpg" alt="Banner image">
-  </div>
-  <div id="pfp-overlay">
-    <img src="/static/images/user.jpg" alt="Profile image" width="200" height="200">
-  </div>
-  <div id="pfp-overlay-spacer"></div>
-  <div class="content-padding">
-    <h1>User page</h1>
-  </div>
+  {% if self_page %}
+    {% set user = vars.user %}
+  {% endif %}
+  {% if user %}
+    <div id="user-banner">
+      <img src="/static/images/background/0.jpg" alt="Banner image">
+    </div>
+    <div id="pfp-overlay">
+      {# <img src="{% if post.profile_image %}{{ user.profile_image }}{% else %}/static/images/user.jpg{% endif %}" alt="Profile image" width="200" height="200"> #}
+      <img src="/static/images/user.jpg" alt="Profile image" width="200" height="200">
+    </div>
+    <div id="pfp-overlay-spacer">
+      <p id="user-username">{{ user.username }}</p>
+    </div>
+    <p id="user-username-mobile">{{ user.username }}</p>
+    <div class="content-padding">
+      <h1>User page</h1>
+    </div>
+  {% else %}
+    {% if self_page %}
+      <div class="error">Log in</div>
+    {% else %}
+      <div class="error">User not found</div>
+    {% endif %}
+  {% endif %}
 {% endblock content %}
