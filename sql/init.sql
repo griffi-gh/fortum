@@ -1,8 +1,8 @@
+DROP TABLE IF EXISTS topics CASCADE;
+DROP TABLE IF EXISTS posts CASCADE;
+DROP TABLE IF EXISTS votes CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 DROP TYPE IF EXISTS role_type; 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS topics;
-DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS votes;
 
 CREATE TYPE role_type AS ENUM ('banned', 'unverified', 'user', 'moderator', 'admin');
 CREATE TABLE users (
