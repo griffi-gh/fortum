@@ -37,7 +37,7 @@
 {% macro post_view(posts) %}
   {% if posts.0 %}
     {% for post in posts %}
-      {{ post(post = post) }}
+      {{ partials::post(post = post) }}
     {% endfor %}
   {% else %}
     <p class="post-no-posts-loaded flex-center">

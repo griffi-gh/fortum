@@ -14,6 +14,7 @@
     {% if error %}
       <p class="error">{{error}}</p>
     {% endif %}
+    <p class="warning">It's not possible to choose the topic yet, submitting to #main</p>
     <form action="#" method="POST" class="form-with-loading">
       <input type="hidden" name="topic" value="1">
       {{ partials::styled_input(name = "title", placeholder = "Title", required = true) }}
