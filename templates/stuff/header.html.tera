@@ -11,7 +11,7 @@
   </a>
   <div id="header-align-right">
     {% if vars.user %}
-      <a href="user" class="nocolor" id="user-profile-section">
+      <a href="/user" class="nocolor" id="user-profile-section">
         <div id="user-profile-icon">
           <img src="/static/images/user.jpg" alt="User icon" width="32" height="32">
         </div>
