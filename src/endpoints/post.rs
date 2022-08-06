@@ -15,7 +15,8 @@ pub async fn post(id: i32, success: bool, vars: TemplateVars, mut db: Connection
         posts.created_on AS created_on, 
         topics.topic_name AS topic_name, 
         posts.votes AS votes,
-        users.user_id AS user_id
+        users.user_id AS user_id,
+        posts.post_id as post_id
       FROM posts
       LEFT JOIN users ON users.user_id = posts.author
       INNER JOIN topics ON topics.topic_id = posts.topic

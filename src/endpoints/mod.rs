@@ -7,3 +7,4 @@ pub mod user;
 pub mod submit;
 pub mod verify;
 pub mod post;
+pub mod vote;

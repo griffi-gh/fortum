@@ -24,6 +24,7 @@ pub struct TemplatePost {
   pub topic_name: String, 
   pub votes: i64,
   pub user_id: Option<i32>,
+  pub post_id: i32,
 }
 impl TemplatePost {
   pub fn from_pg_row(row: PgRow) -> Self {
@@ -36,6 +37,7 @@ impl TemplatePost {
       topic_name: row.get(5),
       votes: row.get(6),
       user_id: row.get(7),
+      post_id: row.get(8),
     }
   }
 }
