@@ -119,10 +119,7 @@
 /*Caps lock indicator*/
 .styled-input.show-caps.caps::after {
   content: 'A \25B2';
-  
-  /* content: '\f139'; */
-  /* font-family: fontello;*/
-  /* line-height: 1em;  */
+
   display: inline-block;
 
   position: absolute;
