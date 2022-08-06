@@ -1,4 +1,4 @@
-{% macro post(post) %}
+{% macro post(post, post_page=false) %}
   <div class="post">
     <div class="post-votes-section">
       <div class="post-upvote post-vote-icon icon-angle-circled-up"></div>

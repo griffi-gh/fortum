@@ -15,7 +15,7 @@
       <div class="success flex-center flex-row">Your post was created successfully</div>
     {% endif %}
     {% if post %}
-      {{ partials::post(post = post) }}
+      {{ partials::post(post = post, post_page = true) }}
     {% else %}
       <span class="error">Post not found</span>
     {% endif %}
