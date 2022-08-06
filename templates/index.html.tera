@@ -12,7 +12,10 @@
 {% block content %}
   <div id="content-padding">
     <h1>Posts</h1>
-    <p>Top 25 posts of all time</p>
+    <p>
+      Top 25 posts of all time<br>
+      <a href="/submit" class="nocolor custom">Submit here</a>
+    </p>
     {{ partials::post_view(posts = posts) }}
   </div>
 {% endblock content %}

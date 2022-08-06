@@ -107,7 +107,7 @@ impl MainDatabase {
   }
 
   /// Returns user id
-  pub async fn get_user_id_by_token(mut db: Connection<Self>, token: &str) -> Option<u32> {
+  pub async fn get_user_id_by_token(mut db: Connection<Self>, token: &str) -> Option<i32> {
     let result = sqlx::query("SELECT user_id FROM users WHERE token = $1")
       .bind(token)
       .fetch_optional(&mut *db).await

@@ -47,9 +47,22 @@
   {% endif %}
 {% endmacro post_view %}
 
-{% macro styled_input(name, id, placeholder = "", is_password = false, required = false, size = 40) %}
-  <div class="styled-input {% if is_password %}show_caps{% endif %}">
-    <input type="{% if is_password %}password{% else %}text{% endif %}" name="{{ name }}" {% if required %} required="required" {% endif %}  id="styled-input-id-{{ id }}" placeholder=" " size="{{size}}">
-    <label for="styled-input-id-{{ id }}">{{ placeholder }}</label>
+{% macro styled_input(name, id="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1) %}
+  {% if inner_id == "AUTO" %}
+    {% set inner_id = "id-" ~ name ~ "-" ~ placeholder ~ "-" ~ size %}
+  {% endif %}
+  <div class="styled-input {% if password %}show_caps{% endif %}" id="{{id}}">
+    <input type="{% if password %}password{% else %}text{% endif %}" name="{{ name }}" {% if required %} required="required" {% endif %}  id="{{ inner_id }}" placeholder=" " {% if size > 0 %} size="{{size}}" {% endif %}>
+    <label for="{{ inner_id }}">{{ placeholder }}</label>
   </div>  
 {% endmacro styled_input %}
+
+{% macro styled_submit_button(id="", value="Submit") %}
+  <button type="submit" class="block styled-button" id="{{id}}">
+    <div class="styled-button-icons">
+      <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
+      <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
+    </div>
+    <span>{% if value %}{{ value }}{% else %}Submit{% endif %}</span> 
+  </button>
+{% endmacro styled_submit_button %}

@@ -64,7 +64,7 @@ impl<'r> FromRequest<'r> for TemplateVars {
 pub struct Authentication {
   pub valid: bool,
   pub token: Option<String>,
-  pub user_id: Option<u32>,
+  pub user_id: Option<i32>,
 }
 #[rocket::async_trait]
 impl<'r> FromRequest<'r> for Authentication {

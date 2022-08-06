@@ -11,8 +11,11 @@
 {% block content %}
   <div id="content-padding">
     <h1>Submit</h1>
-    <form action="#">
-      
+    <form action="#" method="POST" class="form-with-loading">
+      <input type="hidden" name="topic" value="1">
+      {{ partials::styled_input(name = "title", placeholder = "Title", required = true) }}
+      {{ partials::styled_input(name = "body", placeholder = "Post body (optional)") }}
+      {{ partials::styled_submit_button() }}
     </form>
   </div>
 {% endblock content %}

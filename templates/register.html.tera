@@ -28,29 +28,11 @@
           {% endif %}
           <p class="error display-none" id="js_error">Error</p>
           <form action="#" method="post" class="form-with-loading" id="reg-form">
-            <div class="styled-input" id="form-section-email">
-              <input type="email" name="email" required="required" id="input-email" placeholder=" ">
-              <label for="input-email">Email</label>
-            </div>
-            <div class="styled-input" id="form-section-username">
-              <input type="text" name="username" required="required" id="input-username" placeholder=" ">
-              <label for="input-username">Username</label>
-            </div>
-            <div class="styled-input show-caps" id="form-section-password">
-              <input type="password" name="password" required="required" id="input-password" placeholder=" ">
-              <label for="input-password">Password</label>
-            </div>   
-            <div class="styled-input show-caps" id="form-section-repeat">
-              <input type="password" name="repeat_password" required="required" id="input-repeat" placeholder=" ">
-              <label for="input-repeat">Repeat password</label>
-            </div>       
-            <button type="submit" class="block styled-button" id="reg-submit-btn">
-              <div class="styled-button-icons">
-                <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
-                <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
-              </div>
-              <span>Submit</span> 
-            </button>
+            {{ partials::styled_input(name = "email", id = "form-section-email", placeholder = "Email", required = true) }}
+            {{ partials::styled_input(name = "username", id = "form-section-username", placeholder = "Username", required = true) }}
+            {{ partials::styled_input(name = "password", id = "form-section-password", placeholder = "Password", required = true, password = true) }}
+            {{ partials::styled_input(name = "repeat_password", id = "form-section-repeat", placeholder = "Password", required = true, password = true) }}
+            {{ partials::styled_submit_button(id = "reg-submit-btn") }}
           </form>
           <p>
             Already have an account? <a href="/login" class="nocolor custom">Log in</a>
