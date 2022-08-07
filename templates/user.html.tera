@@ -10,7 +10,7 @@
 {% endblock head %}
 
 {% block body_top %}
-  {% if user or self_page %}
+  {% if self_page and vars.user or user %}
     <div id="--make-header-fixed"></div>
   {% endif %}
 {% endblock body_top %}
