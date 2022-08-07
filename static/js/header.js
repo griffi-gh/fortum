@@ -7,7 +7,7 @@ if (logoutButton) {
     await fetch('/logout', {
       method: 'POST',
       credentials: 'include'
-    }).catch(() => alert('logout failed'));
+    });
     console.log('Logged out');
     document.location = '/';
   });
