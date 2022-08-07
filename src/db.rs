@@ -51,7 +51,7 @@ impl MainDatabase {
     let email_used: bool = sqlx::query("SELECT not COUNT(*) = 0 FROM users WHERE email = $1 LIMIT 1")
       .bind(&email)
       .fetch_one(&mut *db).await
-      .unwrap().try_get(0).unwrap();
+      .unwrap().get(0);
     if email_used {
       return Err("This email address is already in use");
     }
