@@ -45,9 +45,7 @@ impl MainDatabase {
     if !PASSWORD_REGEX.is_match(password) {
       return Err("Invalid password");
     }
-  
-    //Check if username was used before
-    //TODO this is inefficient
+    //Check if email was used before
     let email_used: bool = sqlx::query("SELECT not COUNT(*) = 0 FROM users WHERE email = $1 LIMIT 1")
       .bind(&email)
       .fetch_one(&mut *db).await
@@ -55,7 +53,6 @@ impl MainDatabase {
     if email_used {
       return Err("This email address is already in use");
     }
-  
     //Register user
     let mut salt = [0u8; 16];
     thread_rng().fill(&mut salt);
@@ -85,21 +82,14 @@ impl MainDatabase {
     if !PASSWORD_REGEX.is_match(password) {
       return Err("Invalid password");
     }
-    //Perform query
-    let row = sqlx::query("SELECT password_hash, token FROM users WHERE email = $1")
-      .bind(&email)
+    //Perform query and check if user exists
+    let row = sqlx::query!("SELECT password_hash, token FROM users WHERE email = $1", email)
       .fetch_optional(&mut *db).await
-      .unwrap();
-    //Check if user exists
-    let row = match row {
-      Some(row) => row,
-      None => { return Err("User doesn't exist"); }
-    };
-    //Get info from the row
-    let (hashed_password, token): (String, String) = (row.get(0), row.get(1));
+      .unwrap()
+      .ok_or("User doesn't exist")?;
     //Check hash (assuming it's is in valid format)
-    match argon2::verify_encoded(&hashed_password, password.as_bytes()).unwrap() { 
-      true => Ok(token),
+    match argon2::verify_encoded(&row.password_hash, password.as_bytes()).unwrap() { 
+      true => Ok(row.token),
       false => Err("Incorrect password")
     }
   }
