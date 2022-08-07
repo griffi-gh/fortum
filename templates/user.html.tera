@@ -7,6 +7,7 @@
 {% block head %}
   {{ super() }}
   <link rel="stylesheet" href="/static/css/user.css">
+  <link rel="stylesheet" href="/static/css/posts.css">
 {% endblock head %}
 
 {% block body_top %}
@@ -38,7 +39,8 @@
     </div>
     <p id="user-username-mobile">{{ user.username }}</p>
     <div class="content-padding">
-      <h1>User page</h1>
+      <h1>Recent posts</h1>
+      {{ partials::post_view(posts = posts) }}
     </div>
   {% else %}
     <p class="flex-center">
