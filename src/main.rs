@@ -16,10 +16,11 @@ use endpoints::{
   index::index,
   register::{register, post_register, register_success},
   login::{login, post_login},
-  logout::logout,
+  logout::{logout},
   user::{user, user_self},
   submit::{submit, submit_post, submit_post_error},
-  post::post,
+  post::{post},
+  vote::{vote},
 };
 
 #[launch]
@@ -39,7 +40,8 @@ fn rocket() -> _ {
       logout, 
       user, user_self,
       submit, submit_post, submit_post_error,
-      post
+      post,
+      vote
     ])
     .mount("/static", FileServer::from("./static/"))
 }

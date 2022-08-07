@@ -2,7 +2,7 @@ use rocket_dyn_templates::{Template, context};
 use rocket_db_pools::Connection;
 use sqlx;
 use crate::db::MainDatabase;
-use crate::common::{TemplateVars, TemplatePost};
+use crate::common::{TemplateVars, TemplatePost, Authentication};
 
 #[derive(FromForm)]
 pub struct PostVoteData {
@@ -19,6 +19,6 @@ pub struct CommentVoteData {
 }
 
 #[post("/vote/post")]
-pub async fn vote() {
+pub async fn vote(auth: Authentication) {
   todo!();
 }
