@@ -21,8 +21,7 @@ async fn fetch_user_posts(mut db: Connection<MainDatabase>, id: i32) -> Vec<Temp
       LEFT JOIN users ON users.user_id = posts.author
       INNER JOIN topics ON topics.topic_id = posts.topic
       WHERE user_id = $1
-      ORDER BY created_on DESC
-      LIMIT 25;
+      ORDER BY created_on DESC;
     "#)
     .bind(id)
     .fetch_all(&mut **db).await
