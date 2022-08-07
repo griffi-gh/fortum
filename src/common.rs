@@ -28,6 +28,8 @@ pub struct TemplatePost {
   pub post_id: i32,
 }
 
+//TODO maybe make `Authentication` return full `User` and remove TemplateVars
+
 #[derive(Serialize)]
 pub struct TemplateVars {
   pub user: Option<User>
@@ -49,7 +51,6 @@ impl<'r> FromRequest<'r> for TemplateVars {
 }
 
 pub struct Authentication {
-  pub valid: bool,
   pub token: Option<String>,
   pub user_id: Option<i32>,
 }
@@ -65,8 +66,10 @@ impl<'r> FromRequest<'r> for Authentication {
     } else { None };
     let valid = token.is_some() && user_id.is_some();
     //TODO maybe fail if no auth??
-    Outcome::Success(Self {
-      valid, token, user_id
-    })
+    let slf = Self { token, user_id };
+    match valid {
+      true => Outcome::Success(slf),
+      false => Outcome::Forward(()),
+    }    
   }
 }

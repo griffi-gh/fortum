@@ -18,7 +18,7 @@ use endpoints::{
   login::{login, post_login},
   logout::logout,
   user::{user, user_self},
-  submit::{submit, submit_post},
+  submit::{submit, submit_post, submit_post_error},
   post::post,
 };
 
@@ -38,7 +38,7 @@ fn rocket() -> _ {
       login, post_login,
       logout, 
       user, user_self,
-      submit, submit_post,
+      submit, submit_post, submit_post_error,
       post
     ])
     .mount("/static", FileServer::from("./static/"))
