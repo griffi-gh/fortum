@@ -4,6 +4,7 @@
 }
 #user-banner {
   width: 100%;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,20 +13,30 @@
   max-height: 32rem;
   overflow: hidden;
   box-shadow: 0 0 5px 1px rgba(0,0,0,.5);
+  z-index: 0;
+  /* border-radius: 0 0 .5rem .5rem; */
 }
 #pfp-overlay {
   display: block;
   position: absolute;
   left: 0;
-  right: 0;
   transform: translateY(-50%);
 }
-#pfp-overlay img {
+#pfp-overlay > div {
+  position: relative;
   margin-left: var(--pfp-margin-left);
   border-radius: 50%;
   width: var(--pfp-size);
   height: var(--pfp-size);
   box-shadow: 0 0 5px 1px rgba(0,0,0,.5), 0 0 0 10px var(--color-background);
+  overflow: hidden;
+  z-index: 1;
+}
+#pfp-overlay > div > img {
+  display: block;
+  width: var(--pfp-size);
+  height: var(--pfp-size);
+  z-index: 2;
 }
 #pfp-overlay-spacer {
   display: flex;
@@ -62,4 +73,53 @@
   #user-username-mobile {
     display: block;
   }
+  #pfp-overlay {
+    right: 0;
+  }
+  #pfp-overlay > div {
+    margin-left: 0;
+  }
+}
+
+body.user-editable #pfp-overlay > div,
+body.user-editable #user-banner {
+  cursor: pointer;
+}
+body.user-editable #pfp-overlay > div::after,
+body.user-editable #user-banner::after {
+  --font-size: 3rem;
+  content: '\e836';
+  background: rgba(0,0,0,.5);
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .22s, transform .22s;
+  text-shadow: 0 0 5px rgba(255, 255, 255, .5);
+  transform: scale(.8);
+  color: white;
+  font-family: fontello;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1em;
+  font-size: var(--font-size);
+  text-align: center;
+  z-index: 3;
+  text-rendering: geometricPrecision;
+}
+body.user-editable #pfp-overlay > div::after {
+  inset: calc(-0.5 * var(--font-size));
+  padding: 50%;
+}
+body.user-editable #user-banner::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: -50%;
+}
+body.user-editable #pfp-overlay > div:hover::after,
+body.user-editable #user-banner:hover::after {
+  opacity: 1;
+  transform: scale(1.2);
 }

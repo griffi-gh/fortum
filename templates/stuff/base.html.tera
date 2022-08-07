@@ -13,7 +13,7 @@
   <title>Forum: {% block title %}{% endblock title %}</title>
   {% endblock head %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock body_class %}">
   {% block body_top %}{% endblock body_top %}
   {% include "stuff/header" %}
   <main id="content" class="content main">

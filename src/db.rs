@@ -19,16 +19,14 @@ pub enum UserRole {
 
 #[derive(Serialize)]
 pub struct User {
-  user_id: i32,
-  username: String,
-  email: String,
-  password_hash: String,
-  //These are not serialized until i find a workaround
-  created_on: chrono::DateTime<chrono::Utc>,
-  last_activity: chrono::DateTime<chrono::Utc>,
-  //-------------------------------------------------
-  user_role: UserRole,
-  token: String,
+  pub user_id: i32,
+  pub username: String,
+  pub email: String,
+  pub password_hash: String,
+  pub created_on: chrono::DateTime<chrono::Utc>,
+  pub last_activity: chrono::DateTime<chrono::Utc>,
+  pub user_role: UserRole,
+  pub token: String,
 }
 
 #[derive(Database)]

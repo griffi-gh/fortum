@@ -34,6 +34,3 @@
     {% endif %}
   </div>
 </header>
-<div class="display-none">
-
-</div>
