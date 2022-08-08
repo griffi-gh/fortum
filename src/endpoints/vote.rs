@@ -25,10 +25,11 @@ pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection
     if data.allow_toggle {
       if data.is_upvote == result.vote {
         vote *= -1;
-        sqlx::query("DELETE FROM votes WHERE vote_id = $2")
+        sqlx::query("DELETE FROM votes WHERE vote_id = $1")
           .bind(result.vote_id)
           .execute(&mut *db).await.unwrap();
       } else {
+        vote *= 2;
         sqlx::query("UPDATE votes SET vote = $1 WHERE vote_id = $2")
           .bind(vote > 0)
           .bind(result.vote_id)
