@@ -37,7 +37,7 @@
     <div id="pfp-overlay-spacer">
       <p id="user-username">{{ user.username }}</p>
     </div>
-    <p id="user-username-mobile">{{ user.username }}</p>
+    <p id="user-username-mobile" aria-hidden="true">{{ user.username }}</p>
     <div class="content-padding">
       <h1>Recent posts</h1>
       {{ partials::post_view(posts = posts) }}

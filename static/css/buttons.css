@@ -65,6 +65,9 @@
   display: flex;
   z-index: 0;
 }
+.styled-input.rectangular > input {
+  border-radius: .3rem;
+}
 .styled-input > input {
   flex: 2;
   display: block;
@@ -91,6 +94,9 @@
   transition: color .33s 0s, border-color .33s, transform .33s;
   color: gray;
   z-index: 2;
+}
+.styled-input.unknown-background > label {
+  background: linear-gradient(to bottom, transparent 0%, transparent calc(49% - 1px), white calc(49% - 1px), white calc(50% + 1px), white 55%, transparent 100%);
 }
 @-moz-document url-prefix() {
   .styled-input > input:autofill ~ label {

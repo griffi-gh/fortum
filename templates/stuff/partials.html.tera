@@ -65,11 +65,11 @@
   {% endif %}
 {% endmacro post_view %}
 
-{% macro styled_input(name, id="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1) %}
+{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1) %}
   {% if inner_id == "AUTO" %}
     {% set inner_id = "id-" ~ name ~ "-" ~ placeholder ~ "-" ~ size %}
   {% endif %}
-  <div class="styled-input {% if password %}show-caps{% endif %}" id="{{id}}">
+  <div class="styled-input {% if password %}show-caps{% endif %} {{ class }}" id="{{id}}">
     <input type="{% if password %}password{% else %}text{% endif %}" name="{{ name }}" {% if required %} required="required" {% endif %}  id="{{ inner_id }}" placeholder=" " {% if size > 0 %} size="{{size}}" {% endif %}>
     <label for="{{ inner_id }}">{{ placeholder }}</label>
   </div>  

@@ -3,11 +3,13 @@
   top: 0;
   z-index: 1000;
   display: flex;
-  background: white;
+  background: rgba(255,255,255,.79);
   box-shadow: 0 0 .33rem rgba(0,0,0,.25);
   overflow: hidden;
   align-items: stretch;
   border-bottom: 1px solid lightgray;
+  border-bottom-color: rgba(128,128,128,.33);
+  backdrop-filter: blur(5px);
 }
 #header-title {
   display: block;
@@ -20,7 +22,7 @@
 #header-title:hover .header-logo-hover {
   display: inline-block;
 }
-#header-align-right {
+#header-right {
   display: flex;
   align-items: stretch;
   margin-left: auto;
@@ -84,13 +86,6 @@
 #user-profile-section:hover #loggedinas-text { opacity: 0; }
 #user-profile-section:hover #logout-button { opacity: 1; }
 
-/* NEW HEADER STYLE */
-/* TODO merge into the top selector */ 
-#header {
-  background: rgba(255,255,255,.79);
-  border-bottom-color: rgba(128,128,128,.33);
-  backdrop-filter: blur(5px);
-}
 #--make-header-fixed {
   display: none;
 }
@@ -98,4 +93,10 @@
   position: fixed;
   inset: 0;
   bottom: unset;
+}
+
+#header-search-bar {
+  opacity: .65;
+  width: 33vw;
+  backdrop-filter: blur(8px);
 }

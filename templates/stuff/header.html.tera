@@ -9,7 +9,17 @@
     <span class="icon-emo-grin header-logo header-logo-hover"></span>
     Forum
   </a>
-  <div id="header-align-right">
+  <div id="header-left">
+    {{ partials::styled_input(
+      name = "q", 
+      id = "header-search-bar", 
+      class = "rectangular unknown-background", 
+      inner_id = "header-search-bar-inner", 
+      placeholder_allow_html = true,
+      placeholder = "<span class='icon-search'></span>Search"
+    ) }}
+  </div>
+  <div id="header-right">
     {% if vars.user %}
       <a href="/user" class="nocolor" id="user-profile-section">
         <div id="user-profile-icon">
