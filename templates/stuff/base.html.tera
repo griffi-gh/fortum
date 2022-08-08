@@ -19,7 +19,7 @@
 
   {# load fonts #}
   <link rel="stylesheet" href="/static/fonts/FontAwesome/css/all.min.css">
-  <link rel="stylesheet" href="/static/fonts/fontello/css/fontello.min.css">
+  <link rel="stylesheet" href="/static/fonts/Fontello/css/fontello.min.css">
   <link rel="stylesheet" href="/static/fonts/GoogleSans/style.css">
   
   {# page title #}
