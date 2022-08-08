@@ -6,9 +6,9 @@
       </form>
     </noscript> #}
     <div class="post-votes-section">
-      <div class="post-upvote post-vote-icon icon-angle-circled-up"></div>
+      <div class="post-upvote post-vote-icon"><i class="fa-solid fa-angle-up"></i></div>
       <div>{{ post.votes }}</div>
-      <div class="post-downvote post-vote-icon icon-angle-circled-down"></div>
+      <div class="post-downvote post-vote-icon"><i class="fa-solid fa-angle-down"></i></div>
     </div>
     <div class="post-main-section">
       <div class="post-author">
@@ -78,8 +78,8 @@
 {% macro styled_submit_button(id="", value="Submit") %}
   <button type="submit" class="block styled-button" id="{{id}}">
     <div class="styled-button-icons">
-      <span class="styled-button-icon styled-button-icon-selected icon-right-open"></span> 
-      <span class="styled-button-icon icon-spin6 animate-spin subm-icon-loading"></span> 
+      <span class="styled-button-icon styled-button-icon-selected fa-solid fa-chevron-right"></span>
+      <span class="styled-button-icon fa-solid fa-spinner-third animate-spin subm-icon-loading"></span> 
     </div>
     <span>{% if value %}{{ value }}{% else %}Submit{% endif %}</span> 
   </button>

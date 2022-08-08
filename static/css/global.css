@@ -113,3 +113,10 @@ body {
   border-radius: .5rem;
   border: 1px solid var(--color-primary);
 }
+
+.font-pseudo::after, .font-pseudo::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
+}

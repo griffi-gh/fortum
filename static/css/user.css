@@ -88,7 +88,7 @@ body.user-editable #user-banner {
 body.user-editable #pfp-overlay > div::after,
 body.user-editable #user-banner::after {
   --font-size: 3rem;
-  content: '\e836';
+  content: '\f303';
   background: rgba(0,0,0,.5);
   display: block;
   position: absolute;
@@ -99,14 +99,13 @@ body.user-editable #user-banner::after {
   text-shadow: 0 0 5px rgba(255, 255, 255, .5);
   transform: scale(.8);
   color: white;
-  font-family: fontello;
-  font-style: normal;
-  font-weight: normal;
+  font: var(--fa-font-solid);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
   line-height: 1em;
   font-size: var(--font-size);
   text-align: center;
   z-index: 3;
-  text-rendering: geometricPrecision;
 }
 body.user-editable #pfp-overlay > div::after {
   inset: calc(-0.5 * var(--font-size));

@@ -156,3 +156,7 @@
   border-radius: 999rem;
   padding: 3px;
 }
+
+.styled-input .subm-icon-loading {
+  line-height: 1em;
+}
