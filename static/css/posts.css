@@ -28,16 +28,26 @@
   cursor: pointer;
   font-size: 1.5rem;
   padding: 0 .8rem;
-  transition: filter .33s;
+  transition: filter .33s, transform .33s, text-shadow .33s;
 }
 .post-upvote {
-  color: green;
+  color: var(--color-upvote);
+  --color: var(--color-upvote);
 }
 .post-downvote {
-  color: darkred;
+  color: var(--color-downvote);
+  --color: var(--color-downvote);
 }
 .post-vote-icon:hover {
-  filter: brightness(150%);
+  filter: brightness(150%) contrast(150%);
+  text-shadow: 0 0 .3rem var(--color);
+  transform: translateY(10%);
+}
+.post-vote-icon.post-upvote:hover {
+  transform: translateY(-10%);
+}
+.post-vote-counter {
+  
 }
 
 .post-main-section {
@@ -62,13 +72,14 @@
   color: gray;
 }
 .post-topic {
+  position: relative;
   display: inline-block; 
   text-align: center;
   background: rgb(233, 62, 96); /* TODO this should be generated somehow */
   color: white;
   padding: .2rem .4rem;
   border-radius: .2rem;
-  transition: .33s;
+  transition: transform .33s;
   text-rendering: geometricPrecision;
 }
 .post-topic::before {
@@ -82,15 +93,6 @@
   transform: scale(1.05) rotate(-4deg);
   box-shadow: 0 0 .1rem rgba(0, 0, 0, .5);
 }
-/* .post-topic::after {
-  content: '#';
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: scale(1.5);
-  color: rgba(255,255,255,.5)
-} */
 
 .post-title {
   margin: 0;
@@ -111,4 +113,5 @@
 .npl-emote {
   color: var(--color-warn);
   font-size: 5rem;
+  transform: translateX(-25%);
 }

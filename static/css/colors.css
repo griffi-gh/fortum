@@ -8,4 +8,6 @@
   --color-error: #eb0000;
   --color-warn: var(--color-primary); /* Yellow doesn't look good on gray bg */
   --color-success: #008000;
+  --color-upvote: #008000;
+  --color-downvote: #8b0000;
 }

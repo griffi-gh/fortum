@@ -7,7 +7,7 @@
     </noscript> #}
     <div class="post-votes-section">
       <div class="post-upvote post-vote-icon"><i class="fa-solid fa-angle-up"></i></div>
-      <div>{{ post.votes }}</div>
+      <div class="post-vote-counter">{{ post.votes }}</div>
       <div class="post-downvote post-vote-icon"><i class="fa-solid fa-angle-down"></i></div>
     </div>
     <div class="post-main-section">
@@ -40,7 +40,7 @@
       {% if not post_page %}
         <div class="post-action-row">
           <a href="/post/{{ post.post_id }}" class="nocolor styled-button inline-button style-outline">
-            <span class="icon-export"></span>View post
+            <i class="fa-solid fa-arrow-up-right-from-square margin-icon"></i>View post
           </a>
         </div>
       {% endif %}

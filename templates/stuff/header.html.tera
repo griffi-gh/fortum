@@ -37,8 +37,8 @@
         Sign up
       </a>
       <a href="/login" id="header-login" class="styled-button with-shadow">
-        <span class="icon-login"></span>
-        Log in
+        <i class="fa-solid fa-right-to-bracket margin-icon"></i>
+        <span>Log in</span>
       </a>
     {% endif %}
   </div>

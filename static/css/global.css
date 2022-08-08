@@ -119,3 +119,6 @@ body {
   -webkit-font-smoothing: antialiased;
   font: var(--fa-font-solid);
 }
+.margin-icon {
+  margin-right: .3rem;
+}
