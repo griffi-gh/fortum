@@ -15,7 +15,7 @@
     <div class="flex-center">
       <h1>Sign up</h1>
       {% if success %}
-        <div class="register-success icon-ok-circled"></div>
+        <i class="register-success fa-solid fa-circle-check"></i>
         <p class="margin-bottom-only">Your account was created successfully</p>
         <a class="styled-button" href="/">Go home</a>
       {% else %}

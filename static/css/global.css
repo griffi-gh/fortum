@@ -1,4 +1,3 @@
-@import url("/static/fonts/all.css");
 @import url("./colors.css");
 @import url("./animation.css");
 @import url("./buttons.css");
@@ -87,20 +86,18 @@ body {
 .small-margin { margin: .25rem; }
 .margin-bottom-only { margin: 0; margin-bottom: 1rem; }
 
-.warning, .error, .success {
-  margin: .5rem;
-}
+.warning, .error, .success { margin: .5rem; }
 .error { color: var(--color-error); }
 .warning { color: var(--color-warn); }
 .success { color: var(--color-success); }
-.warning::before { content: '\e83c'; }
-.error::before { content: '\e83d'; }
-.success::before { content: '\e81a'; }
+.warning::before { content: "\f071"; }
+.error::before { content: "\f06a"; }
+.success::before { content: "\f058"; }
 .warning::before, .error::before, .success::before {
   display: inline-block;
-  font-family: fontello;
-  font-style: normal;
-  font-weight: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
   line-height: 1em;
   margin-right: .2em;
   margin-left: .4em;

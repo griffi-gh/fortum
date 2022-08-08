@@ -15,8 +15,7 @@
       id = "header-search-bar", 
       class = "rectangular unknown-background", 
       inner_id = "header-search-bar-inner", 
-      placeholder_allow_html = true,
-      placeholder = "<span class='icon-search'></span>Search"
+      placeholder = "Search"
     ) }}
   </div>
   <div id="header-right">

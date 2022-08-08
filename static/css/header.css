@@ -22,6 +22,11 @@
 #header-title:hover .header-logo-hover {
   display: inline-block;
 }
+#header-center {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
 #header-right {
   display: flex;
   align-items: stretch;

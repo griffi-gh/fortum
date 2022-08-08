@@ -118,6 +118,3 @@
   color: var(--color-warn);
   font-size: 5rem;
 }
-.npl-emote.icon-emo-beer {
-  transform: translateX(-25%);
-}

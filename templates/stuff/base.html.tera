@@ -3,14 +3,28 @@
 <html lang="en">
 <head>
   {% block head %}
+
+  {# generic html head tags #}
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  {# import js #}
   <script src="/static/js/global.js" async defer></script>
   <script src="/static/js/buttons.js" async defer></script>
   <script src="/static/js/header.js" async defer></script>
+
+  {# import stylesheets #}
   <link rel="stylesheet" href="/static/css/global.css">
-  <title>Forum: {% block title %}{% endblock title %}</title>
+
+  {# load fonts #}
+  <link rel="stylesheet" href="/static/fonts/FontAwesome/css/all.min.css">
+  <link rel="stylesheet" href="/static/fonts/fontello/css/fontello.min.css">
+  <link rel="stylesheet" href="/static/fonts/GoogleSans/style.css">
+  
+  {# page title #}
+  <title>Forum{% if title %}: {% block title %}{% endblock title %}{% endif %}</title>
+
   {% endblock head %}
 </head>
 <body class="{% block body_class %}{% endblock body_class %}">
