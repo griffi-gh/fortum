@@ -17,7 +17,6 @@ pub struct VoteData {
 pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection<MainDatabase>) -> Result<String, &'static str> {
   let mut vote = if data.is_upvote { 1 } else { -1 };
   //TODO this is *trribly* inefficient
-  //TODO wait this logic is still wrong *facepalm*
   let result = sqlx::query!(
       "SELECT vote_id, vote FROM votes WHERE user_id = $1 AND post_id = $2", 
       auth.user_id, data.id
@@ -26,11 +25,15 @@ pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection
     if data.allow_toggle {
       if data.is_upvote == result.vote {
         vote *= -1;
+        sqlx::query("DELETE FROM votes WHERE vote_id = $2")
+          .bind(result.vote_id)
+          .execute(&mut *db).await.unwrap();
+      } else {
+        sqlx::query("UPDATE votes SET vote = $1 WHERE vote_id = $2")
+          .bind(vote > 0)
+          .bind(result.vote_id)
+          .execute(&mut *db).await.unwrap();
       }
-      sqlx::query("UPDATE votes SET vote = $1 WHERE vote_id = $2")
-        .bind(vote > 0)
-        .bind(result.vote_id)
-        .execute(&mut *db).await.unwrap();
     } else {
       return Err("You've already voted before");
     }
