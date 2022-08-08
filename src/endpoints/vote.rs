@@ -16,25 +16,30 @@ pub struct VoteData {
 #[post("/vote/post", data = "<data>")]
 pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection<MainDatabase>) -> Result<String, &'static str> {
   let mut vote = if data.is_upvote { 1 } else { -1 };
-  //TODO this logic is fucked up, it should only invert if `vote` == data.is_upvote
-  let already_voted: bool = sqlx::query("SELECT not COUNT(*) = 0 FROM votes WHERE user_id = $1 AND post_id = $2")
-    .bind(auth.user_id)
-    .bind(data.id)
-    .fetch_one(&mut *db).await.unwrap()
-    .get(0);
-  if already_voted {
+  //TODO this is *trribly* inefficient
+  let result = sqlx::query!(
+      "SELECT vote_id, vote FROM votes WHERE user_id = $1 AND post_id = $2", 
+      auth.user_id, data.id
+    ).fetch_optional(&mut *db).await.unwrap();
+  if let Some(result) = result {
     if data.allow_toggle {
-      vote *= -1;
+      if data.is_upvote == result.vote {
+        vote *= -1;
+      }
+      sqlx::query("UPDATE votes SET vote = $1 WHERE vote_id = $2")
+        .bind(vote > 0)
+        .bind(result.vote_id)
+        .execute(&mut *db).await.unwrap();
     } else {
       return Err("You've already voted before");
     }
+  } else {
+    sqlx::query("INSERT INTO votes (user_id, post_id, vote) VALUES($1,$2,$3)")
+      .bind(auth.user_id)
+      .bind(data.id)
+      .bind(vote > 0)
+      .execute(&mut *db).await.unwrap();
   }
-  //TODO There should only be at most *ONE* vote object per user-post pair!
-  sqlx::query("INSERT INTO votes (user_id, post_id, vote) VALUES($1,$2,$3)")
-    .bind(auth.user_id)
-    .bind(data.id)
-    .bind(vote > 0)
-    .execute(&mut *db).await.unwrap();
   Ok(sqlx::query("UPDATE posts SET votes = votes + $1 WHERE post_id = $2 RETURNING votes")
     .bind(vote)
     .bind(data.id)
