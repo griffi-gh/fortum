@@ -11,3 +11,5 @@ Array.from(document.getElementsByClassName("form-with-loading")).forEach(form =>
     subm.disabled = true;
   });
 });
+const hasScrollbar = e => e.scrollHeight > e.clientHeight;
+document.body.classList.toggle('no-scrollbar', !hasScrollbar(document.body.parentNode));
