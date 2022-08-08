@@ -17,6 +17,7 @@ pub struct VoteData {
 pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection<MainDatabase>) -> Result<String, &'static str> {
   let mut vote = if data.is_upvote { 1 } else { -1 };
   //TODO this is *trribly* inefficient
+  //TODO wait this logic is still wrong *facepalm*
   let result = sqlx::query!(
       "SELECT vote_id, vote FROM votes WHERE user_id = $1 AND post_id = $2", 
       auth.user_id, data.id
