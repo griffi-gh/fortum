@@ -8,6 +8,7 @@
   {{ super() }}
   <link rel="stylesheet" href="/static/css/user.css">
   <link rel="stylesheet" href="/static/css/posts.css">
+  <script src="/static/js/posts.js" defer async></script>
 {% endblock head %}
 
 {% block body_top %}

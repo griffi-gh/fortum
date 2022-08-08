@@ -85,7 +85,8 @@
   left: 0;
   pointer-events: none;
   transform: translate(1.5rem, calc((1rem + 1em) / 3)) scale(1.1);
-  background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, white 51%, white 99%, transparent 100%);
+  /* background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, white 51%, white 99%, transparent 100%); */
+  background: linear-gradient(to bottom, transparent 0%, transparent calc(49% - 1px), white calc(49% - 1px), white calc(50% + 1px), white 55%, transparent 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: 999rem;
@@ -95,12 +96,10 @@
   color: gray;
   z-index: 2;
 }
-.styled-input.unknown-background > label {
-  background: linear-gradient(to bottom, transparent 0%, transparent calc(49% - 1px), white calc(49% - 1px), white calc(50% + 1px), white 55%, transparent 100%);
-}
 @-moz-document url-prefix() {
   .styled-input > input:autofill ~ label {
-    background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, #fffcc8 51%, #fffcc8 99%, transparent 100%);
+    /* background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, #fffcc8 51%, #fffcc8 99%, transparent 100%); */
+    background: linear-gradient(to bottom, transparent 0%, transparent calc(49% - 1px), white calc(49% - 1px), #fffcc8 calc(50% + 1px), #fffcc8 55%, transparent 100%);
   }
 }
 /* Thiccer outline while focused */

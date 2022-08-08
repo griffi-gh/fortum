@@ -10,13 +10,19 @@
     Forum
   </a>
   <div id="header-left">
-    {{ partials::styled_input(
-      name = "q", 
-      id = "header-search-bar", 
-      class = "rectangular unknown-background", 
-      inner_id = "header-search-bar-inner", 
-      placeholder = "Search"
-    ) }}
+    <form action="/search" method="GET" autocomplete="off" class="form-with-loading" id="header-search-form">
+      {{ partials::styled_input(
+        name = "q", 
+        id = "header-search-bar", 
+        class = "rectangular unknown-background", 
+        inner_id = "header-search-bar-inner", 
+        placeholder = "Search",
+        required = true
+      )}}
+      <button type="submit" id="header-search-submit" mozactionhint="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </form>
   </div>
   <div id="header-right">
     {% if vars.user %}

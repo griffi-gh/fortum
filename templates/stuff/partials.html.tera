@@ -1,23 +1,17 @@
 {% macro post(post, post_page=false) %}
   <div class="post">
-    {# <noscript>
-      <form action="/vote" method="POST">
-        <input type="hidden" name="post_id" value="{{}}">
-      </form>
-    </noscript> #}
     <div class="post-votes-section">
-      <div class="post-upvote post-vote-icon"><i class="fa-solid fa-angle-up"></i></div>
-      <div class="post-vote-counter">{{ post.votes }}</div>
-      <div class="post-downvote post-vote-icon"><i class="fa-solid fa-angle-down"></i></div>
+      <button data-post-id="{{ post.post_id }}" data-counter-id="upvote-counter-{{ post.post_id }}" class="post-upvote post-vote-icon"><i class="fa-solid fa-angle-up"></i></button>
+      <div id="upvote-counter-{{ post.post_id }}" class="post-vote-counter">
+        <span class="upvctr-value">{{ post.votes }}</span>
+        <i class="upvctr-loading animate-spin fa-solid fa-spinner-third"></i>
+      </div>
+      <button data-post-id="{{ post.post_id }}" data-counter-id="upvote-counter-{{ post.post_id }}" class="post-downvote post-vote-icon"><i class="fa-solid fa-angle-down"></i></button>
     </div>
     <div class="post-main-section">
       <div class="post-author">
         <a class="nocolor" href="/user/{{ post.user_id }}">
-          {% if post.profile_image %}
-            <img class="post-pfp" src="{{ post.profile_image }}" alt="">
-          {% else %}
-            <img class="post-pfp" src="/static/images/user.jpg" alt="">
-          {% endif %}
+          <img class="post-pfp" src="{% if post.profile_image %}{{ post.profile_image }}{% else %}/static/images/user.jpg{% endif %}" width="40" height="40" alt="Profile image">
           <div class="post-username">
             <span class="post-username-lol">
               {% if post.username %} 
@@ -65,23 +59,31 @@
   {% endif %}
 {% endmacro post_view %}
 
-{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1) %}
+{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='') %}
   {% if inner_id == "AUTO" %}
     {% set inner_id = "id-" ~ name ~ "-" ~ placeholder ~ "-" ~ size %}
   {% endif %}
   <div class="styled-input {% if password %}show-caps{% endif %} {{ class }}" id="{{id}}">
-    <input type="{% if password %}password{% else %}text{% endif %}" name="{{ name }}" {% if required %} required="required" {% endif %}  id="{{ inner_id }}" placeholder=" " {% if size > 0 %} size="{{size}}" {% endif %}>
+    <input 
+      type="{% if password %}password{% else %}text{% endif %}" 
+      name="{{ name }}" 
+      {% if required %} required="required" {% endif %}  
+      id="{{ inner_id }}" 
+      placeholder=" " 
+      {% if size > 0 %} size="{{size}}" {% endif %} 
+      {% if autocomplete %} autocomplete="{{autocomplete}}" {% endif %}
+    >
     <label for="{{ inner_id }}">{{ placeholder }}</label>
   </div>  
 {% endmacro styled_input %}
 
-{% macro styled_submit_button(id="", value="Submit") %}
+{% macro styled_submit_button(id="", value="Submit", icon_class="fa-solid fa-chevron-right", loading_icon_class="fa-solid fa-spinner-third") %}
   <button type="submit" class="block styled-button" id="{{id}}">
     <div class="styled-button-icons">
-      <span class="styled-button-icon styled-button-icon-selected fa-solid fa-chevron-right"></span>
-      <span class="styled-button-icon fa-solid fa-spinner-third animate-spin subm-icon-loading"></span> 
+      <span class="styled-button-icon styled-button-icon-selected {{icon_class}}"></span>
+      <span class="styled-button-icon animate-spin subm-icon-loading {{loading_icon_class}}"></span> 
     </div>
-    <span>{% if value %}{{ value }}{% else %}Submit{% endif %}</span> 
+    <span>{{ value }}</span> 
   </button>
 {% endmacro styled_submit_button %}
 
@@ -98,4 +100,7 @@
       <span class="error">Your account is suspended</span>
     {% endif %}
   {% endif %}
+  <noscript>
+    <div class="warning flex-center flex-row">Javascript is disabled. Some features of the website may not work as expected</div>
+  </noscript>
 {% endmacro account_status_warnings %}

@@ -25,6 +25,9 @@
   align-items: center;
 }
 .post-vote-icon {
+  background: none;
+  border: none;
+  outline: none;
   cursor: pointer;
   font-size: 1.5rem;
   padding: 0 .8rem;
@@ -47,8 +50,25 @@
   transform: translateY(-10%);
 }
 .post-vote-counter {
-  
+  display: grid;
+  place-items: center;
+  z-index: 0;
 }
+.post-vote-counter > * {
+  display: inline-block;
+  grid-row: 1;
+  grid-column: 1;
+  transition: opacity .15s;
+}
+.upvctr-value {
+  z-index: 1;
+}
+.upvctr-loading {
+  opacity: 0;
+  z-index: 2;
+}
+.post-vote-counter.loading .upvctr-loading { opacity: 1; }
+.post-vote-counter.loading .upvctr-value { opacity: 0; }
 
 .post-main-section {
   flex: 1;
