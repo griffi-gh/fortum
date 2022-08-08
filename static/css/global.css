@@ -36,11 +36,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 @-moz-document url-prefix() {
   :root {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-primary) var(--color-background);
+    scrollbar-color: var(--color-primary) white;
+  }
+  /* Scrollbar separator on Firefox */
+  body::after {
+    content: '';
+    display: block;
+    position: fixed;
+    inset: 0;
+    left: unset;
+    z-index: 10000;
+    border-right: 1px solid rgba(0, 0, 0, .25);
+    pointer-events: none;
   }
 }
 ::-webkit-scrollbar {
