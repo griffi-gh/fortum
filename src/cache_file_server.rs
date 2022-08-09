@@ -1,8 +1,5 @@
 use std::path::{PathBuf, Path};
 use rocket::{Request, fs::NamedFile, response::{self, Responder}, Response};
-// use std::hash::{Hash, Hasher};
-// use std::io::Read;
-// use std::collections::hash_map::DefaultHasher;
 
 pub struct CachedFile(NamedFile);
 impl<'r, 'o: 'r> Responder<'r, 'o> for CachedFile {

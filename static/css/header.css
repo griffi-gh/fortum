@@ -85,6 +85,7 @@
   grid-column: 1;
   grid-row: 1;
   transition: opacity .33s, color .33s;
+  white-space: nowrap;
 } 
 #loggedinas-text { opacity: 1; z-index: 1; }
 #logout-button { opacity: 0; z-index: 2; }
@@ -103,7 +104,31 @@
 #header-search-bar {
   opacity: .65;
   width: 33vw;
+  min-width: 120px;
+  max-width: 30rem;
   backdrop-filter: blur(8px);
+}
+@media only screen and (max-width: 350px) {
+  #header-title {
+    transition: transform .5s;
+    transform: translateY(-200%);
+    position: absolute;
+  }
+  #header-search-bar, #header-left {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 250px) {
+  #header {
+    flex-direction: column;
+  }
+  #header-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-bottom: .33rem;
+  }
 }
 #header-search-form {
   position: relative;

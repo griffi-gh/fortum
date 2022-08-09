@@ -17,7 +17,8 @@
         class = "rectangular unknown-background", 
         inner_id = "header-search-bar-inner", 
         placeholder = "Search",
-        required = true
+        required = true,
+        size = 1
       )}}
       <button type="submit" id="header-search-submit" mozactionhint="search">
         <i class="fa-solid fa-magnifying-glass"></i>
