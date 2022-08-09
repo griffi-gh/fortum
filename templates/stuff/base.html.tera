@@ -18,9 +18,9 @@
   <link rel="stylesheet" href="/static/css/global.css">
 
   {# load fonts #}
-  <link rel="stylesheet" href="/static/fonts/FontAwesome/css/all.min.css">
-  <link rel="stylesheet" href="/static/fonts/Fontello/css/fontello.min.css">
-  <link rel="stylesheet" href="/static/fonts/GoogleSans/style.css">
+  <link rel="stylesheet" href="/static/cached/fonts/FontAwesome/css/all.min.css">
+  <link rel="stylesheet" href="/static/cached/fonts/Fontello/css/fontello.min.css">
+  <link rel="stylesheet" href="/static/cached/fonts/GoogleSans/style.css">
   
   {# page title #}
   <title>Forum{% if title %}: {% block title %}{% endblock title %}{% endif %}</title>

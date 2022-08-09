@@ -11,6 +11,7 @@ pub mod db;
 pub mod consts;
 pub mod endpoints;
 pub mod common;
+mod cache_file_server;
 
 use endpoints::{
   index::index,
@@ -44,4 +45,5 @@ fn rocket() -> _ {
       vote
     ])
     .mount("/static", FileServer::from("./static/"))
+    .mount("/static/cached/", routes![cache_file_server::files])
 }
