@@ -8,3 +8,4 @@ pub mod submit;
 pub mod verify;
 pub mod post;
 pub mod vote;
+pub mod dyn_profile_image;

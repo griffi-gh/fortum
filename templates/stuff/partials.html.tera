@@ -11,7 +11,7 @@
     <div class="post-main-section">
       <div class="post-author">
         <a class="nocolor" href="/user/{{ post.user_id }}">
-          <img class="post-pfp" src="{% if post.profile_image %}{{ post.profile_image }}{% else %}/static/images/user.jpg{% endif %}" width="40" height="40" alt="Profile image">
+          <img class="post-pfp" src='{{ partials::profile_image(url = post.profile_image | default(value=""), usr = post.username) }}' width="40" height="40" alt="Profile image">
           <div class="post-username">
             <span class="post-username-lol">
               {% if post.username %} 
@@ -103,4 +103,8 @@
   <noscript>
     <div class="warning flex-center flex-row">Javascript is disabled. Some features of the website may not work as expected</div>
   </noscript>
+{% endmacro account_status_warnings %}
+
+{% macro profile_image(url="", usr="") %}
+  {% if url %}{{ url }}{% else %}/dyn/profile_image.svg?usr={{ usr }}{% endif %}
 {% endmacro account_status_warnings %}

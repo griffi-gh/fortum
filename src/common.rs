@@ -3,10 +3,9 @@ use rocket::Request;
 use rocket::request::{FromRequest, Outcome};
 use rocket::serde::Serialize;
 use rocket_db_pools::Connection;
+use chrono::{DateTime, Utc};
 use crate::db::{MainDatabase, User};
 use crate::consts::AUTH_COOKIE_NAME;
-use sqlx::{self, Row, postgres::PgRow};
-use chrono::{DateTime, Utc};
 
 fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
   match cookies.get_private(AUTH_COOKIE_NAME) {

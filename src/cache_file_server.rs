@@ -5,7 +5,7 @@ pub struct CachedFile(NamedFile);
 impl<'r, 'o: 'r> Responder<'r, 'o> for CachedFile {
   fn respond_to(self, req: &'r Request<'_>) -> response::Result<'o> {
     Response::build_from(self.0.respond_to(req)?)
-      .raw_header("Cache-control", "max-age=1209600") // 2 weeks (2*7*24*60*60)
+      .raw_header("Cache-control", "max-age=1209600") // 2 weeks (14*24*60*60 seconds)
       .ok()
   }
 }

@@ -1,10 +1,9 @@
-use rocket::response::Redirect;
+use rocket::response::status::BadRequest;
 use rocket::form::Form;
-use rocket_dyn_templates::{Template, context};
 use rocket_db_pools::Connection;
 use sqlx::{self, Row};
 use crate::db::MainDatabase;
-use crate::common::{TemplateVars, TemplatePost, Authentication};
+use crate::common::Authentication;
 
 #[derive(FromForm)]
 pub struct VoteData {
@@ -14,14 +13,14 @@ pub struct VoteData {
 }
 
 #[post("/vote/post", data = "<data>")]
-pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection<MainDatabase>) -> Result<String, &'static str> {
+pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection<MainDatabase>) -> Result<String, BadRequest<&'static str>> {
   // Check if post exists
   let post_exists: bool = sqlx::query("SELECT not COUNT(*) = 0 FROM posts WHERE post_id = $1")
     .bind(data.id)
     .fetch_one(&mut *db).await.unwrap()
     .get(0);
   if !post_exists {
-    return Err("Post doesn't exist");
+    return Err(BadRequest(Some("Post doesn't exist")));
   }
 
   let mut vote_modify = if data.is_upvote { 1 } else { -1 };
@@ -35,7 +34,7 @@ pub async fn vote(data: Form<VoteData>, auth: Authentication, mut db: Connection
     if data.is_upvote == result.vote {
       // CASE 1: Vote cancelled
       if !data.allow_toggle {
-        return Err("You've already voted before");
+        return Err(BadRequest(Some("You've already voted before")));
       }
       vote_modify *= -1;
       sqlx::query("DELETE FROM votes WHERE vote_id = $1")

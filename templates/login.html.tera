@@ -23,8 +23,8 @@
           <p class="error">{{error}}</p>
         {% endif %}
         <form action="#" method="post" class="form-with-loading flex-center" id="login-form">
-          {{ partials::styled_input(name = "email", placeholder = "Email", required = true, size = 40) }}
-          {{ partials::styled_input(name = "password", placeholder = "Password", required = true, password = true, size = 40) }}
+          {{ partials::styled_input(name = "email", placeholder = "Email", required = true, size = 40, autocomplete = "email") }}
+          {{ partials::styled_input(name = "password", placeholder = "Password", required = true, password = true, size = 40, autocomplete = "current-password") }}
           {{ partials::styled_submit_button(value = "Login") }}
         </form>
         <p>

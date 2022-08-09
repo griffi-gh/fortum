@@ -22,6 +22,7 @@ use endpoints::{
   submit::{submit, submit_post, submit_post_error},
   post::{post},
   vote::{vote},
+  dyn_profile_image::profile_image
 };
 
 #[launch]
@@ -42,7 +43,8 @@ fn rocket() -> _ {
       user, user_self,
       submit, submit_post, submit_post_error,
       post,
-      vote
+      vote,
+      profile_image
     ])
     .mount("/static", FileServer::from("./static/"))
     .mount("/static/cached/", routes![cache_file_server::files])

@@ -31,8 +31,7 @@
     </div>
     <div id="pfp-overlay">
       <div class="pfp-image-wrapper">
-        {# <img src="{% if post.profile_image %}{{ user.profile_image }}{% else %}/static/images/user.jpg{% endif %}" alt="Profile image" width="200" height="200"> #}
-        <img src="/static/images/user.jpg" alt="Profile image" width="200" height="200">
+        <img src='{{ partials::profile_image(url = user.profile_image | default(value=""), usr = user.username) }}' alt="Profile image" width="200" height="200">
       </div>
     </div>
     <div id="pfp-overlay-spacer">
