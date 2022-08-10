@@ -117,6 +117,14 @@ impl MainDatabase {
 
   // Assumes that user exists!
   pub async fn submit_post(db: &mut Connection<Self>, author: Option<i32>, topic_id: i32, title: &str, body: Option<&str>) -> Result<i32, &'static str> {
+    if title.len() > 255 {
+      return Err("Post title too long");
+    }
+    if let Some(body) = body {
+      if body.len() > 3000 {
+        return Err("Post body too long");
+      }
+    }
     if title.trim().is_empty() {
       return Err("Empty post title"); 
     }
