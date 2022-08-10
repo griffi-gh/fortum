@@ -147,7 +147,7 @@ impl MainDatabase {
     todo!()
 
     //nvm this is a *very* bad idea
-    
+
     //Can't use query_as because query string is dynamic...
     //   sqlx::query(&format!(
     //       r#"
@@ -198,5 +198,5 @@ impl MainDatabase {
     //       user_id: row.get(7),
     //       post_id: row.get(8),
     //   }).collect()
-    // }
+  }
 }
