@@ -106,5 +106,5 @@
 {% endmacro account_status_warnings %}
 
 {% macro profile_image(url="", usr="") %}
-  {% if url %}{{ url }}{% else %}/dyn/profile_image.svg?usr={{ usr }}&a{% endif %}
+  {% if url %}{{ url }}{% else %}/dyn/profile_image.svg?usr={{ usr | urlencode_strict }}&b{% endif %}
 {% endmacro account_status_warnings %}
