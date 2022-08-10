@@ -10,6 +10,7 @@
   border-bottom: 1px solid lightgray;
   border-bottom-color: rgba(128,128,128,.33);
   backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 #header-title {
   display: block;
@@ -101,13 +102,6 @@
   bottom: unset;
 }
 
-#header-search-bar {
-  opacity: .65;
-  width: 33vw;
-  min-width: 120px;
-  max-width: 30rem;
-  backdrop-filter: blur(8px);
-}
 @media only screen and (max-width: 350px) {
   #header-title {
     transition: transform .5s;
@@ -128,6 +122,25 @@
     align-items: center;
     margin: 0;
     margin-bottom: .33rem;
+  }
+}
+
+#header-search-bar {
+  opacity: .65;
+  width: 33vw;
+  min-width: 120px;
+  max-width: 30rem;
+}
+@-moz-document url-prefix() {
+  /* 
+    This shit breaks my shitty opacity-related code 
+    (that shouldn't be there in the first place)
+    on all Chromium-based browsers.
+    Firefox implementation is better.
+  */
+  #header-search-bar {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 }
 #header-search-form {
