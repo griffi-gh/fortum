@@ -152,8 +152,35 @@ impl MainDatabase {
   }
 
   pub async fn fetch_posts<'a>(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'a>) -> Vec<TemplatePost> {
-    todo!()
-
+    sqlx::query_as!(TemplatePost, r#"
+        SELECT 
+          users.username AS "username?", 
+          users.profile_image AS "profile_image?",
+          posts.title AS "title!", 
+          posts.content AS "content?", 
+          posts.created_on AS "created_on!", 
+          topics.topic_name AS "topic_name!", 
+          posts.votes AS "votes!",
+          users.user_id AS "user_id?",
+          posts.post_id as "post_id!"
+        FROM posts
+        LEFT JOIN users ON users.user_id = posts.author
+        INNER JOIN topics ON topics.topic_id = posts.topic
+        ORDER BY
+          CASE WHEN $1 = 0 THEN posts.created_on END DESC, 
+          CASE WHEN $1 = 1 THEN posts.created_on END ASC, 
+          CASE WHEN $1 = 2 THEN posts.votes END DESC, 
+          CASE WHEN $1 = 3 THEN posts.votes END ASC
+      "#, match sort {
+        PostSort::ByDate(ord) => match ord {
+          PostSortDirection::Descending => 0,
+          PostSortDirection::Ascending => 1,
+        },
+        PostSort::ByVotes(ord) => match ord {
+          PostSortDirection::Descending => 2,
+          PostSortDirection::Ascending => 3,
+        }
+      }).fetch_all(executor(db)).await.unwrap()
     //nvm this is a *very* bad idea
 
     //Can't use query_as because query string is dynamic...
