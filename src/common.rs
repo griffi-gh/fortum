@@ -117,7 +117,6 @@ pub enum PostSortDirection {
   Ascending, Descending  
 }
 
-
 #[derive(Clone, Copy)]
 #[non_exhaustive]
 pub enum PostSort {
@@ -127,10 +126,11 @@ pub enum PostSort {
 
 #[derive(Clone, Copy, Default)]
 #[non_exhaustive]
-pub enum PostFilter {
+pub enum PostFilter<'a> {
   #[default] None,
-  ByTopic(i32),
-  ByUser(i32),
+  ByTopicId(i32),
+  ByTopicName(&'a str),
+  ByUserId(i32),
 }
 
 //==============================================================
