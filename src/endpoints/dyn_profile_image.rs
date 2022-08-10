@@ -36,11 +36,13 @@ pub async fn profile_image(usr: &str) -> SvgResponse {
     (color[0] as f32) * 0.587 + 
     (color[0] as f32) * 0.114
   };
+  let user_char = usr.trim_start().chars().next().unwrap_or('?');
   let svg = format!(
-    "<svg version=\"1.1\" viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"64\" height=\"64\" fill=\"#{color:06x}\"/><text x=\"50%\" y=\"50%\" dominant-baseline=\"central\" text-anchor=\"middle\" font-family=\"'Google Sans'\" font-size=\"40px\" fill=\"#{text_color:06x}\">{text}</text></svg>",
+    "<svg version=\"1.1\" viewBox=\"0 0 64 64\" xmlns=\"http://www.w3.org/2000/svg\"><rect width=\"64\" height=\"64\" fill=\"#{color:06x}\"/><text x=\"50%\" y=\"50%\" dominant-baseline=\"{baseline}\" text-anchor=\"middle\" font-family=\"'Google Sans'\" font-size=\"40px\" fill=\"#{text_color:06x}\">{text}</text></svg>",
     color = usr_hash,
     text_color = if brightness < 186. { 0xFFFFFF } else { 0 },
-    text = usr.trim_start().chars().next().unwrap_or('?')
+    text = user_char,
+    baseline = if user_char.is_lowercase() { "middle" } else { "central" } // Use `central` for upper-case and `middle` for lower-case
   );
   SvgResponse(svg)
 }
