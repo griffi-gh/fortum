@@ -182,57 +182,5 @@ impl MainDatabase {
           PostSortDirection::Ascending => 3,
         }
       }).fetch_all(executor(db)).await.unwrap()
-    //nvm this is a *very* bad idea
-
-    //Can't use query_as because query string is dynamic...
-    //   sqlx::query(&format!(
-    //       r#"
-    //         SELECT 
-    //           users.username AS username, 
-    //           users.profile_image AS profile_image,
-    //           posts.title AS title, 
-    //           posts.content AS content, 
-    //           posts.created_on AS created_on, 
-    //           topics.topic_name AS topic_name, 
-    //           posts.votes AS votes,
-    //           users.user_id AS user_id,
-    //           posts.post_id as post_id
-    //         FROM posts
-    //         LEFT JOIN users ON users.user_id = posts.author
-    //         INNER JOIN topics ON topics.topic_id = posts.topic
-    //         {query_where}
-    //         {query_order_by};
-    //       "#,
-    //       query_where = match filter {
-    //         PostFilter::None => "",
-    //         PostFilter::ByTopicId(id) => "WHERE topics.topic_id = $1", //May or may not work
-    //         PostFilter::ByTopicName(name) => "WHERE topics.topic_name = $2",
-    //         _ => panic!("Filter type not supported")
-    //       },
-    //       query_order_by = {
-    //         let (order_key, order) = match sort {
-    //           PostSort::ByDate(dir) => ("created_on", dir),
-    //           PostSort::ByVotes(dir) => ("created_on", dir),
-    //           _ => panic!("Sort type not supported")
-    //         };
-    //         format!("ORDER BY {} {}", order_key, match order {
-    //           PostSortDirection::Ascending => "ASC",
-    //           PostSortDirection::Descending => "DESC",
-    //         })
-    //       }
-    //     ))
-    //     .fetch_all(executor(db)).await.unwrap()
-    //     .iter().map(|row| TemplatePost {
-    //       //...So I had to write this monstosity
-    //       username: row.get(0),
-    //       profile_image: row.get(1),
-    //       title: row.get(2),
-    //       content: row.get(3),
-    //       created_on: row.get(4),
-    //       topic_name: row.get(5),
-    //       votes: row.get(6),
-    //       user_id: row.get(7),
-    //       post_id: row.get(8),
-    //   }).collect()
   }
 }
