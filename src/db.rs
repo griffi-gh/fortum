@@ -152,6 +152,7 @@ impl MainDatabase {
   }
 
   pub async fn fetch_posts<'a>(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'a>) -> Vec<TemplatePost> {
+    //TODO add support for filters
     sqlx::query_as!(TemplatePost, r#"
         SELECT 
           users.username AS "username?", 
