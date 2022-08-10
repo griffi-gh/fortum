@@ -18,8 +18,8 @@ pub struct LoginData {
 }
 
 #[post("/login", data = "<data>")]
-pub async fn post_login(data: Form<LoginData>, db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Redirect {
-  match MainDatabase::login(db, &data.email, &data.password).await {
+pub async fn post_login(data: Form<LoginData>, mut db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Redirect {
+  match MainDatabase::login(&mut db, &data.email, &data.password).await {
     Ok(token) => {
       cookies.add_private(Cookie::build("auth", token).secure(true).finish());
       Redirect::to(uri!("/"))
