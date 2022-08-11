@@ -6,7 +6,7 @@
     linear-gradient(black,black);
   overflow: hidden;
   padding-top: var(--estim-header-height, 2rem);
-  padding-bottom: 10vh;
+  padding-bottom: calc(var(--estim-header-height, 2rem) / 2);
   background-size: cover;
   background-position: center;
   height: 50vh;
@@ -72,9 +72,9 @@
   transition: opacity .5s;
   opacity: 1;
 }
-#header-right.hhide:not(:hover) {
-  opacity: 0;
-}
 #header-right.hhide {
-  position: absolute;
+  opacity: 0;
+  position: fixed;
+  top: -100%;
+  right: 100%;
 }
