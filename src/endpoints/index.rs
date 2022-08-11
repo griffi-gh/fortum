@@ -1,27 +1,17 @@
 use rocket_dyn_templates::{Template, context};
 use rocket_db_pools::Connection;
-use sqlx;
 use crate::db::MainDatabase;
-use crate::common::{TemplateVars, TemplatePost};
+use crate::common::{TemplateVars, PostSort, SortDirection::*, PostFilter};
+use crate::consts::RESULTS_PER_PAGE;
 
-#[get("/")]
-pub async fn index(vars: TemplateVars, mut db: Connection<MainDatabase>) -> Template {
-  let posts = sqlx::query_as!(TemplatePost, r#"
-    SELECT 
-      users.username AS "username?", 
-      users.profile_image AS profile_image,
-      posts.title AS title, 
-      posts.content AS content, 
-      posts.created_on AS created_on, 
-      topics.topic_name AS topic_name, 
-      posts.votes AS votes,
-      users.user_id AS "user_id?",
-      posts.post_id as post_id
-    FROM posts
-    LEFT JOIN users ON users.user_id = posts.author
-    INNER JOIN topics ON topics.topic_id = posts.topic
-    ORDER BY votes DESC
-    LIMIT 25;
-  "#).fetch_all(&mut *db).await.unwrap();
+#[get("/?<page>")]
+pub async fn index(vars: TemplateVars, mut db: Connection<MainDatabase>, page: Option<u32>) -> Template {
+  let posts = MainDatabase::fetch_posts(
+    &mut db, 
+    PostSort::ByVotes(Descending), 
+    PostFilter::None,
+    page.unwrap_or_default(),
+    RESULTS_PER_PAGE
+  ).await;
   Template::render("index", context! { vars, posts })
 }

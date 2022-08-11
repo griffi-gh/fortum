@@ -9,11 +9,14 @@ use crate::consts::AUTH_COOKIE_NAME;
 
 //== UTILS =====================================================
 
+pub fn div_up(a: usize, b: usize) -> usize {
+  (a + (b - 1)) / b
+}
+
 //TODO allow passing any db as input
 pub fn executor<'a>(db: &'a mut Connection<MainDatabase>) -> &'a mut sqlx::pool::PoolConnection<sqlx::Postgres> {
   &mut *(*db)
 }
-
 fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
   match cookies.get_private(AUTH_COOKIE_NAME) {
     Some(x) => Some(x.value().to_owned()),
@@ -113,15 +116,15 @@ pub struct TemplatePost {
 }
 
 #[derive(Clone, Copy)]
-pub enum PostSortDirection {
+pub enum SortDirection {
   Ascending, Descending  
 }
 
 #[derive(Clone, Copy)]
 #[non_exhaustive]
 pub enum PostSort {
-  ByDate(PostSortDirection),
-  ByVotes(PostSortDirection)
+  ByDate(SortDirection),
+  ByVotes(SortDirection)
 }
 
 #[derive(Clone, Copy, Default)]

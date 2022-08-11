@@ -5,3 +5,4 @@ lazy_static! {
   pub static ref PASSWORD_REGEX: Regex = Regex::new(r".{8,}").unwrap();
 }
 pub const AUTH_COOKIE_NAME: &str = "auth";
+pub const RESULTS_PER_PAGE: u32 = 25;

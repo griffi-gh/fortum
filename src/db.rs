@@ -3,10 +3,7 @@ use sqlx::{self, PgPool, Row};
 use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
 use crate::{consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX}, common::TemplatePost};
-#[deprecated]
-pub use crate::common::{User, UserRole};
-use crate::common::{executor, PostFilter, PostSort, PostSortDirection};
-use std::num::NonZeroU32;
+use crate::common::{executor, div_up, User, PostFilter, PostSort, SortDirection};
 
 #[derive(Database)]
 #[database("main")]
@@ -152,14 +149,10 @@ impl MainDatabase {
     Ok(post_id)
   }
 
-  // pub async fn count_pages<'a>(db: &mut Connection<Self>, filter: PostFilter<'a>, max_results_on_page: NonZeroU32) -> u32 {
-  //   sqlx::query("SELECT count(*) FROM posts")
-  //     .fetch_one(executor(db)).await.unwrap().get(0)
-  // }
-
-  pub async fn fetch_posts<'a>(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'a>, page: u32, max_results_on_page: NonZeroU32) -> Vec<TemplatePost> {
-    //TODO add support for filters
+  pub async fn fetch_posts<'a>(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'a>, page: u32, max_results_on_page: u32) -> Vec<TemplatePost> {
+    //This is pretty inefficient but hey it works!
     //OFFSET is slow btw, https://use-the-index-luke.com/no-offset
+    assert!(max_results_on_page > 0);
     let filter_options = match filter {
       PostFilter::None => (0, None, None, None),
       PostFilter::ByTopicId(id) => (1, Some(id), None, None),
@@ -197,22 +190,28 @@ impl MainDatabase {
       "#, 
       match sort {
         PostSort::ByDate(ord) => match ord {
-          PostSortDirection::Descending => 1,
-          PostSortDirection::Ascending => 2,
+          SortDirection::Descending => 1,
+          SortDirection::Ascending => 2,
         },
         PostSort::ByVotes(ord) => match ord {
-          PostSortDirection::Descending => 3,
-          PostSortDirection::Ascending => 4,
+          SortDirection::Descending => 3,
+          SortDirection::Ascending => 4,
         },
         #[allow(unreachable_patterns)]
         _ => unimplemented!("Sort type not implemented")
       }, 
-      max_results_on_page.get() as i64,
-      (page as i64) * (max_results_on_page.get() as i64),
+      max_results_on_page as i64,
+      (page as i64) * (max_results_on_page as i64),
       filter_options.0,
       filter_options.1,
       filter_options.2,
       filter_options.3
     ).fetch_all(executor(db)).await.unwrap()
+  }
+
+  pub async fn count_pages<'a>(db: &mut Connection<Self>, filter: PostFilter<'a>, results_per_page: u32) -> u32 {
+    //! //HACK Turn this into it's own query, this is extemely slow
+    let post_count = Self::fetch_posts(db, PostSort::ByDate(SortDirection::Descending), filter, 0, u32::MAX).await.len();
+    div_up(post_count, results_per_page as usize) as u32
   }
 }
