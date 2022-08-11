@@ -6,6 +6,7 @@ use crate::{consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX}, common::Templ
 #[deprecated]
 pub use crate::common::{User, UserRole};
 use crate::common::{executor, PostFilter, PostSort, PostSortDirection};
+use std::num::NonZeroU32;
 
 #[derive(Database)]
 #[database("main")]
@@ -151,8 +152,22 @@ impl MainDatabase {
     Ok(post_id)
   }
 
-  pub async fn fetch_posts<'a>(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'a>) -> Vec<TemplatePost> {
+  // pub async fn count_pages<'a>(db: &mut Connection<Self>, filter: PostFilter<'a>, max_results_on_page: NonZeroU32) -> u32 {
+  //   sqlx::query("SELECT count(*) FROM posts")
+  //     .fetch_one(executor(db)).await.unwrap().get(0)
+  // }
+
+  pub async fn fetch_posts<'a>(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'a>, page: u32, max_results_on_page: NonZeroU32) -> Vec<TemplatePost> {
     //TODO add support for filters
+    //OFFSET is slow btw, https://use-the-index-luke.com/no-offset
+    let filter_options = match filter {
+      PostFilter::None => (0, None, None, None),
+      PostFilter::ByTopicId(id) => (1, Some(id), None, None),
+      PostFilter::ByTopicName(name) => (2, None, Some(name), None),
+      PostFilter::ByUserId(id) => (3, None, None, Some(id)),
+      #[allow(unreachable_patterns)]
+      _ => unimplemented!("Filter type not implemented")
+    };
     sqlx::query_as!(TemplatePost, r#"
         SELECT 
           users.username AS "username?", 
@@ -167,20 +182,37 @@ impl MainDatabase {
         FROM posts
         LEFT JOIN users ON users.user_id = posts.author
         INNER JOIN topics ON topics.topic_id = posts.topic
+        WHERE (
+          $4 = 0 OR
+          ($4 = 1 AND topics.topic_id = $5) OR
+          ($4 = 2 AND topics.topic_name = $6) OR
+          ($4 = 3 AND users.user_id = $7)
+        )
         ORDER BY
-          CASE WHEN $1 = 0 THEN posts.created_on END DESC, 
-          CASE WHEN $1 = 1 THEN posts.created_on END ASC, 
-          CASE WHEN $1 = 2 THEN posts.votes END DESC, 
-          CASE WHEN $1 = 3 THEN posts.votes END ASC
-      "#, match sort {
+          CASE WHEN $1 = 1 THEN posts.created_on END DESC, 
+          CASE WHEN $1 = 2 THEN posts.created_on END ASC, 
+          CASE WHEN $1 = 3 THEN posts.votes END DESC, 
+          CASE WHEN $1 = 4 THEN posts.votes END ASC
+        LIMIT $2 OFFSET $3
+      "#, 
+      match sort {
         PostSort::ByDate(ord) => match ord {
-          PostSortDirection::Descending => 0,
-          PostSortDirection::Ascending => 1,
+          PostSortDirection::Descending => 1,
+          PostSortDirection::Ascending => 2,
         },
         PostSort::ByVotes(ord) => match ord {
-          PostSortDirection::Descending => 2,
-          PostSortDirection::Ascending => 3,
-        }
-      }).fetch_all(executor(db)).await.unwrap()
+          PostSortDirection::Descending => 3,
+          PostSortDirection::Ascending => 4,
+        },
+        #[allow(unreachable_patterns)]
+        _ => unimplemented!("Sort type not implemented")
+      }, 
+      max_results_on_page.get() as i64,
+      (page as i64) * (max_results_on_page.get() as i64),
+      filter_options.0,
+      filter_options.1,
+      filter_options.2,
+      filter_options.3
+    ).fetch_all(executor(db)).await.unwrap()
   }
 }
