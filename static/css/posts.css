@@ -9,16 +9,15 @@
   margin-bottom: 1rem;
 }
 @media only screen and (min-width: 1000px) {
-  .post {
+  .post, .scale-as-post {
     max-width: 75vw;
   }
 }
 @media only screen and (min-width: 1400px) {
-  .post {
+  .post, .scale-as-post {
     max-width: 50vw;
   }
 }
-
 .post-votes-section {
   display: flex;
   flex-direction: column;

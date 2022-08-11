@@ -1,0 +1,42 @@
+#landing {
+  background: radial-gradient(rgba(0,0,0,.65), rgba(0,0,0,.25) 50%, transparent), url(/static/cached/images/background/1.jpg);
+  overflow: hidden;
+  padding-top: var(--estim-header-height, 2rem);
+  padding-bottom: 10vh;
+  background-size: cover;
+  background-position: center;
+  height: 50vh;
+  min-height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 0 0 .1rem black;
+}
+#landing-tagline {
+  text-align: center;
+  margin-top: 0;
+}
+#stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.stats-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  text-align: center;
+}
+.stat-value {
+  font-size: 3rem;
+  line-height: .85em;
+}
+#landing-join {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}

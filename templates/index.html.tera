@@ -6,18 +6,45 @@
 
 {% block head %}
   {{ super() }}
-  <link rel="stylesheet" href="/static/css/posts.css">
-  <script src="/static/js/posts.js" defer async></script>
+  {{ partials::load_post_stuff() }}
+  <link rel="stylesheet" href="/static/css/index.css">
+  {% if not vars.user %}
+    <link rel="stylesheet" href="/static/css/index_landing.css">
+  {% endif %}
 {% endblock head %}
 
+{% block body_top %}
+  {% if not vars.user %}
+    <div id="--make-header-fixed"></div>
+  {% endif %}
+{% endblock body_top %}
+
 {% block content %}
+  {% if not vars.user %}
+    <div id="landing">
+      <h1 id="landing-tagline">
+        Discover amazing content
+      </h1>
+      {% if stats %}
+        <div id="stats" class="text-center">
+          <p class="stats-stat" id="stat-users">
+            <span class="stat-value">{{stats.users}}</span>
+            <span class="stat-label">Users</span>
+          </p>
+          <p class="stats-stat" id="stat-users">
+            <span class="stat-value">{{stats.posts}}</span>
+            <span class="stat-label">Posts</span>
+          </p>
+        </div>
+      {% endif %}
+      <a href="/register" class="styled-button" id="landing-join">Sign up</a>
+    </div>
+  {% endif %}
   <div id="content-padding">
     {{ partials::account_status_warnings() }}
-    <h1 class="text-center">Posts</h1>
-    <p class="text-center">
-      Top 25 posts of all time<br>
-      <a href="/submit" class="nocolor custom">Submit here</a>
-    </p>
+    <a href="/submit" class="nocolor styled-button style-outline scale-as-post" id="post-submit">
+      Submit a post
+    </a>
     {{ partials::post_view(posts = posts) }}
   </div>
 {% endblock content %}

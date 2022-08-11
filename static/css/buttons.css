@@ -17,6 +17,9 @@
   transition: background .25s;
   border-radius: 999rem;
   margin: .2rem;
+  
+  font-weight: normal;
+  text-shadow: 0 0 .1rem rgba(0,0,0,.33);
 }
 .styled-button.inline-button {
   display: inline-flex;

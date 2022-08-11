@@ -44,6 +44,11 @@
   </div>
 {% endmacro post %}
 
+{% macro load_post_stuff() %}
+  <link rel="stylesheet" href="/static/css/posts.css">
+  <script src="/static/js/posts.js" defer async></script>
+{% endmacro load_post_stuff %}
+
 {% macro something_gone(text) %}
   <p class="something-gone flex-center">
     <span class="npl-emote icon-emo-beer"></span>
@@ -52,13 +57,15 @@
 {% endmacro something_gone %}
 
 {% macro post_view(posts) %}
-  {% if posts.0 %}
-    {% for post in posts %}
-      {{ partials::post(post = post) }}
-    {% endfor %}
-  {% else %}
-    {{ partials::something_gone(text = "No posts loaded") }}
-  {% endif %}
+  <div class="post_view">
+    {% if posts.0 %}
+      {% for post in posts %}
+        {{ partials::post(post = post) }}
+      {% endfor %}
+    {% else %}
+      {{ partials::something_gone(text = "No posts loaded") }}
+    {% endif %}
+  </div>
 {% endmacro post_view %}
 
 {% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='') %}

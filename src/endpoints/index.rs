@@ -13,5 +13,8 @@ pub async fn index(vars: TemplateVars, mut db: Connection<MainDatabase>, page: O
     page.unwrap_or_default(),
     RESULTS_PER_PAGE
   ).await;
-  Template::render("index", context! { vars, posts })
+  Template::render("index", context! { 
+    vars, posts, 
+    stats: MainDatabase::get_stats(&mut db).await,
+  })
 }

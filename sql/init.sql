@@ -80,4 +80,10 @@ CREATE TABLE comment_votes (
     REFERENCES users(user_id)
     ON DELETE CASCADE
 );
+CREATE TABLE stats (
+  users INTEGER NOT NULL DEFAULT 0,
+  posts INTEGER NOT NULL DEFAULT 0
+);
+--Init
 INSERT INTO topics (topic_name) VALUES('main');
+INSERT INTO stats DEFAULT VALUES;

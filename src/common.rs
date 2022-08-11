@@ -136,4 +136,12 @@ pub enum PostFilter<'a> {
   ByUserId(i32),
 }
 
+//== STATS =====================================================
+
+#[derive(Serialize)]
+pub struct Stats {
+  pub posts: i32,
+  pub users: i32
+}
+
 //==============================================================

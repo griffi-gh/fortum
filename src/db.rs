@@ -3,7 +3,7 @@ use sqlx::{self, PgPool, Row};
 use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
 use crate::{consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX}, common::TemplatePost};
-use crate::common::{executor, div_up, User, PostFilter, PostSort, SortDirection};
+use crate::common::{executor, div_up, User, PostFilter, Stats, PostSort, SortDirection};
 
 #[derive(Database)]
 #[database("main")]
@@ -45,7 +45,8 @@ impl MainDatabase {
       .bind(&password_hash)
       .bind(&token)
       .execute(executor(db)).await
-      .unwrap(); //handle error?
+      .unwrap();
+    sqlx::query("UPDATE stats SET users = users + 1").execute(executor(db)).await.unwrap();
     Ok(token)
   }  
 
@@ -146,6 +147,7 @@ impl MainDatabase {
       .bind(body)
       .fetch_one(executor(db)).await
       .unwrap().get(0);
+    sqlx::query("UPDATE stats SET posts = posts + 1").execute(executor(db)).await.unwrap();
     Ok(post_id)
   }
 
@@ -213,5 +215,10 @@ impl MainDatabase {
     //! //HACK Turn this into it's own query, this is extemely slow
     let post_count = Self::fetch_posts(db, PostSort::ByDate(SortDirection::Descending), filter, 0, u32::MAX).await.len();
     div_up(post_count, results_per_page as usize) as u32
+  }
+
+  //stats
+  pub async fn get_stats(db: &mut Connection<Self>) -> Stats {
+    sqlx::query_as!(Stats, "SELECT * FROM stats").fetch_one(executor(db)).await.unwrap()
   }
 }

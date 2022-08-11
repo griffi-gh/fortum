@@ -6,8 +6,7 @@
 
 {% block head %}
   {{ super() }}
-  <link rel="stylesheet" href="/static/css/posts.css">
-  <script src="/static/js/posts.js" defer async></script>
+  {{ partials::load_post_stuff() }}
 {% endblock head %}
 
 {% block content %}
