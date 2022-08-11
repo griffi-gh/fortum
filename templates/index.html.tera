@@ -11,6 +11,7 @@
   {% if not vars.user %}
     <link rel="stylesheet" href="/static/css/index_landing.css">
     <script src="/static/js/index_landing.js" defer async></script>
+    <link rel="preload" href="/static/cached/images/background/1-q4.jpg" as="image">
   {% endif %}
 {% endblock head %}
 
@@ -40,12 +41,11 @@
           </div>
         {% endif %}
         <div id="landing-buttons">
-          <a href="/register" class="styled-button style-outline">
-            Sign up
+          <a href="/login" class="styled-button with-shadow style-outline">
+            Log in
           </a>
-          <a href="/login" class="styled-button with-shadow">
-            <i class="fa-solid fa-right-to-bracket margin-icon"></i>
-            <span>Log in</span>
+          <a href="/register" class="styled-button">
+            Sign up
           </a>
         </div>
       </div>

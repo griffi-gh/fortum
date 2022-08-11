@@ -9,6 +9,9 @@
     <span class="icon-emo-grin header-logo header-logo-hover"></span>
     Forum
   </a>
+  <a href="/" id="header-mobile-home-icon" class="display-none">
+    <i class="fa-solid fa-house-blank"></i>
+  </a>
   <div id="header-left">
     <form action="/search" method="GET" autocomplete="off" class="form-with-loading" id="header-search-form">
       {{ partials::styled_input(
