@@ -8,11 +8,17 @@
   height: 50vh;
   min-height: 20rem;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
   text-shadow: 0 0 .1rem black;
+  transition: background-position .0083s;
+}
+#landing-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #landing-tagline {
   text-align: center;
@@ -36,7 +42,32 @@
   font-size: 3rem;
   line-height: .85em;
 }
-#landing-join {
+#landing-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+#landing-buttons > * {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+#landing-buttons > .style-outline {
+  background: rgba(255,255,255,.5);
+  backdrop-filter: blur(5px) brightness(150%);
+  -webkit-backdrop-filter: blur(5px) brightness(150%);
+  transition: background .25s, backdrop-filter .33s, -webkit-backdrop-filter .33s;
+}
+#landing-buttons > .style-outline:hover {
+  background: rgba(255,255,255,.33);
+  backdrop-filter: blur(10px) brightness(150%);
+  -webkit-backdrop-filter: blur(10px) brightness(150%);
+}
+
+#header-right {
+  transition: opacity .5s;
+  opacity: 1;
+}
+#header-right.hhide:not(:hover) {
+  opacity: 0;
 }

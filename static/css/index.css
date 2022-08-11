@@ -1,3 +1,7 @@
 #post-submit {
   margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+#landing ~ #content-padding > #post-submit {
+  margin-top: 0;
 }

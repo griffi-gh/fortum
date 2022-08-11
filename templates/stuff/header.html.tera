@@ -14,7 +14,7 @@
       {{ partials::styled_input(
         name = "q", 
         id = "header-search-bar", 
-        class = "rectangular unknown-background", 
+        class = "rectangular", 
         inner_id = "header-search-bar-inner", 
         placeholder = "Search",
         required = true,

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/static/css/index.css">
   {% if not vars.user %}
     <link rel="stylesheet" href="/static/css/index_landing.css">
+    <script src="/static/js/index_landing.js" defer async></script>
   {% endif %}
 {% endblock head %}
 
@@ -22,22 +23,32 @@
 {% block content %}
   {% if not vars.user %}
     <div id="landing">
-      <h1 id="landing-tagline">
-        Discover amazing content
-      </h1>
-      {% if stats %}
-        <div id="stats" class="text-center">
-          <p class="stats-stat" id="stat-users">
-            <span class="stat-value">{{stats.users}}</span>
-            <span class="stat-label">Users</span>
-          </p>
-          <p class="stats-stat" id="stat-users">
-            <span class="stat-value">{{stats.posts}}</span>
-            <span class="stat-label">Posts</span>
-          </p>
+      <div id="landing-content-wrapper">
+        <h1 id="landing-tagline">
+          Discover amazing content
+        </h1>
+        {% if stats %}
+          <div id="stats" class="text-center">
+            <p class="stats-stat" id="stat-users">
+              <span class="stat-value">{{stats.users}}</span>
+              <span class="stat-label">Users</span>
+            </p>
+            <p class="stats-stat" id="stat-users">
+              <span class="stat-value">{{stats.posts}}</span>
+              <span class="stat-label">Posts</span>
+            </p>
+          </div>
+        {% endif %}
+        <div id="landing-buttons">
+          <a href="/register" class="styled-button style-outline">
+            Sign up
+          </a>
+          <a href="/login" class="styled-button with-shadow">
+            <i class="fa-solid fa-right-to-bracket margin-icon"></i>
+            <span>Log in</span>
+          </a>
         </div>
-      {% endif %}
-      <a href="/register" class="styled-button" id="landing-join">Sign up</a>
+      </div>
     </div>
   {% endif %}
   <div id="content-padding">
