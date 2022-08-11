@@ -10,17 +10,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   {# import js #}
-  <script src="/static/js/global.js" async defer></script>
-  <script src="/static/js/buttons.js" async defer></script>
-  <script src="/static/js/header.js" async defer></script>
+  <script src="/static/cached_short/js/global.js" async defer></script>
+  <script src="/static/cached_short/js/buttons.js" async defer></script>
+  <script src="/static/cached_short/js/header.js" async defer></script>
 
   {# import stylesheets #}
-  <link rel="stylesheet" href="/static/css/global.css">
+  <link rel="stylesheet" href="/static/cached_short/css/global.css">
 
   {# load fonts #}
-  <link rel="stylesheet" href="/static/cached/fonts/FontAwesome/css/all.min.css">
-  <link rel="stylesheet" href="/static/cached/fonts/Fontello/css/fontello.min.css">
-  <link rel="stylesheet" href="/static/cached/fonts/GoogleSans/style.css">
+  <link rel="stylesheet" href="/static/cached_long/fonts/FontAwesome/css/all.min.css">
+  <link rel="stylesheet" href="/static/cached_long/fonts/Fontello/css/fontello.min.css">
+  <link rel="stylesheet" href="/static/cached_long/fonts/GoogleSans/style.css">
   
   {# page title #}
   <title>Forum{% if title %}: {% block title %}{% endblock title %}{% endif %}</title>

@@ -47,5 +47,6 @@ fn rocket() -> _ {
       profile_image
     ])
     .mount("/static", FileServer::from("./static/"))
-    .mount("/static/cached/", routes![cache_file_server::files])
+    .mount("/static/cached_long/", routes![cache_file_server::files_long])
+    .mount("/static/cached_short/", routes![cache_file_server::files_short])
 }

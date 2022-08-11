@@ -6,8 +6,8 @@
 
 {% block head %}
   {{ super() }}
-  <script src="/static/js/register.js" defer async></script>
-  <link rel="stylesheet" href="/static/css/register.css">
+  <script src="/static/cached_short/js/register.js" defer async></script>
+  <link rel="stylesheet" href="/static/cached_short/css/register.css">
 {% endblock head %}
 
 {% block content %}

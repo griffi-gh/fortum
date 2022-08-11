@@ -45,8 +45,8 @@
 {% endmacro post %}
 
 {% macro load_post_stuff() %}
-  <link rel="stylesheet" href="/static/css/posts.css">
-  <script src="/static/js/posts.js" defer async></script>
+  <link rel="stylesheet" href="/static/cached_short/css/posts.css">
+  <script src="/static/cached_short/js/posts.js" defer async></script>
 {% endmacro load_post_stuff %}
 
 {% macro something_gone(text) %}

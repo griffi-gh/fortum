@@ -16,10 +16,10 @@
       </div>
     {% endif %}
     <div id="landing-buttons">
-      <a href="/login" class="styled-button with-shadow style-outline">
+      <a href="/login" class="styled-button with-shadow with-text-shadow style-outline">
         Log in
       </a>
-      <a href="/register" class="styled-button">
+      <a href="/register" class="styled-button with-shadow">
         Sign up
       </a>
     </div>
