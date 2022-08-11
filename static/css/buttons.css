@@ -17,9 +17,7 @@
   transition: background .25s;
   border-radius: 999rem;
   margin: .2rem;
-  
   font-weight: normal;
-  text-shadow: 0 0 .1rem rgba(0,0,0,.33);
 }
 .styled-button.inline-button {
   display: inline-flex;
@@ -37,6 +35,15 @@
 }
 .styled-button.with-shadow {
   box-shadow: 0 0 .1rem rgba(0,0,0,.33);
+}
+.styled-button.with-text-shadow {
+  text-shadow: 0 0 .1rem rgba(0,0,0,.33);
+}
+.styled-button.slightly-rectangular-ish {
+  border-radius: .77rem;
+}
+.styled-button.rectangular {
+  border-radius: .3rem;
 }
 .styled-button:hover {
   background: var(--color-primary-dark);

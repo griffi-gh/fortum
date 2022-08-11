@@ -56,15 +56,54 @@
   </p>
 {% endmacro something_gone %}
 
-{% macro post_view(posts) %}
+{% macro page_selector(page_count=1, current_page=0, anchor="") %}
+  {% if page_count > 1 %}
+    <div class="post-page-selector">
+      <div class="post-page-btngroup-prev">
+        <a href="?page=0#{{anchor}}" class="page-first styled-button style-outline inline slightly-rectangular-ish">First</a>
+        <a href="?page={{current_page - 1}}#{{anchor}}" class="page-prev styled-button style-outline inline slightly-rectangular-ish">Prev</a>
+      </div>
+      <span clas="page-current">Page&nbsp;{{current_page + 1}}/{{page_count}}</span>
+      <div class="post-page-btngroup-next">
+        <a href="?page={{current_page + 1}}#{{anchor}}" class="page-next styled-button style-outline inline slightly-rectangular-ish">Next</a>
+        <a href="?page={{page_count - 1}}#{{anchor}}" class="page-last styled-button style-outline inline slightly-rectangular-ish">Last</a>
+      </div>
+    </div>
+    {# <div class="page-selector">
+      <span>Pages: </span>
+      {% for i in range(end=page_count) %}
+        {% if i == current_page %}
+          <span class="post-page-link page-link-current">
+            &nbsp;{{i + 1}}&nbsp;
+          </span>
+        {% else %}
+          <a href="?page={{i}}" class="nocolor custom post-page-link">
+            &nbsp;{{i + 1}}&nbsp;
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div> #}
+  {% endif %}
+{% endmacro page_selector %}
+
+{% macro post_view(posts, page_count=1, current_page=0) %}
   <div class="post_view">
-    {% if posts.0 %}
+    <div class="post-view-options">
+      {# TODO #}
+    </div>
+    <div class="post-view-page-select post-view-page-select-top scale-as-post">
+      {{ partials::page_selector(page_count=page_count, current_page=current_page, anchor="top") }}
+    </div>
+    <div class="post_view_posts">
       {% for post in posts %}
         {{ partials::post(post = post) }}
+      {% else %}
+        {{ partials::something_gone(text = "No posts loaded") }}
       {% endfor %}
-    {% else %}
-      {{ partials::something_gone(text = "No posts loaded") }}
-    {% endif %}
+    </div>
+    <div class="post-view-page-select post-view-page-select-bottom scale-as-post">
+      {{ partials::page_selector(page_count=page_count, current_page=current_page, anchor="bottom") }}
+    </div>
   </div>
 {% endmacro post_view %}
 

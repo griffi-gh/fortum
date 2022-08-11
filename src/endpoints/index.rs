@@ -13,8 +13,13 @@ pub async fn index(vars: TemplateVars, mut db: Connection<MainDatabase>, page: O
     page.unwrap_or_default(),
     RESULTS_PER_PAGE
   ).await;
+  let page_count = MainDatabase::count_pages(
+    &mut db, 
+    PostFilter::None, 
+    RESULTS_PER_PAGE
+  ).await;
   Template::render("index", context! { 
-    vars, posts, 
+    vars, posts, page_count, page: page.unwrap_or_default(),
     stats: MainDatabase::get_stats(&mut db).await,
   })
 }

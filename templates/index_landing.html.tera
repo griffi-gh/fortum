@@ -1,0 +1,27 @@
+<div id="landing">
+  <div id="landing-content-wrapper">
+    <h1 id="landing-tagline">
+      Discover amazing content
+    </h1>
+    {% if stats %}
+      <div id="stats" class="text-center">
+        <p class="stats-stat" id="stat-users">
+          <span class="stat-value">{{stats.users}}</span>
+          <span class="stat-label">Users</span>
+        </p>
+        <p class="stats-stat" id="stat-users">
+          <span class="stat-value">{{stats.posts}}</span>
+          <span class="stat-label">Posts</span>
+        </p>
+      </div>
+    {% endif %}
+    <div id="landing-buttons">
+      <a href="/login" class="styled-button with-shadow style-outline">
+        Log in
+      </a>
+      <a href="/register" class="styled-button">
+        Sign up
+      </a>
+    </div>
+  </div>
+</div>

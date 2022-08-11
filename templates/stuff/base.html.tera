@@ -30,9 +30,11 @@
 <body class="{% block body_class %}{% endblock body_class %}">
   {% block body_top %}{% endblock body_top %}
   {% include "stuff/header" %}
+  <a id="top"></a>
   <main id="content" class="content main">
     {% block content %}{% endblock content %}
   </main>
+  <a id="bottom"></a>
   {% include "stuff/footer" %}
 </body>
 </html>
