@@ -73,6 +73,7 @@
 
 .post-main-section {
   flex: 1;
+  min-width: 0;
 }
 
 .post-author {
@@ -118,6 +119,7 @@
 .post-title {
   margin: 0;
   margin-top: .25rem;
+  overflow-wrap: break-word;
 }
 .post-content {
   margin: 0;
@@ -125,6 +127,7 @@
   background-color: var(--color-background);
   padding: 1rem;
   border-radius: .5rem;
+  overflow-wrap: break-word;
 }
 
 .post-action-row {
