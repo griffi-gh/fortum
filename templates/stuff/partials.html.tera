@@ -135,7 +135,7 @@
     {% endif %}
   {% endif %}
   <noscript>
-    <div class="warning flex-center flex-row">Javascript is disabled. Some features of the website may not work as expected</div>
+    <div class="warning flex-center flex-row">Javascript is disabled. Some features may not work as expected</div>
   </noscript>
 {% endmacro account_status_warnings %}
 
