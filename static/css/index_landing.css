@@ -1,28 +1,36 @@
 #landing {
-  background: 
-    radial-gradient(rgba(0,0,0,.65), rgba(0,0,0,.25) 50%, transparent), 
-    url(/static/cached_long/images/background/1.jpg),
-    url(/static/cached_long/images/background/1-q4.jpg),
-    linear-gradient(black,black);
+  position: relative;
   overflow: hidden;
-  padding-top: var(--estim-header-height, 2rem);
-  padding-bottom: calc(var(--estim-header-height, 2rem) / 2);
-  background-size: cover;
-  background-position: center;
   height: 50vh;
   min-height: 20rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  text-shadow: 0 0 .1rem black;
-  transition: background-position .0083s;
+  z-index: 0;
+  overflow: hidden;
 }
-#landing-content-wrapper {
+#landing-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url(/static/cached_long/images/background/1-q4.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#landing-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: var(--estim-header-height, 2rem);
+  padding-bottom: calc(var(--estim-header-height, 2rem) / 2);
+  background: radial-gradient(rgba(0,0,0,.65), rgba(0,0,0,.25) 50%, transparent);
+  text-shadow: 0 0 .1rem black;
+  color: white;
 }
 #landing-tagline {
   text-align: center;

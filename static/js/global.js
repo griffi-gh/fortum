@@ -12,4 +12,6 @@ Array.from(document.getElementsByClassName("form-with-loading")).forEach(form =>
   });
 });
 const hasScrollbar = e => e.scrollHeight > e.clientHeight;
-document.body.classList.toggle('no-scrollbar', !hasScrollbar(document.body.parentNode));
+document.addEventListener('load', () => {
+  document.body.classList.toggle('no-scrollbar', !hasScrollbar(document.body.parentNode));
+})

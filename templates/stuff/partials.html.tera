@@ -11,7 +11,7 @@
     <div class="post-main-section">
       <div class="post-author">
         <a class="nocolor" {% if post.user_id %}href="/user/{{ post.user_id }}"{% endif %}>
-          <img class="post-pfp" src='{{ partials::profile_image(url = post.profile_image | default(value=""), usr = post.username) }}' width="40" height="40" alt="Profile image">
+          <img class="post-pfp" src='{{ partials::profile_image(url = post.profile_image | default(value=""), usr = post.username) }}' width="40" height="40" alt="Profile image" loading="lazy">
           <div class="post-username">
             <span class="post-username-lol">
               {% if post.username %} 
@@ -69,20 +69,6 @@
         <a href="?page={{page_count - 1}}#{{anchor}}" class="page-last styled-button style-outline inline slightly-rectangular-ish">Last</a>
       </div>
     </div>
-    {# <div class="page-selector">
-      <span>Pages: </span>
-      {% for i in range(end=page_count) %}
-        {% if i == current_page %}
-          <span class="post-page-link page-link-current">
-            &nbsp;{{i + 1}}&nbsp;
-          </span>
-        {% else %}
-          <a href="?page={{i}}" class="nocolor custom post-page-link">
-            &nbsp;{{i + 1}}&nbsp;
-          </a>
-        {% endif %}
-      {% endfor %}
-    </div> #}
   {% endif %}
 {% endmacro page_selector %}
 

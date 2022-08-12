@@ -37,7 +37,7 @@
         <div id="user-profile-username-section">
           <span id="user-profile-loggedinas">
             <span id="loggedinas-text">Logged in as</span>
-            <label for="actual-logout-button" class="link-custom" id="logout-button">Log out?</label>
+            <label for="actual-logout-button" class="link-custom" id="logout-button">Log out</label>
           </span>
           <span id="user-profile-username">{{ vars.user.username }}</span>
         </div>
