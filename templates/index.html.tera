@@ -8,7 +8,7 @@
   {{ super() }}
   {{ partials::load_post_stuff() }}
   <link rel="stylesheet" href="/static/cached_short/css/index.css">
-  {% if not vars.user %}
+  {% if not vars.user and not page %}
     <link rel="stylesheet" href="/static/cached_short/css/index_landing.css">
     <script src="/static/cached_short/js/index_landing.js" defer async></script>
     <link rel="preload" href="/static/cached_long/images/background/1-q4.jpg" as="image">
@@ -16,13 +16,13 @@
 {% endblock head %}
 
 {% block body_top %}
-  {% if not vars.user %}
+  {% if not vars.user and not page %}
     <div id="--make-header-fixed"></div>
   {% endif %}
 {% endblock body_top %}
 
 {% block content %}
-  {% if not vars.user %}
+  {% if not vars.user and not page %}
     {% include "index_landing" %}
   {% endif %}
   <div id="content-padding">
