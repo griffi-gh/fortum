@@ -23,7 +23,7 @@
 
 {% block content %}
   {% if not vars.user and not page %}
-    {% include "index_landing" %}
+    {% include "stuff/index_landing" %}
   {% endif %}
   <div id="content-padding">
     {{ partials::account_status_warnings() }}

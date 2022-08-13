@@ -39,7 +39,7 @@
     <p id="user-username-mobile" aria-hidden="true">{{ user.username }}</p>
     <div class="content-padding">
       <h1>Recent posts</h1>
-      {{ partials::post_view(posts = posts) }}
+      {{ partials::post_view(posts = posts, current_page = page, page_count = 999) }}
     </div>
   {% else %}
     <p class="flex-center">
