@@ -1,19 +1,19 @@
 body {
   background: linear-gradient(to top right, #FFCCCB, #afd9e9);
 }
-#error {
-  color: var(--color-primary);
-  margin: 0;
-  margin-bottom: -.5rem;
-}
-#error-code {
-  font-size: min(max(8vw, 5rem), 9rem);
-  color: var(--color-primary);
-  margin: 0;
-}
 #center-me {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+#error, #error-code {
+  color: var(--color-primary);
+  margin: 0;
+}
+#error {
+  margin-bottom: -.5rem;
+}
+#error-code {
+  font-size: min(max(8vw, 5rem), 9rem);
 }
