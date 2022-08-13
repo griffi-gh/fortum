@@ -1,5 +1,6 @@
 body {
   background: linear-gradient(to top right, #FFCCCB, #afd9e9);
+  overflow: hidden;
 }
 #center-me {
   position: fixed;
