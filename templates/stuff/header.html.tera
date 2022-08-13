@@ -30,7 +30,7 @@
   </div>
   <div id="header-right">
     {% if vars.user %}
-      <a href="/user" class="nocolor" id="user-profile-section">
+      <a href="/user/{{ vars.user.user_id }}" class="nocolor" id="user-profile-section">
         <div id="user-profile-icon">
           <img src='{{ partials::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username) }}' alt="User icon" width="32" height="32">
         </div>

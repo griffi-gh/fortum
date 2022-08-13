@@ -80,9 +80,9 @@ impl MainDatabase {
     result.map(|row| row.get(0))
   }
 
-  pub async fn get_user(db: &mut Connection<Self>, user_id: u32) -> Option<User> {
+  pub async fn get_user(db: &mut Connection<Self>, user_id: i32) -> Option<User> {
     let result = sqlx::query("SELECT user_id, username, email, password_hash, created_on, last_activity, user_role, token FROM users WHERE user_id = $1")
-      .bind(user_id as i32)
+      .bind(user_id)
       .fetch_optional(executor(db)).await
       .unwrap();
     result.map(|row| User {

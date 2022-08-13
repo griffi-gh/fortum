@@ -18,11 +18,12 @@ use endpoints::{
   register::{register, post_register, register_success},
   login::{login, post_login},
   logout::{logout},
-  user::{user, user_self},
+  user::{user, user_self, user_self_fail},
   submit::{submit, submit_post, submit_post_error},
   post::{post},
   vote::{vote},
-  dyn_profile_image::profile_image
+  dyn_profile_image::profile_image,
+  error::default_catcher,
 };
 
 #[launch]
@@ -40,12 +41,13 @@ fn rocket() -> _ {
       register, post_register, register_success,
       login, post_login,
       logout, 
-      user, user_self,
+      user, user_self, user_self_fail,
       submit, submit_post, submit_post_error,
       post,
       vote,
       profile_image
     ])
+    .register("/", catchers![default_catcher])
     .mount("/static", FileServer::from("./static/"))
     .mount("/static/cached_long/", routes![cache_file_server::files_long])
     .mount("/static/cached_short/", routes![cache_file_server::files_short])

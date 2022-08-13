@@ -1,10 +1,10 @@
-use rocket::Either;
 use rocket::response::Redirect;
 use rocket_dyn_templates::{Template, context};
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::common::{TemplateVars, TemplatePost, PostSort, SortDirection::*, PostFilter};
+use crate::common::{TemplateVars, TemplatePost, PostSort, SortDirection::*, PostFilter, Authentication};
 use crate::consts::RESULTS_PER_PAGE;
+use crate::endpoints::login::rocket_uri_macro_login;
 
 async fn fetch_user_posts(db: &mut Connection<MainDatabase>, id: i32, cur_page: u32) -> Vec<TemplatePost> {
   MainDatabase::fetch_posts(
@@ -16,26 +16,24 @@ async fn fetch_user_posts(db: &mut Connection<MainDatabase>, id: i32, cur_page: 
   ).await
 }
 
-#[get("/user?<page>")]
-pub async fn user_self(vars: TemplateVars, mut db: Connection<MainDatabase>, page: Option<u32>) -> Template {
-  // can't use vars.user.map(...) since async closures are not in stable yet!
-  let posts = match vars.user.as_ref() {
-    Some(user) => Some(fetch_user_posts(&mut db, user.user_id, page.unwrap_or_default()).await),
-    None => None
-  };
-  Template::render("user", context! { vars, posts, page: page.unwrap_or_default(), self_page: true, })
+#[get("/user")]
+pub async fn user_self(auth: Authentication) -> Redirect {
+  let tmp: Option<u32> = None;
+  Redirect::to(uri!(user(id = auth.user_id, page = tmp)))
+}
+#[get("/user", rank = 2)]
+pub async fn user_self_fail() -> Redirect {
+  let tmp: Option<&str> = None;
+  Redirect::to(uri!(login(error = tmp)))
 }
 
 #[get("/user/<id>?<page>")] 
-pub async fn user(vars: TemplateVars, id: u32, mut db: Connection<MainDatabase>, page: Option<u32>) -> Either<Template, Redirect> {
-  //Redirect to /user if id matches self
-  if (id as i32) == vars.user.as_ref().map(|u| u.user_id).unwrap_or(-1) { //hacky
-    return Either::Right(Redirect::to(uri!(user_self(page = page))));
-  }
-  let user = MainDatabase::get_user(&mut db, id).await;
-  let posts = match user.as_ref() {
-    Some(user) => Some(fetch_user_posts(&mut db, user.user_id, page.unwrap_or_default()).await),
-    None => None
+pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>, page: Option<u32>, auth: Option<Authentication>) -> Template {
+  let self_page = auth.is_some() && (auth.unwrap().user_id == id);
+  let user = match self_page {
+    true => MainDatabase::get_user(&mut db, id).await,
+    false => None
   };
-  Either::Left(Template::render("user", context! { vars, posts, user, page: page.unwrap_or_default() }))
+  let posts = fetch_user_posts(&mut db, id, page.unwrap_or_default()).await;
+  Template::render("user", context! { vars, posts, user, page: page.unwrap_or_default(), self_page })
 }

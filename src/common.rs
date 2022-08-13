@@ -49,9 +49,10 @@ impl<'r> FromRequest<'r> for TemplateVars {
 
 //== AUTH ======================================================
 
+//TODO remove lefover Option code
 pub struct Authentication {
-  pub token: Option<String>,
-  pub user_id: Option<i32>,
+  pub token: String,
+  pub user_id: i32,
 }
 #[rocket::async_trait]
 impl<'r> FromRequest<'r> for Authentication {
@@ -65,9 +66,11 @@ impl<'r> FromRequest<'r> for Authentication {
     } else { None };
     let valid = token.is_some() && user_id.is_some();
     //TODO maybe fail if no auth??
-    let slf = Self { token, user_id };
     match valid {
-      true => Outcome::Success(slf),
+      true => Outcome::Success(Self {
+        token: token.unwrap(),
+        user_id: user_id.unwrap()
+      }),
       false => Outcome::Forward(()),
     }    
   }

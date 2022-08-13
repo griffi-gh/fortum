@@ -1,0 +1,13 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Error {{ code }}
+{% endblock title %}
+
+{% block content %}
+  <div id="content-padding">
+    <div class="flex-center">
+      <h1>{{ code | default("???") }}</h1>
+    </div>
+  </div>
+{% endblock content %}

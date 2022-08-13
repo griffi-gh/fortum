@@ -21,7 +21,7 @@ pub async fn submit(error: Option<&str>, vars: TemplateVars) -> Template {
 
 #[post("/submit", data = "<data>")]
 pub async fn submit_post(data: Form<PostSubmitData<'_>>, mut db: Connection<MainDatabase>, auth: Authentication) -> Redirect {
-  match MainDatabase::submit_post(&mut db, Some(auth.user_id.unwrap()), data.topic, &data.title, data.body).await {
+  match MainDatabase::submit_post(&mut db, Some(auth.user_id), data.topic, &data.title, data.body).await {
     Ok(id) => Redirect::to(uri!(post(id = id, success = true))),
     Err(err) => Redirect::to(uri!(submit(error = Some(err)))),
   }
