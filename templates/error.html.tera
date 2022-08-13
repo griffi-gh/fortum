@@ -16,4 +16,5 @@
       <h1 id="error-code">{{ code | default(value=":(") }}</h1>
     </div>
   </div>
+  <div id="smiley"></div>
 {% endblock content %}

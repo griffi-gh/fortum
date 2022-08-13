@@ -17,3 +17,17 @@ body {
 #error-code {
   font-size: min(max(8vw, 5rem), 9rem);
 }
+#smiley::before {
+  content: ':(';
+  color: var(--color-primary);
+  opacity: .15;
+  text-rendering: geometricPrecision;
+  font-size: 50vh;
+}
+#smiley {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: rotate(35deg) translateX(15.5vw);
+  pointer-events: none;
+}
