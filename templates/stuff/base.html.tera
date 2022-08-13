@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="/static/cached_long/fonts/GoogleSans/style.css">
   
   {# page title #}
-  <title>Forum{% if title %}: {% block title %}{% endblock title %}{% endif %}</title>
+  <title>Forum: {% block title %}{% endblock title %}</title>
 
   {% endblock head %}
 </head>

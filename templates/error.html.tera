@@ -4,10 +4,16 @@
   Error {{ code }}
 {% endblock title %}
 
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/static/cached_short/css/error.css">
+{% endblock head %}
+
 {% block content %}
   <div id="content-padding">
-    <div class="flex-center">
-      <h1>{{ code | default("???") }}</h1>
+    <div class="flex-center" id="center-me">
+      <h2 id="error">Error</h2>
+      <h1 id="error-code">{{ code | default(value=":(") }}</h1>
     </div>
   </div>
 {% endblock content %}
