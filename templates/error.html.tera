@@ -14,6 +14,7 @@
     <div class="flex-center" id="center-me">
       <h2 id="error">Error</h2>
       <h1 id="error-code">{{ code | default(value=":(") }}</h1>
+      <a href="/" class="styled-button style-outline nocolor">Go back</a>
     </div>
   </div>
   <div id="smiley"></div>

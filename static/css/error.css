@@ -24,11 +24,17 @@ body {
   opacity: .15;
   text-rendering: geometricPrecision;
   font-size: 50vh;
+  transition: opacity .33s;
 }
 #smiley {
   position: fixed;
   top: 0;
   left: 0;
-  transform: rotate(35deg) translateX(15.5vw);
+  transform: rotate(35deg) translateX(15.5vw) translateY(-20vh);
   pointer-events: none;
+}
+@media only screen and (max-width: 900px) {
+  #smiley::before {
+    opacity: 0;
+  }
 }
