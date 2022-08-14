@@ -16,8 +16,13 @@
   </div>  
 {% endmacro styled_input %}
 
-{% macro styled_submit_button(id="", value="Submit", icon_class="fa-solid fa-chevron-right", loading_icon_class="fa-solid fa-spinner-third") %}
-  <button type="submit" class="block styled-button" id="{{id}}">
+{% macro styled_submit_button(id="", value="Submit", icon_class="fa-solid fa-chevron-right", loading_icon_class="fa-solid fa-spinner-third", formaction="", is_outline=false, is_destructive=false) %}
+  <button 
+    type="submit" 
+    class="block styled-button {% if is_outline %} style-outline {% endif %} {% if is_destructive %} destructive {% endif %}" 
+    id="{{id}}" 
+    {% if formaction %} formaction="{{formaction}}" {% endif %}
+  >
     <div class="styled-button-icons">
       <span class="styled-button-icon styled-button-icon-selected {{icon_class}}"></span>
       <span class="styled-button-icon animate-spin subm-icon-loading {{loading_icon_class}}"></span> 

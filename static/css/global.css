@@ -1,6 +1,8 @@
 @import url("./colors.css");
 @import url("./animation.css");
-@import url("./buttons.css");
+@import url("./inputs/styled-button.css");
+@import url("./inputs/styled-input.css");
+@import url("./inputs/styled-collapsible.css");
 @import url("./footer.css");
 @import url("./header.css");
 

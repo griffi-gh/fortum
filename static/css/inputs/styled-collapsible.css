@@ -1,0 +1,38 @@
+.styled-collapsible summary {
+  display: inline-block;
+  cursor: pointer;
+}
+.styled-collapsible ::-webkit-details-marker {
+  display: none;
+}
+.styled-collapsible > summary {
+  padding: .25rem;
+}
+.styled-collapsible > summary::before {
+  content: '\f0da';
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
+  margin-right: .5rem;
+  transition: transform .33s;
+}
+.styled-collapsible[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.styled-collapsible[open] > .content {
+  display: block;
+  position: relative;
+  padding: .3rem 1rem;
+}
+.styled-collapsible[open] > .content::before {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: .45rem;
+  right: unset;
+  width: 2px;
+  background: gray;
+  border-radius: 999rem;
+}

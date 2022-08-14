@@ -10,3 +10,4 @@ pub mod post;
 pub mod vote;
 pub mod dyn_profile_image;
 pub mod error;
+pub mod delete_account;

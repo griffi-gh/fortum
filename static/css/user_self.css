@@ -1,0 +1,32 @@
+#account-actions-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#account-delete-form {
+  display: flex;
+  flex-direction: column;
+}
+#id-password-Password--1 {
+  margin-bottom: 2px;
+}
+#del-checkbox-wrapper {
+  padding-left: .25rem;
+}
+#anon-com {
+  padding-left: .25rem;
+  color: gray;
+}
+#anon-com .fa-solid {
+  padding-right: .25rem;
+}
+#delete-posts-cb:checked ~ #anon-com {
+  display: none;
+}
+@media only screen and (min-width: 400px) {
+  #account-delete-form {
+    width: 25vw;
+    min-width: 15rem;
+    max-width: 30rem;
+  }
+}

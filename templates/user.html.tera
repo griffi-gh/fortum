@@ -8,6 +8,11 @@
   {{ super() }}
   {% include "stuff/post_imports" %}
   <link rel="stylesheet" href="/static/cached_short/css/user.css">
+  {% if self_page %}
+    <script src="/static/cached_short/js/accordion.js" async defer></script>
+    <link rel="stylesheet" href="/static/cached_short/css/user_self.css">
+  {% endif %}
+  {# <script src="/static/cached_short/js/user_self.js" async defer></script> #}
 {% endblock head %}
 
 {% block body_top %}
@@ -38,6 +43,35 @@
     </div>
     <p id="user-username-mobile" aria-hidden="true">{{ user.username }}</p>
     <div class="content-padding">
+      {% if self_page %}
+        <h1>Account actions</h1>
+        <details class="accordion styled-collapsible">
+          <summary>Account security</summary>
+          <div class="content">
+            <form method="POST" class="form-with-loading" id="account-actions-form">
+              {{ macros_inputs::styled_submit_button(value = "Log out on all devices", formaction = "/super_logout", is_outline = true) }}
+            </form>
+          </div>
+        </details>
+        <details class="accordion styled-collapsible">
+          <summary>Delete account</summary>
+          <div class="content">
+            <form method="POST" action="/delete_account" id="account-delete-form">
+              {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, type = "password") }}
+              {{ macros_inputs::styled_input(name = "confirmation", placeholder = '"Yes, delete my account"', required = true, autocomplete = "off") }}
+              <div id="del-checkbox-wrapper">
+                <input type="checkbox" name="delete_posts" id="delete-posts-cb">
+                <label for="delete-posts-cb">Delete my posts</label>
+                <div id="anon-com">
+                  <i class="fa-solid fa-square-info"></i>
+                  Your posts will become anonymous
+                </div>
+              </div>
+              {{ macros_inputs::styled_submit_button(value = "Delete", is_destructive = true) }}
+            </form>
+          </div>
+        </details>
+      {% endif %}
       <h1>Recent posts</h1>
       {{ macros_posts::post_view(posts = posts, current_page = page, page_count = page_count) }}
     </div>

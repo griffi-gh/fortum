@@ -3,7 +3,7 @@ use sqlx::{self, PgPool, Row};
 use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
 use crate::{consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX}, common::TemplatePost};
-use crate::common::{executor, div_up, User, PostFilter, Stats, PostSort, SortDirection};
+use crate::common::{executor, div_up, generate_token, User, PostFilter, Stats, PostSort, SortDirection};
 
 #[derive(Database)]
 #[database("main")]
@@ -33,11 +33,7 @@ impl MainDatabase {
     let mut salt = [0u8; 16];
     thread_rng().fill(&mut salt);
     let password_hash = argon2::hash_encoded(password.as_bytes(), &salt[..], &ArgonConfig::default()).unwrap();
-    let token = {
-      let mut data = [0u8; 16];
-      thread_rng().fill(&mut data);
-      base64::encode_config(data, base64::URL_SAFE)
-    };
+    let token = generate_token();
     debug_assert!(token.len() == 24, "Invalid token length");
     sqlx::query("INSERT INTO users (username, email, password_hash, token) VALUES($1, $2, $3, $4);")
       .bind(&username)

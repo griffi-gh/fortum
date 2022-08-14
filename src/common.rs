@@ -4,6 +4,7 @@ use rocket::request::{FromRequest, Outcome};
 use rocket::serde::Serialize;
 use rocket_db_pools::Connection;
 use chrono::{DateTime, Utc};
+use rand::{Rng, thread_rng};
 use crate::db::MainDatabase;
 use crate::consts::AUTH_COOKIE_NAME;
 
@@ -17,11 +18,18 @@ pub fn div_up(a: usize, b: usize) -> usize {
 pub fn executor<'a>(db: &'a mut Connection<MainDatabase>) -> &'a mut sqlx::pool::PoolConnection<sqlx::Postgres> {
   &mut *(*db)
 }
-fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
+
+pub fn get_token<'a>(cookies: &CookieJar<'a>) -> Option<String> {
   match cookies.get_private(AUTH_COOKIE_NAME) {
     Some(x) => Some(x.value().to_owned()),
     None => None
   }
+}
+
+pub fn generate_token() -> String {
+  let mut data = [0u8; 16];
+  thread_rng().fill(&mut data);
+  base64::encode_config(data, base64::URL_SAFE)
 }
 
 //== SHARED VARS ===============================================
