@@ -7,7 +7,7 @@
       type="{% if password %}password{% else %}text{% endif %}" 
       name="{{ name }}" 
       {% if required %} required="required" {% endif %}  
-      id="{{ inner_id }}" 
+      id="{{ inner_id | slugify }}" 
       placeholder=" " 
       {% if size > 0 %} size="{{size}}" {% endif %} 
       {% if autocomplete %} autocomplete="{{autocomplete}}" {% endif %}
