@@ -1,12 +1,20 @@
-#account-actions-form {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#account-delete-form {
+.iform {
   display: flex;
   flex-direction: column;
 }
+@media only screen and (min-width: 400px) {
+  .iform {
+    width: 25vw;
+    min-width: 15rem;
+    max-width: 30rem;
+  }
+}
+
+/* #account-actions-form {
+  display: flex;
+  flex-wrap: wrap;
+} */
+
 #id-password-Password--1 {
   margin-bottom: 2px;
 }
@@ -22,11 +30,4 @@
 }
 #delete-posts-cb:checked ~ #anon-com {
   display: none;
-}
-@media only screen and (min-width: 400px) {
-  #account-delete-form {
-    width: 25vw;
-    min-width: 15rem;
-    max-width: 30rem;
-  }
 }

@@ -54,9 +54,19 @@
           </div>
         </details>
         <details class="accordion styled-collapsible">
+          <summary>Change password</summary>
+          <div class="content">
+            <form method="POST" action="/change_password" class="iform">
+              {{ macros_inputs::styled_input(name = "old_password", placeholder = "Old password", required = true, type = "password") }}
+              {{ macros_inputs::styled_input(name = "new_password", placeholder = "New password", required = true, autocomplete = "new-password") }}
+              {{ macros_inputs::styled_submit_button(value = "Update") }}
+            </form>
+          </div>
+        </details>
+        <details class="accordion styled-collapsible">
           <summary>Delete account</summary>
           <div class="content">
-            <form method="POST" action="/delete_account" id="account-delete-form">
+            <form method="POST" action="/delete_account" id="account-delete-form" class="iform">
               {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, type = "password") }}
               {{ macros_inputs::styled_input(name = "confirmation", placeholder = '"Yes, delete my account"', required = true, autocomplete = "off") }}
               <div id="del-checkbox-wrapper">
