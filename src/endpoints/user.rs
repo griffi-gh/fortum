@@ -21,8 +21,8 @@ pub async fn user_self_fail() -> Redirect {
 pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>, page: Option<u32>, auth: Option<Authentication>) -> Template {
   let self_page = auth.is_some() && (auth.unwrap().user_id == id);
   let user = match self_page {
-    true => MainDatabase::get_user(&mut db, id).await,
-    false => None
+    true => None,
+    false => MainDatabase::get_user(&mut db, id).await
   };
   let posts = MainDatabase::fetch_posts(
     &mut db, 
