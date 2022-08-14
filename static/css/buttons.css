@@ -1,5 +1,6 @@
 /*styled-button*/
 
+/* Disable default link styling inside of buttons */
 .styled-button:where(a, a:hover, a:visited, a:active),
 .styled-button :where(a, a:hover, a:visited, a:active) {
   color: inherit;
@@ -18,14 +19,11 @@
   border-radius: 999rem;
   margin: .2rem;
   font-weight: normal;
-}
-.styled-button.inline-button {
-  display: inline-flex;
-}
-.styled-button:not(:disabled) {
+  -webkit-user-select: none;
+  user-select: none;
   cursor: pointer;
 }
-.styled-button.inline {
+.styled-button:is(.inline, .inline-button) {
   display: inline-flex;
 }
 .styled-button.style-outline {
@@ -39,12 +37,14 @@
 .styled-button.with-text-shadow {
   text-shadow: 0 0 .1rem rgba(0,0,0,.33);
 }
+/* Rectangular buttons */
 .styled-button.slightly-rectangular-ish {
   border-radius: .77rem;
 }
 .styled-button.rectangular {
   border-radius: .3rem;
 }
+/* Hover/Active anims */
 .styled-button:hover {
   background: var(--color-primary-dark);
 }
@@ -54,6 +54,24 @@
 .styled-button.style-outline:hover {
   background: var(--color-primary-light-slight);
 }
+/* Handle disabled buttons */
+
+a.disabled.styled-button { 
+  /* Disable pointer events on disabled a tags */
+  pointer-events: none;
+}
+.styled-button.style-outline:is(:disabled,.disabled) {
+  /* Change color of outline buttons */
+  border-color: gray;
+  color: gray;
+  opacity: .9;
+}
+.styled-button:is(:disabled, .disabled) {
+  /* Disable pointer icon */
+  cursor: unset;
+}
+
+/* styled-button-icons related stuff */
 .styled-button .styled-button-icons {
   display: inline-grid;
 }
@@ -75,9 +93,6 @@
   display: flex;
   z-index: 0;
 }
-.styled-input.rectangular > input {
-  border-radius: .3rem;
-}
 .styled-input > input {
   flex: 2;
   display: block;
@@ -86,16 +101,18 @@
   padding: .4rem 1rem;
   margin: var(--margin);
   z-index: 1;
-  /* width: 25vw;
-  min-width: 20ch; */
 }
+/* Reduce corners of rectangular fields*/
+.styled-input.rectangular > input {
+  border-radius: .3rem;
+}
+/* Label/Placeholder */
 .styled-input > label {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
   transform: translate(1.5rem, calc((1rem + 1em) / 3)) scale(1.1);
-  /* background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, white 51%, white 99%, transparent 100%); */
   background: linear-gradient(to bottom, transparent 0%, transparent calc(49% - 1px), white calc(49% - 1px), white calc(50% + 1px), white 55%, transparent 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -106,9 +123,9 @@
   color: gray;
   z-index: 2;
 }
+/* Make the input field yellow on autofill, but only in Firefox*/
 @-moz-document url-prefix() {
   .styled-input > input:autofill ~ label {
-    /* background: linear-gradient(to bottom, transparent 0%, var(--background-color, var(--color-background, white)) 1%, var(--background-color, var(--color-background)) 49%, #fffcc8 51%, #fffcc8 99%, transparent 100%); */
     background: linear-gradient(to bottom, transparent 0%, transparent calc(49% - 1px), white calc(49% - 1px), #fffcc8 calc(50% + 1px), #fffcc8 55%, transparent 100%);
   }
 }
@@ -166,6 +183,7 @@
   padding: 3px;
 }
 
+/* FIX invalid height */
 .styled-input .subm-icon-loading {
   line-height: 1em;
 }

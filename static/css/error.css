@@ -2,6 +2,10 @@ body {
   background: linear-gradient(to top right, #FFCCCB, #afd9e9);
   overflow: hidden;
 }
+@keyframes smiley-inner-animation {
+  from { transform: translateY(-2rem); opacity: 0; }
+  to { transform: translateY(0rem); opacity: 1; }
+}
 #center-me {
   position: fixed;
   top: 50%;
@@ -18,7 +22,7 @@ body {
 #error-code {
   font-size: min(max(8vw, 5rem), 9rem);
 }
-#smiley::before {
+#smiley #smiley-inner::before {
   content: ':(';
   color: var(--color-primary);
   opacity: .15;
@@ -30,11 +34,16 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  transform: rotate(35deg) translateX(15.5vw) translateY(-20vh);
+  transform: rotate(35deg) translate(15.5vw, -20vh);
   pointer-events: none;
 }
+#smiley #smiley-inner {
+  animation-name: smiley-inner-animation;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+}
 @media only screen and (max-width: 900px) {
-  #smiley::before {
+  #smiley #smiley-inner::before {
     opacity: 0;
   }
 }

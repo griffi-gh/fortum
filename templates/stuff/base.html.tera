@@ -1,4 +1,7 @@
-{% import "stuff/partials" as partials %}
+{% import "stuff/macros/misc" as macros_misc %}
+{% import "stuff/macros/inputs" as macros_inputs %}
+{% import "stuff/macros/posts" as macros_posts %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

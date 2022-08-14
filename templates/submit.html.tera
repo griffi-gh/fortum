@@ -17,9 +17,9 @@
     <p class="warning">It's not possible to choose the topic yet, submitting to #main</p>
     <form action="#" method="POST" class="form-with-loading">
       <input type="hidden" name="topic" value="1">
-      {{ partials::styled_input(name = "title", placeholder = "Title", required = true) }}
-      {{ partials::styled_input(name = "body", placeholder = "Post body (optional)") }}
-      {{ partials::styled_submit_button() }}
+      {{ macros_inputs::styled_input(name = "title", placeholder = "Title", required = true) }}
+      {{ macros_inputs::styled_input(name = "body", placeholder = "Post body (optional)") }}
+      {{ macros_inputs::styled_submit_button() }}
     </form>
   </div>
 {% endblock content %}

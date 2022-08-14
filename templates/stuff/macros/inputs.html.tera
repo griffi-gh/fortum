@@ -1,0 +1,27 @@
+{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='') %}
+  {% if inner_id == "AUTO" %}
+    {% set inner_id = "id-" ~ name ~ "-" ~ placeholder ~ "-" ~ size %}
+  {% endif %}
+  <div class="styled-input {% if password %}show-caps{% endif %} {{ class }}" id="{{id}}">
+    <input 
+      type="{% if password %}password{% else %}text{% endif %}" 
+      name="{{ name }}" 
+      {% if required %} required="required" {% endif %}  
+      id="{{ inner_id }}" 
+      placeholder=" " 
+      {% if size > 0 %} size="{{size}}" {% endif %} 
+      {% if autocomplete %} autocomplete="{{autocomplete}}" {% endif %}
+    >
+    <label for="{{ inner_id }}">{{ placeholder }}</label>
+  </div>  
+{% endmacro styled_input %}
+
+{% macro styled_submit_button(id="", value="Submit", icon_class="fa-solid fa-chevron-right", loading_icon_class="fa-solid fa-spinner-third") %}
+  <button type="submit" class="block styled-button" id="{{id}}">
+    <div class="styled-button-icons">
+      <span class="styled-button-icon styled-button-icon-selected {{icon_class}}"></span>
+      <span class="styled-button-icon animate-spin subm-icon-loading {{loading_icon_class}}"></span> 
+    </div>
+    <span>{{ value }}</span> 
+  </button>
+{% endmacro styled_submit_button %}

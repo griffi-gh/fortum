@@ -28,11 +28,11 @@
           {% endif %}
           <p class="error display-none" id="js_error">Error</p>
           <form action="#" method="post" class="form-with-loading" id="reg-form">
-            {{ partials::styled_input(name = "email", id = "form-section-email", placeholder = "Email", required = true) }}
-            {{ partials::styled_input(name = "username", id = "form-section-username", placeholder = "Username", required = true) }}
-            {{ partials::styled_input(name = "password", id = "form-section-password", placeholder = "Password", required = true, password = true, autocomplete = "new-password") }}
-            {{ partials::styled_input(name = "repeat_password", id = "form-section-repeat", placeholder = "Password", required = true, password = true, autocomplete = "new-password") }}
-            {{ partials::styled_submit_button(id = "reg-submit-btn") }}
+            {{ macros_inputs::styled_input(name = "email", id = "form-section-email", placeholder = "Email", required = true) }}
+            {{ macros_inputs::styled_input(name = "username", id = "form-section-username", placeholder = "Username", required = true) }}
+            {{ macros_inputs::styled_input(name = "password", id = "form-section-password", placeholder = "Password", required = true, password = true, autocomplete = "new-password") }}
+            {{ macros_inputs::styled_input(name = "repeat_password", id = "form-section-repeat", placeholder = "Password", required = true, password = true, autocomplete = "new-password") }}
+            {{ macros_inputs::styled_submit_button(id = "reg-submit-btn") }}
           </form>
           <p>
             Already have an account? <a href="/login" class="nocolor custom">Log in</a>

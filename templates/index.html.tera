@@ -6,7 +6,7 @@
 
 {% block head %}
   {{ super() }}
-  {{ partials::load_post_stuff() }}
+  {% include "stuff/post_imports" %}
   <link rel="stylesheet" href="/static/cached_short/css/index.css">
   {% if not vars.user and not page %}
     <link rel="stylesheet" href="/static/cached_short/css/index_landing.css">
@@ -26,10 +26,10 @@
     {% include "stuff/index_landing" %}
   {% endif %}
   <div id="content-padding">
-    {{ partials::account_status_warnings() }}
+    {{ macros_misc::account_status_warnings() }}
     <a href="/submit" class="nocolor styled-button style-outline scale-as-post" id="post-submit">
       Submit a post
     </a>
-    {{ partials::post_view(posts = posts, page_count = page_count, current_page = page) }}
+    {{ macros_posts::post_view(posts = posts, page_count = page_count, current_page = page) }}
   </div>
 {% endblock content %}

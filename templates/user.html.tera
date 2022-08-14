@@ -6,7 +6,7 @@
 
 {% block head %}
   {{ super() }}
-  {{ partials::load_post_stuff() }}
+  {% include "stuff/post_imports" %}
   <link rel="stylesheet" href="/static/cached_short/css/user.css">
 {% endblock head %}
 
@@ -30,7 +30,7 @@
     </div>
     <div id="pfp-overlay">
       <div class="pfp-image-wrapper">
-        <img src='{{ partials::profile_image(url = user.profile_image | default(value=""), usr = user.username) }}' alt="Profile image" width="200" height="200">
+        <img src='{{ macros_misc::profile_image(url = user.profile_image | default(value=""), usr = user.username) }}' alt="Profile image" width="200" height="200">
       </div>
     </div>
     <div id="pfp-overlay-spacer">
@@ -39,7 +39,7 @@
     <p id="user-username-mobile" aria-hidden="true">{{ user.username }}</p>
     <div class="content-padding">
       <h1>Recent posts</h1>
-      {{ partials::post_view(posts = posts, current_page = page, page_count = 999) }}
+      {{ macros_posts::post_view(posts = posts, current_page = page, page_count = page_count) }}
     </div>
   {% else %}
     <p class="flex-center">

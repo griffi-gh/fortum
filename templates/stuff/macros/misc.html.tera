@@ -1,0 +1,29 @@
+{% macro account_status_warnings() %}
+  {% if vars.user %}
+    {% if vars.user.user_role == "unverified" %}
+      <div class="flex-center">
+        <div class="warning-block">
+          <span class="warning">Your email address is not verified</span>
+          <a href="/verify" class="color styled-button inline-button">Verify</a>
+        </div>
+      </div>
+    {% elif vars.user.user_role == "banned" %}
+      <span class="error">Your account is suspended</span>
+    {% endif %}
+  {% endif %}
+  <noscript>
+    <div class="warning flex-center flex-row">Javascript is disabled. Some features may not work as expected</div>
+  </noscript>
+{% endmacro account_status_warnings %}
+
+{# Comments are needed to prevent newlines from being inserted :P #}
+{% macro profile_image(url="", usr="") %}{#
+#}{% if url %}{{ url }}{% else %}{% if usr %}/dyn/profile_image.svg?usr={{ usr | urlencode_strict }}&b{% else %}/dyn/profile_image.svg?usr{% endif %}{% endif %}{#
+#}{% endmacro account_status_warnings %}
+
+{% macro something_gone(text) %}
+  <p class="something-gone flex-center">
+    <span class="npl-emote icon-emo-beer"></span>
+    <span class="npl-text warning">{{ text }}</span>
+  </p>
+{% endmacro something_gone %}

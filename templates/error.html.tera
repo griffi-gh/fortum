@@ -17,5 +17,5 @@
       <a href="/" class="styled-button style-outline nocolor">Go back</a>
     </div>
   </div>
-  <div id="smiley"></div>
+  <div id="smiley"><div id="smiley-inner"></div></div>
 {% endblock content %}

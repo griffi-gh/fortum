@@ -6,7 +6,7 @@
 
 {% block head %}
   {{ super() }}
-  {{ partials::load_post_stuff() }}
+  {% include "stuff/post_imports" %}
 {% endblock head %}
 
 {% block content %}
@@ -15,8 +15,8 @@
       <div class="success flex-center flex-row">Your post was created successfully</div>
     {% endif %}
     {% if post %}
-      {{ partials::post(post = post, post_page = true) }}
-      {{ partials::something_gone(text = "No comments loaded") }}
+      {{ macros_posts::post(post = post, post_page = true) }}
+      {{ macros_misc::something_gone(text = "No comments loaded") }}
     {% else %}
       <span class="error">Post not found</span>
     {% endif %}

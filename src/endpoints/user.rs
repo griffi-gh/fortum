@@ -2,19 +2,9 @@ use rocket::response::Redirect;
 use rocket_dyn_templates::{Template, context};
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::common::{TemplateVars, TemplatePost, PostSort, SortDirection::*, PostFilter, Authentication};
+use crate::common::{TemplateVars, PostSort, SortDirection::*, PostFilter, Authentication};
 use crate::consts::RESULTS_PER_PAGE;
 use crate::endpoints::login::rocket_uri_macro_login;
-
-async fn fetch_user_posts(db: &mut Connection<MainDatabase>, id: i32, cur_page: u32) -> Vec<TemplatePost> {
-  MainDatabase::fetch_posts(
-    db, 
-    PostSort::ByDate(Descending),
-    PostFilter::ByUserId(id),
-    cur_page,
-    RESULTS_PER_PAGE
-  ).await
-}
 
 #[get("/user")]
 pub async fn user_self(auth: Authentication) -> Redirect {
@@ -34,6 +24,17 @@ pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>,
     true => MainDatabase::get_user(&mut db, id).await,
     false => None
   };
-  let posts = fetch_user_posts(&mut db, id, page.unwrap_or_default()).await;
-  Template::render("user", context! { vars, posts, user, page: page.unwrap_or_default(), self_page })
+  let posts = MainDatabase::fetch_posts(
+    &mut db, 
+    PostSort::ByDate(Descending),
+    PostFilter::ByUserId(id),
+    page.unwrap_or_default(),
+    RESULTS_PER_PAGE
+  ).await;
+  let page_count = MainDatabase::count_pages(
+    &mut db, 
+    PostFilter::ByUserId(id),
+    RESULTS_PER_PAGE
+  ).await;
+  Template::render("user", context! { vars, posts, user, page: page.unwrap_or_default(), page_count, self_page })
 }

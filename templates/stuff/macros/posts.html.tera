@@ -1,0 +1,97 @@
+{% macro post(post, post_page=false) %}
+  <div class="post">
+    <div class="post-votes-section">
+      <button data-post-id="{{ post.post_id }}" data-counter-id="upvote-counter-{{ post.post_id }}" class="post-upvote post-vote-icon"><i class="fa-solid fa-angle-up"></i></button>
+      <div id="upvote-counter-{{ post.post_id }}" class="post-vote-counter">
+        <span class="upvctr-value">{{ post.votes }}</span>
+        <i class="upvctr-loading animate-spin fa-solid fa-spinner-third"></i>
+      </div>
+      <button data-post-id="{{ post.post_id }}" data-counter-id="upvote-counter-{{ post.post_id }}" class="post-downvote post-vote-icon"><i class="fa-solid fa-angle-down"></i></button>
+    </div>
+    <div class="post-main-section">
+      <div class="post-author">
+        <a class="nocolor" {% if post.user_id %}href="/user/{{ post.user_id }}"{% endif %}>
+          <img class="post-pfp" src='{{ macros_misc::profile_image(url = post.profile_image | default(value=""), usr = post.username) }}' width="40" height="40" alt="Profile image" loading="lazy">
+          <div class="post-username">
+            <span class="post-username-lol">
+              {% if post.username %} 
+                {{ post.username }} 
+              {% else %} 
+                [anonymous] 
+              {% endif %}
+            </span>
+            <span class="post-postedin">posted in</span>
+            <a href="/topic/{{ post.topic_name }}" class="nocolor post-topic">{{ post.topic_name }}</a>
+          </div>
+        </a>
+      </div>
+      <h2 class="post-title" dir="auto">
+        {{ post.title }}
+      </h2>
+      {% if post.content %}
+        <p class="post-content" dir="auto">
+          {{ post.content }}
+        </p>
+      {% endif %}
+      {% if not post_page %}
+        <div class="post-action-row">
+          <a href="/post/{{ post.post_id }}" class="nocolor styled-button inline-button style-outline">
+            <i class="fa-solid fa-arrow-up-right-from-square margin-icon"></i>View post
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endmacro post %}
+
+{% macro page_selector(page_count=1, current_page=0, anchor="") %}
+  {% if page_count > 1 %}
+
+    {% set prev_disable = current_page == 0 %}
+    {% if prev_disable %}
+      {% set prev_class = "disabled" %}
+    {% else %}
+      {% set prev_class = "" %}
+    {% endif %}
+
+    {% set next_disable = current_page >= (page_count - 1) %}
+    {% if next_disable %}
+      {% set next_class = "disabled" %}
+    {% else %}
+      {% set next_class = "" %}
+    {% endif %}
+
+    <div class="post-page-selector">
+      <div class="post-page-btngroup-prev">
+        <a href="?page=0#{{anchor}}" class="{{prev_class}} page-first styled-button style-outline inline slightly-rectangular-ish">First</a>
+        <a href="?page={{current_page - 1}}#{{anchor}}" class="{{prev_class}} page-prev styled-button style-outline inline slightly-rectangular-ish">Prev</a>
+      </div>
+      <span clas="page-current">Page&nbsp;{{current_page + 1}}/{{page_count}}</span>
+      <div class="post-page-btngroup-next">
+        <a href="?page={{current_page + 1}}#{{anchor}}" class="{{next_class}} page-next styled-button style-outline inline slightly-rectangular-ish">Next</a>
+        <a href="?page={{page_count - 1}}#{{anchor}}" class="{{next_class}} page-last styled-button style-outline inline slightly-rectangular-ish">Last</a>
+      </div>
+    </div>
+  {% endif %}
+{% endmacro page_selector %}
+
+{% macro post_view(posts, page_count=1, current_page=0) %}
+  <div class="post_view">
+    <div class="post-view-options">
+      {# TODO #}
+    </div>
+    <div class="post-view-page-select post-view-page-select-top scale-as-post">
+      {{ macros_posts::page_selector(page_count=page_count, current_page=current_page, anchor="top") }}
+    </div>
+    <div class="post_view_posts">
+      {% for post in posts %}
+        {{ macros_posts::post(post = post) }}
+      {% else %}
+        {{ macros_misc::something_gone(text = "No posts loaded") }}
+      {% endfor %}
+    </div>
+    <div class="post-view-page-select post-view-page-select-bottom scale-as-post">
+      {{ macros_posts::page_selector(page_count=page_count, current_page=current_page, anchor="bottom") }}
+    </div>
+  </div>
+{% endmacro post_view %}
