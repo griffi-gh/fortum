@@ -13,8 +13,7 @@ pub async fn user_self(auth: Authentication) -> Redirect {
 }
 #[get("/user", rank = 2)]
 pub async fn user_self_fail() -> Redirect {
-  let tmp: Option<&str> = None;
-  Redirect::to(uri!(login(error = tmp)))
+  Redirect::to(uri!(login))
 }
 
 #[get("/user/<id>?<page>")] 

@@ -1,0 +1,12 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Account deleted
+{% endblock title %}
+
+{% block content %}
+  <div id="content-padding" class="flex-center">
+    <h1>Account deleted successfully</h1>
+    <h2>We're sad to see you go</h2>
+  </div>
+{% endblock content %}

@@ -1,5 +1,6 @@
 use rocket::form::Form;
-use rocket::response::Redirect;
+use rocket::request::FlashMessage;
+use rocket::response::{Redirect, Flash};
 use rocket::http::{Cookie, CookieJar};
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{Template, context};
@@ -11,31 +12,34 @@ pub fn register_success(vars: TemplateVars) -> Template {
   Template::render("register", context! { success: true, vars })
 }
 
-#[get("/register?<error>")]
-pub fn register(error: Option<&str>, vars: TemplateVars) -> Template {
+#[get("/register")]
+pub fn register(vars: TemplateVars, error: Option<FlashMessage>) -> Template {
+  let error = error.map(|x| x.into_inner().1.clone());
   Template::render("register", context! { error, vars })
 }
 
 #[derive(FromForm)]
-pub struct RegisterData {
-  email: String,
-  username: String,
-  password: String,
-  repeat_password: Option<String>,
+pub struct RegisterData<'a> {
+  email: &'a str,
+  username: &'a str,
+  password: &'a str,
+  repeat_password: Option<&'a str>,
 }
 
 #[post("/register", data = "<data>")]
-pub async fn post_register(data: Form<RegisterData>, mut db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Redirect {
+pub async fn post_register(data: Form<RegisterData<'_>>, mut db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Result<Redirect, Flash<Redirect>> {
   if let Some(repeat) = data.repeat_password.as_ref() {
     if &data.password != repeat {
-      return Redirect::to(uri!(register(error = Some("Passwords don't match"))));
+      return Err(Flash::error(Redirect::to(uri!(register)), "Passwords don't match"));
     }
   }
   match MainDatabase::register(&mut db, &data.email, &data.username, &data.password).await {
     Ok(token) => {
       cookies.add_private(Cookie::build("auth", token).secure(true).finish());
-      Redirect::to("/register/success")
+      Ok(Redirect::to("/register/success"))
     }
-    Err(error) => Redirect::to(uri!(register(error = Some(error))))
+    Err(error) => {
+      return Err(Flash::error(Redirect::to(uri!(register)), error));
+    }
   }
 }

@@ -2,8 +2,8 @@ use rocket::http::{Cookie, CookieJar};
 use rocket::response::Redirect;
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::consts::AUTH_COOKIE_NAME;
 use crate::common::{Authentication, generate_token};
+use crate::consts::AUTH_COOKIE_NAME;
 
 #[post("/super_logout")]
 pub async fn super_logout(cookies: &CookieJar<'_>, mut db: Connection<MainDatabase>, auth: Authentication) -> Redirect {

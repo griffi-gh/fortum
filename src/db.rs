@@ -217,4 +217,12 @@ impl MainDatabase {
   pub async fn get_stats(db: &mut Connection<Self>) -> Stats {
     sqlx::query_as!(Stats, "SELECT * FROM stats").fetch_one(executor(db)).await.unwrap()
   }
+
+  //account deletion
+  pub async fn delete_account(db: &mut Connection<Self>, user_id: i32) {
+    sqlx::query("DELETE FROM users WHERE user_id = $1")
+      .bind(user_id)
+      .execute(executor(db)).await.unwrap();
+  }
+
 }

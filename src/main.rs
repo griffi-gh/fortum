@@ -20,10 +20,11 @@ use endpoints::{
   logout::{logout, super_logout},
   user::{user, user_self, user_self_fail},
   submit::{submit, submit_post, submit_post_error},
-  post::{post},
-  vote::{vote},
+  post::post,
+  vote::vote,
   dyn_profile_image::profile_image,
   error::default_catcher,
+  delete_account::delete_account,
 };
 
 #[launch]
@@ -45,7 +46,8 @@ fn rocket() -> _ {
       submit, submit_post, submit_post_error,
       post,
       vote,
-      profile_image
+      profile_image,
+      delete_account
     ])
     .register("/", catchers![default_catcher])
     .mount("/static", FileServer::from("./static/"))

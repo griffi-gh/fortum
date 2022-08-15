@@ -1,5 +1,6 @@
 use rocket::form::Form;
-use rocket::response::Redirect;
+use rocket::request::FlashMessage;
+use rocket::response::{Redirect, Flash};
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{Template, context};
 use crate::db::MainDatabase;
@@ -14,20 +15,20 @@ pub struct PostSubmitData<'a> {
   topic: i32,
 }
 
-#[get("/submit?<error>")]
-pub async fn submit(error: Option<&str>, vars: TemplateVars) -> Template {
+#[get("/submit")]
+pub async fn submit<'a>(vars: TemplateVars, error: Option<FlashMessage<'a>>) -> Template {
   Template::render("submit", context! { vars, error } )
 }
 
 #[post("/submit", data = "<data>")]
-pub async fn submit_post(data: Form<PostSubmitData<'_>>, mut db: Connection<MainDatabase>, auth: Authentication) -> Redirect {
+pub async fn submit_post(data: Form<PostSubmitData<'_>>, mut db: Connection<MainDatabase>, auth: Authentication) -> Result<Redirect, Flash<Redirect>> {
   match MainDatabase::submit_post(&mut db, Some(auth.user_id), data.topic, &data.title, data.body).await {
-    Ok(id) => Redirect::to(uri!(post(id = id, success = true))),
-    Err(err) => Redirect::to(uri!(submit(error = Some(err)))),
+    Ok(id) => Ok(Redirect::to(uri!(post(id = id, success = true)))),
+    Err(err) => Err(Flash::error(Redirect::to(uri!(submit)), err)),
   }
 }
 
 #[post("/submit", rank = 2)]
-pub async fn submit_post_error() -> Redirect {
-  return Redirect::to(uri!(login(error = Some("Log in before posting stuff"))));
+pub async fn submit_post_error() -> Flash<Redirect> {
+  Flash::error(Redirect::to(uri!(login)), "Log in before posting")
 }

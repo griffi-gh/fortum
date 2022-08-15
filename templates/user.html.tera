@@ -67,6 +67,7 @@
           <summary>Delete account</summary>
           <div class="content">
             <form method="POST" action="/delete_account" id="account-delete-form" class="iform form-with-loading">
+              {{ macros_inputs::styled_input(name = "email", placeholder = "Password", required = true, type = "email") }}
               {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, type = "password") }}
               {{ macros_inputs::styled_input(name = "confirmation", placeholder = '"Yes, delete my account"', required = true, autocomplete = "off") }}
               <div id="del-checkbox-wrapper">

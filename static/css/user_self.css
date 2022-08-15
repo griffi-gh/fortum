@@ -9,12 +9,6 @@
     max-width: 30rem;
   }
 }
-
-/* #account-actions-form {
-  display: flex;
-  flex-wrap: wrap;
-} */
-
 #id-password-password-1, #id-old-password-old-password-1 {
   margin-bottom: 2px;
 }
