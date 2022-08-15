@@ -1,0 +1,17 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  #{{_wip_name}}
+{% endblock title %}
+
+{% block head %}
+  {{ super() }}
+  {% include "stuff/post_imports" %}
+{% endblock head %}
+
+{% block content %}
+  <div id="content-padding">
+    <h1>#{{_wip_name}}</h1>
+    {{ macros_posts::post_view(posts = posts, page_count = page_count, current_page = page) }}
+  </div>
+{% endblock content %}

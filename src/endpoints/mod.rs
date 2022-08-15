@@ -12,3 +12,4 @@ pub mod dyn_profile_image;
 pub mod error;
 pub mod delete_account;
 pub mod update_username;
+pub mod topics;

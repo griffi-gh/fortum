@@ -9,7 +9,6 @@ use crate::common::TemplateVars;
 
 #[get("/login")]
 pub fn login(vars: TemplateVars, error: Option<FlashMessage>) -> Template {
-  let error = error.map(|x| x.into_inner().1.clone());
   Template::render("login", context! { error, vars })
 }
 

@@ -1,4 +1,5 @@
-//TODO Throw this piece of garbage code away!
+//! //TODO Throw this piece of garbage code away!
+//!        It's possible to do this with PURE CSS AND HTML!
 
 let editing = false;
 Array.from(document.querySelectorAll('#user-username,#user-username-mobile')).forEach(elem => {

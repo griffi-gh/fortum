@@ -1,7 +1,11 @@
 {% extends "stuff/base" %}
 
 {% block title %}
-  User
+  {% if user %}
+    {{ user.username }}
+  {% else %} 
+    User page
+  {% endif %}
 {% endblock title %}
 
 {% block head %}
@@ -47,7 +51,7 @@
       {% if self_page %}
         <h1>Account actions</h1>
         {% if error %}
-          <p class="error">{{error}}</p>
+          <p class="error">{{error.message}}</p>
         {% endif %}
         <details class="accordion styled-collapsible">
           <summary>Account security</summary>
@@ -84,7 +88,8 @@
                 </div>
               </div>
               <p id="del-warning">
-                <b>WARNING!</b> Once you click "Delete", there's no way to recover your account!
+                <b>WARNING!</b>
+                Once you click the "Delete" button there's no going back!
               </p>
               {{ macros_inputs::styled_submit_button(value = "Delete", is_destructive = true) }}
             </form>

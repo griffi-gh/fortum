@@ -26,6 +26,7 @@ use endpoints::{
   error::default_catcher,
   delete_account::delete_account,
   update_username::update_username,
+  topics::{topic, topics}
 };
 
 #[launch]
@@ -50,6 +51,7 @@ fn rocket() -> _ {
       profile_image,
       delete_account,
       update_username,
+      topic, topics
     ])
     .register("/", catchers![default_catcher])
     .mount("/static", FileServer::from("./static/"))

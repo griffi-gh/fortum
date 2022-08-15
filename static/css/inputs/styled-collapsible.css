@@ -1,12 +1,17 @@
 .styled-collapsible summary {
-  display: inline-block;
+  display: block;
   cursor: pointer;
+}
+.styled-collapsible.inline-summary summary {
+  display: inline-block;
 }
 .styled-collapsible ::-webkit-details-marker {
   display: none;
 }
 .styled-collapsible > summary {
   padding: .25rem;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .styled-collapsible > summary::before {
   content: '\f0da';

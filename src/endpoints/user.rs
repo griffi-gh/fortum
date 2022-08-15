@@ -19,7 +19,6 @@ pub async fn user_self_fail() -> Redirect {
 
 #[get("/user/<id>?<page>")] 
 pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>, page: Option<u32>, auth: Option<Authentication>, error: Option<FlashMessage<'_>>) -> Template {
-  let error = error.map(|x| x.into_inner().1.clone());
   let self_page = auth.is_some() && (auth.unwrap().user_id == id);
   let user = match self_page {
     true => None,

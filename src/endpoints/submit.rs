@@ -15,19 +15,18 @@ pub struct PostSubmitData<'a> {
   topic: i32,
 }
 
-#[get("/submit")]
-pub async fn submit<'a>(vars: TemplateVars, error: Option<FlashMessage<'a>>) -> Template {
-  Template::render("submit", context! { vars, error } )
+#[get("/submit?<topic>")]
+pub async fn submit<'a>(vars: TemplateVars, error: Option<FlashMessage<'a>>, topic: Option<i32>) -> Template {
+  Template::render("submit", context! { vars, error, topic } )
 }
 
 #[post("/submit", data = "<data>")]
 pub async fn submit_post(data: Form<PostSubmitData<'_>>, mut db: Connection<MainDatabase>, auth: Authentication) -> Result<Redirect, Flash<Redirect>> {
   match MainDatabase::submit_post(&mut db, Some(auth.user_id), data.topic, &data.title, data.body).await {
     Ok(id) => Ok(Redirect::to(uri!(post(id = id, success = true)))),
-    Err(err) => Err(Flash::error(Redirect::to(uri!(submit)), err)),
+    Err(err) => Err(Flash::error(Redirect::to(uri!(submit(topic = Some(data.topic)))), err)),
   }
 }
-
 #[post("/submit", rank = 2)]
 pub async fn submit_post_error() -> Flash<Redirect> {
   Flash::error(Redirect::to(uri!(login)), "Log in before posting")

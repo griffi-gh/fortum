@@ -1,4 +1,4 @@
-{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='') %}
+{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='', value="") %}
   {% if inner_id == "AUTO" %}
     {% set inner_id = "id-" ~ name ~ "-" ~ placeholder ~ "-" ~ size %}
   {% endif %}
@@ -11,6 +11,7 @@
       placeholder=" " 
       {% if size > 0 %} size="{{size}}" {% endif %} 
       {% if autocomplete %} autocomplete="{{autocomplete}}" {% endif %}
+      value="{{value}}"
     >
     <label for="{{ inner_id }}">{{ placeholder }}</label>
   </div>  

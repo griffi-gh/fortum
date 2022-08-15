@@ -14,7 +14,6 @@ pub fn register_success(vars: TemplateVars) -> Template {
 
 #[get("/register")]
 pub fn register(vars: TemplateVars, error: Option<FlashMessage>) -> Template {
-  let error = error.map(|x| x.into_inner().1.clone());
   Template::render("register", context! { error, vars })
 }
 

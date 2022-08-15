@@ -24,7 +24,7 @@
           <a class="nocolor custom" href="/">Go home</a>
         {% else %}
           {% if error %}
-            <p class="error">{{error}}</p>
+            <p class="error">{{error.message}}</p>
           {% endif %}
           <p class="error display-none" id="js_error">Error</p>
           <form action="#" method="post" class="form-with-loading" id="reg-form">
