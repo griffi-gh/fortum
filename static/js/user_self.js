@@ -5,6 +5,7 @@ Array.from(document.querySelectorAll('#user-username,#user-username-mobile')).fo
     editing = true;
     const old_username = event.currentTarget.textContent;
     const old_element = event.currentTarget;
+    old_element.classList.remove('save-error');
     const new_element = (() => {
       const elem = document.createElement('div');
       elem.id = "username-editable";
@@ -48,13 +49,13 @@ Array.from(document.querySelectorAll('#user-username,#user-username-mobile')).fo
             old_element.classList.add('save-error');
             old_element.textContent = old_username;
           }).then((res) => {
-            old_element.classList.remove('saving');
             if (res.ok) {
-              setTimeout(() => document.location.reload(), 100);
+              setTimeout(() => document.location.reload(), 0);
             } else {
+              old_element.classList.remove('saving');
               old_element.classList.add('save-error');
               old_element.textContent = old_username;
-              res.text().then(console.log)
+              res.text().then(console.error);
             }
           });
         }, { once: true });
