@@ -29,9 +29,14 @@
 }
 #header-name {
   position: relative;
-  transform: translateY(1px);
   z-index: 0;
   color: var(--color-branding-dark, black);
+}
+@-moz-document url-prefix() {
+  #header-name {
+    /* Fix weird offset on Firefox */
+    transform: translateY(1px);
+  }
 }
 #header-name::after {
   content: '';
@@ -42,13 +47,13 @@
   right: -.33rem;
   background-color: var(--color-branding);
   z-index: -2;
-  transform: scaleX(0.0001);
+  transform: scaleX(0.00001);
   transform-origin: left center;
   transition: transform .33s;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-#header-title:hover #header-name::after { 
+#header-title:is(:hover,:active) #header-name::after { 
   transform: none;
 }
 /* #header-title:hover .header-logo-no-hover, .header-logo-hover {
@@ -252,5 +257,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 5px;
   }
 }
