@@ -25,6 +25,12 @@
   <link rel="stylesheet" href="/static/cached_long/fonts/Fontello/css/fontello.min.css">
   <link rel="stylesheet" href="/static/cached_long/fonts/GoogleSans/style.css">
   
+  {# favicon #}
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/cached_long/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/cached_long/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/cached_long/favicon/favicon-16x16.png">
+  <link rel="icon" href="/static/cached_long/favicon.ico" sizes="any">
+  
   {# page title #}
   <title>Forum: {% block title %}{% endblock title %}</title>
 
