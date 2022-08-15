@@ -24,8 +24,13 @@
   font-size: 1.25rem;
 }
 #header-new-logo {
-  height: 24px;
   margin-right: .15rem;
+}
+#header-new-logo, #new-logo-mob {
+  height: 24px;
+  width: 24px;
+  background-color: var(--color-branding);
+  border-radius: 4px;
 }
 #header-name {
   position: relative;
@@ -35,7 +40,7 @@
 @-moz-document url-prefix() {
   #header-name {
     /* Fix weird offset on Firefox */
-    transform: translateY(1px);
+    transform: translateY(.5px);
   }
 }
 #header-name::after {
@@ -43,7 +48,7 @@
   position: absolute;
   inset: 0;
   bottom: 1px;
-  left: -.3rem;
+  left: -.4rem;
   right: -.33rem;
   background-color: var(--color-branding);
   z-index: -2;
