@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/static/cached_short/css/user.css">
   {% if self_page %}
     <script src="/static/cached_short/js/accordion.js" async defer></script>
+    <script src="/static/cached_short/js/user_self.js" async defer></script>
     <link rel="stylesheet" href="/static/cached_short/css/user_self.css">
   {% endif %}
   {# <script src="/static/cached_short/js/user_self.js" async defer></script> #}
@@ -35,7 +36,7 @@
     </div>
     <div id="pfp-overlay">
       <div class="pfp-image-wrapper">
-        <img src='{{ macros_misc::profile_image(url = user.profile_image | default(value=""), usr = user.username) }}' alt="Profile image" width="200" height="200">
+        <img src='{{ macros_misc::profile_image(url = user.profile_image | default(value=""), usr = user.username, id = user.user_id) }}' alt="Profile image" width="200" height="200">
       </div>
     </div>
     <div id="pfp-overlay-spacer">

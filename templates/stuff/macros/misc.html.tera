@@ -17,8 +17,8 @@
 {% endmacro account_status_warnings %}
 
 {# Comments are needed to prevent newlines from being inserted :P #}
-{% macro profile_image(url="", usr="") %}{#
-#}{% if url %}{{ url }}{% else %}{% if usr %}/dyn/profile_image.svg?usr={{ usr | urlencode_strict }}&b{% else %}/dyn/profile_image.svg?usr{% endif %}{% endif %}{#
+{% macro profile_image(url="", usr, id) %}{#
+#}{% if url %}{{ url }}{% else %}{% if usr %}/dyn/profile_image.svg?usr={{ usr | urlencode_strict }}&id={{ id | default(value=0) }}{% else %}/dyn/profile_image.svg?usr{% endif %}{% endif %}{#
 #}{% endmacro account_status_warnings %}
 
 {% macro something_gone(text) %}

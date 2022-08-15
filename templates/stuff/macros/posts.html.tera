@@ -11,7 +11,7 @@
     <div class="post-main-section">
       <div class="post-author">
         <a class="nocolor" {% if post.user_id %}href="/user/{{ post.user_id }}"{% endif %}>
-          <img class="post-pfp" src='{{ macros_misc::profile_image(url = post.profile_image | default(value=""), usr = post.username) }}' width="40" height="40" alt="Profile image" loading="lazy">
+          <img class="post-pfp" src='{{ macros_misc::profile_image(url = post.profile_image | default(value=""), usr = post.username, id = post.user_id) }}' width="40" height="40" alt="Profile image" loading="lazy">
           <div class="post-username">
             <span class="post-username-lol">
               {% if post.username %} 

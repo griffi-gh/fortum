@@ -79,10 +79,19 @@
   font-size: 1.5rem;
   color: gray;
   transform: translateY(-25%);
-  padding-left: 1rem;
+  margin-left: 1rem;
   transition: color .33s;
 }
-#user-username:hover {
+:is(#user-username, #user-username-mobile).saving::after {
+  content: '\f3f4';
+  color: var(--color-primary-dark);
+  animation: spin 2s infinite linear;
+}
+:is(#user-username, #user-username-mobile).save-error::after {
+  content: '\f06a';
+  color: var(--color-error);
+}
+#user-username:not(.saving):hover {
   text-shadow: 
     0px 0px 5px var(--color-background),
     -1px -1px 0 var(--color-background), 
@@ -90,12 +99,32 @@
     -1px +1px 0 var(--color-background), 
     +1px +1px 0 var(--color-background);
 }
-:is(#user-username, #user-username-mobile):hover::after {
+:is(#user-username, #user-username-mobile):not(.saving):not(.save-error):hover::after {
   color: black;
 }
-#user-username:hover::before {
+#user-username:not(.saving):hover::before {
   background-color: gray;
   transform: translateX(0%);
+}
+
+#username-editable {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+}
+#username-editable-input {
+  margin: -.2rem;
+  margin-right: -.75rem;
+}
+body #username-editable-input-inner {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-right: 0px solid transparent;
+}
+#username-editable-submit {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
 }
 
 /* Account action forms */

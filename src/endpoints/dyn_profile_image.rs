@@ -17,13 +17,13 @@ impl<'r, 'o: 'r> Responder<'r, 'o> for SvgResponse {
   }
 }
 
-#[get("/dyn/profile_image.svg?<usr>")]
-pub async fn profile_image(usr: &str) -> SvgResponse {
+#[get("/dyn/profile_image.svg?<usr>&<id>")]
+pub async fn profile_image(usr: &str, id: i32) -> SvgResponse {
   let usr_hash = if usr.trim().len() == 0 {
     0x708090 //SlateGray
   } else {
     let mut hasher = DefaultHasher::new();
-    usr.hash(&mut hasher);
+    id.hash(&mut hasher);
     (hasher.finish() & 0xFFFFFF) as u32
   };
   let color = [

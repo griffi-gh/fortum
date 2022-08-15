@@ -25,6 +25,7 @@ use endpoints::{
   dyn_profile_image::profile_image,
   error::default_catcher,
   delete_account::delete_account,
+  update_username::update_username,
 };
 
 #[launch]
@@ -47,7 +48,8 @@ fn rocket() -> _ {
       post,
       vote,
       profile_image,
-      delete_account
+      delete_account,
+      update_username,
     ])
     .register("/", catchers![default_catcher])
     .mount("/static", FileServer::from("./static/"))

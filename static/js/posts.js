@@ -11,7 +11,7 @@ Array.from(document.getElementsByClassName('post-vote-icon')).forEach(button => 
       method: 'POST',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
       },
       body: new URLSearchParams({
         id: postId,
