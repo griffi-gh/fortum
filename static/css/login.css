@@ -1,9 +1,9 @@
 #login-form {
   align-items: stretch;
 }
-#login-form .styled-input:first-child {
+/* #login-form .styled-input:first-child {
   margin-bottom: -.2rem;
-}
+} */
 #login-form .styled-button {
   margin: .4rem;
 }

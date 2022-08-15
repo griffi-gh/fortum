@@ -101,3 +101,7 @@
 .styled-input .subm-icon-loading {
   line-height: 1em;
 }
+
+.styled-input.reduce-margin {
+  margin-bottom: -.4rem;
+}
