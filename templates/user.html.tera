@@ -57,7 +57,8 @@
           <summary>Change password</summary>
           <div class="content">
             <form method="POST" action="/change_password" class="iform form-with-loading">
-              {{ macros_inputs::styled_input(name = "old_password", placeholder = "Old password", required = true, type = "password", class = "reduce-margin") }}
+              <span class="flex-center" style="color: red;">This feature is not implemented yet</span>
+              {{ macros_inputs::styled_input(name = "old_password", placeholder = "Old password", required = true, type = "password", class = "reduce-margin", autocomplete = "current-password") }}
               {{ macros_inputs::styled_input(name = "new_password", placeholder = "New password", required = true, autocomplete = "new-password") }}
               {{ macros_inputs::styled_submit_button(value = "Update") }}
             </form>
@@ -67,8 +68,8 @@
           <summary>Delete account</summary>
           <div class="content">
             <form method="POST" action="/delete_account" id="account-delete-form" class="iform form-with-loading">
-              {{ macros_inputs::styled_input(name = "email", placeholder = "Email", required = true, type = "email", class = "reduce-margin") }}
-              {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, type = "password", class = "reduce-margin") }}
+              {{ macros_inputs::styled_input(name = "email", placeholder = "Email", required = true, type = "email", class = "reduce-margin", autocomplete = "email") }}
+              {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, type = "password", class = "reduce-margin", autocomplete = "current-password") }}
               {{ macros_inputs::styled_input(name = "confirmation", placeholder = '"Yes, delete my account"', required = true, autocomplete = "off") }}
               <div id="del-checkbox-wrapper">
                 <input type="checkbox" name="delete_posts" id="delete-posts-cb">
@@ -78,8 +79,8 @@
                   Your posts will become anonymous
                 </div>
               </div>
-              <p id="del-warning" style="padding-left: 1rem; margin-bottom: 0;">
-                <b style="color: red">WARNING!</b> Once you click "Delete", there's no way to recover your account!
+              <p id="del-warning">
+                <b>WARNING!</b> Once you click "Delete", there's no way to recover your account!
               </p>
               {{ macros_inputs::styled_submit_button(value = "Delete", is_destructive = true) }}
             </form>

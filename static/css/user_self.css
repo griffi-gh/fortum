@@ -22,3 +22,10 @@
 #delete-posts-cb:checked ~ #anon-com {
   display: none;
 }
+#del-warning {
+  padding-left: 1rem;
+  margin-bottom: 0;
+}
+#del-warning b {
+  color: red;
+}
