@@ -28,9 +28,7 @@
   <div id="content-padding">
     {{ macros_misc::account_status_warnings() }}
     {% if vars.user %}
-      <a href="/submit" class="nocolor styled-button style-outline scale-as-post" id="post-submit">
-        Submit a post
-      </a>
+      {{ macros_posts::post_submit_button() }}
     {% endif %}
     {{ macros_posts::post_view(posts = posts, page_count = page_count, current_page = page) }}
   </div>

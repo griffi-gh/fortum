@@ -12,6 +12,9 @@
 {% block content %}
   <div id="content-padding">
     <h1>#{{_wip_name}}</h1>
+    {% if vars.user %}
+      {{ macros_posts::post_submit_button() }}
+    {% endif %}
     {{ macros_posts::post_view(posts = posts, page_count = page_count, current_page = page) }}
   </div>
 {% endblock content %}

@@ -95,3 +95,9 @@
     </div>
   </div>
 {% endmacro post_view %}
+
+{% macro post_submit_button(topic=1) %}
+  <a href="/submit" class="nocolor styled-button style-outline scale-as-post" id="post-submit">
+    Submit a post
+  </a>
+{% endmacro post_submit_button %}
