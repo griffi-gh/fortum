@@ -1,3 +1,5 @@
+//TODO Throw this piece of garbage code away!
+
 let editing = false;
 Array.from(document.querySelectorAll('#user-username,#user-username-mobile')).forEach(elem => {
   elem.addEventListener('click', event => {
@@ -59,6 +61,11 @@ Array.from(document.querySelectorAll('#user-username,#user-username-mobile')).fo
             }
           });
         }, { once: true });
+        window.addEventListener('resize', () => {
+          editing = false;
+          old_element.classList.remove('saving');
+          elem.replaceWith(old_element);
+        }, {once: true});
         return btn;
       })();
       elem.append(input, save_button);
