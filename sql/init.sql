@@ -9,7 +9,7 @@ DROP TYPE IF EXISTS role_type;
 CREATE TYPE role_type AS ENUM ('banned', 'unverified', 'user', 'moderator', 'admin');
 CREATE TABLE users (
   user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  username VARCHAR(15) NOT NULL,
+  username VARCHAR(25) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR NOT NULL,
   created_on TIMESTAMPTZ NOT NULL DEFAULT now(),

@@ -54,6 +54,7 @@ Array.from(document.querySelectorAll('#user-username,#user-username-mobile')).fo
             } else {
               old_element.classList.add('save-error');
               old_element.textContent = old_username;
+              res.text().then(console.log)
             }
           });
         }, { once: true });
