@@ -81,6 +81,22 @@
 }
 #user-profile-username {
   font-size: .9rem;
+  display: block;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: min(50vw, 10rem);
+}
+@media only screen and (max-width: 550px) {
+  #user-profile-username#user-profile-username {
+    max-width: 8rem;
+  }
+}
+@media only screen and (max-width: 500px) {
+  #user-profile-username#user-profile-username {
+    max-width: 5rem;
+  }
 }
 #user-profile-loggedinas {
   display: grid;

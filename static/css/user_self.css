@@ -116,6 +116,7 @@
 #username-editable-input {
   margin: -.2rem;
   margin-right: -.75rem;
+  width: 33vw;
 }
 body #username-editable-input-inner {
   border-bottom-right-radius: 0;

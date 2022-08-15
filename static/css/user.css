@@ -51,6 +51,7 @@
   padding: 0;
   margin: 0;
   font-size: 3rem;
+  word-break: break-all;
 }
 #user-username-mobile {
   display: none;
