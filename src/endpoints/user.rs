@@ -1,3 +1,4 @@
+use rocket::request::FlashMessage;
 use rocket::response::Redirect;
 use rocket_dyn_templates::{Template, context};
 use rocket_db_pools::Connection;
@@ -17,7 +18,8 @@ pub async fn user_self_fail() -> Redirect {
 }
 
 #[get("/user/<id>?<page>")] 
-pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>, page: Option<u32>, auth: Option<Authentication>) -> Template {
+pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>, page: Option<u32>, auth: Option<Authentication>, error: Option<FlashMessage<'_>>) -> Template {
+  let error = error.map(|x| x.into_inner().1.clone());
   let self_page = auth.is_some() && (auth.unwrap().user_id == id);
   let user = match self_page {
     true => None,
@@ -35,5 +37,5 @@ pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>,
     PostFilter::ByUserId(id),
     RESULTS_PER_PAGE
   ).await;
-  Template::render("user", context! { vars, posts, user, page: page.unwrap_or_default(), page_count, self_page })
+  Template::render("user", context! { vars, posts, user, page: page.unwrap_or_default(), page_count, self_page, error })
 }
