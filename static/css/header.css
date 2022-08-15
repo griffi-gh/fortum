@@ -36,12 +36,7 @@
   position: relative;
   z-index: 0;
   color: var(--color-branding-dark, black);
-}
-@-moz-document url-prefix() {
-  #header-name {
-    /* Fix weird offset on Firefox */
-    transform: translateY(.5px);
-  }
+  transform: translateY(.5px);
 }
 #header-name::after {
   content: '';
