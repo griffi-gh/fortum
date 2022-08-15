@@ -8,7 +8,6 @@
 
 :where(*, *::after, *::before) {
   box-sizing: border-box;
-  /* overflow-wrap: break-word; */
 }
 :where(a.nocolor, a.nocolor:hover, a.nocolor:visited, a.nocolor:active) {
   color: inherit;
