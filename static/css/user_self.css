@@ -1,3 +1,104 @@
+/* Top thingy */
+#pfp-overlay > div,
+#user-banner {
+  cursor: pointer;
+}
+#pfp-overlay > div::after,
+#user-banner::after {
+  --font-size: 3rem;
+  content: '\f303';
+  background: rgba(0,0,0,.5);
+  display: block;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .22s, transform .22s;
+  text-shadow: 0 0 5px rgba(255, 255, 255, .5);
+  transform: scale(.8);
+  color: white;
+  font: var(--fa-font-solid);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1em;
+  font-size: var(--font-size);
+  text-align: center;
+  z-index: 3;
+}
+#user-banner::after {
+  transform: translateY(calc(var(--estim-header-height) / 2));
+}
+#pfp-overlay > div::after {
+  inset: calc(-0.5 * var(--font-size));
+  padding: 50%;
+}
+#user-banner::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: -50%;
+}
+#pfp-overlay > div:hover::after,
+#user-banner:hover::after {
+  opacity: 1;
+  transform: scale(1.2);
+}
+#user-banner:hover::after {
+  transform: translateY(calc(var(--estim-header-height) / 2)) scale(1.2);
+}
+
+/* Username */
+#user-username, #user-username-mobile {
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
+}
+#user-username {
+  overflow: hidden;
+}
+#user-username::before {
+  content: '';
+  text-shadow: none;
+  position: absolute;
+  inset: 0;
+  top: unset;
+  right: 2.5rem;
+  bottom: .2em;
+  height: 2px;
+  z-index: -1;
+  transition: background-color .33s, transform .33s;
+  transform: translateX(-100%);
+  /* border-radius: 999rem; */
+}
+:is(#user-username, #user-username-mobile)::after {
+  content: '\f303';
+  display: inline-block;
+  text-shadow: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font: var(--fa-font-solid);
+  font-size: 1.5rem;
+  color: gray;
+  transform: translateY(-25%);
+  padding-left: 1rem;
+  transition: color .33s;
+}
+#user-username:hover {
+  text-shadow: 
+    0px 0px 5px var(--color-background),
+    -1px -1px 0 var(--color-background), 
+    +1px -1px 0 var(--color-background), 
+    -1px +1px 0 var(--color-background), 
+    +1px +1px 0 var(--color-background);
+}
+:is(#user-username, #user-username-mobile):hover::after {
+  color: black;
+}
+#user-username:hover::before {
+  background-color: gray;
+  transform: translateX(0%);
+}
+
+/* Account action forms */
 .iform {
   display: flex;
   flex-direction: column;

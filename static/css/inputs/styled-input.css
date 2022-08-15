@@ -84,8 +84,6 @@
   top: 50%;
   transform: translate(-1rem, -50%);
 
-  pointer-events: none;
-
   font-style: normal;
   font-weight: bold;
   font-size: .85rem;
