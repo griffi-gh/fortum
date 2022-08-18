@@ -1,10 +1,5 @@
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
-use std::io::Cursor;
-use rocket::http::ContentType;
-use rocket::response::{self, Responder};
-use rocket::request::Request;
-use rocket::Response;
 use rocket_dyn_templates::{Template, context};
 
 #[get("/dyn/profile_image.svg?<usr>&<id>")]

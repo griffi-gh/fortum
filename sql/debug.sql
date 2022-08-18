@@ -1,1 +1,0 @@
-DROP DATABASE forum; CREATE DATABASE forum; \c forum; \i init.sql; \q
