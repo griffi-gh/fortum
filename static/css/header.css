@@ -209,9 +209,12 @@
       position: absolute;
       top: 9px;
       left: 0px;
-      transition: opacity .5s;
+      transition: opacity .5s, transform .5s;
       opacity: 0;
+      transform: scaleX(.5);
+      transform-origin: 27px 0px;
       pointer-events: none;
+      z-index: 1;
     }
     #header-mobile-home-icon {
       display: flex;
@@ -221,6 +224,7 @@
       color: var(--color-primary);
       padding: 0 .5rem;
       padding-right: 0;
+      z-index: 2;
     }
     #header-search-bar {
       width: 45vw;
