@@ -16,10 +16,19 @@
   </noscript>
 {% endmacro account_status_warnings %}
 
-{# Comments are needed to prevent newlines from being inserted :P #}
-{% macro profile_image(url="", usr, id) %}{#
-#}{% if url %}{{ url }}{% else %}{% if usr %}/dyn/profile_image.svg?usr={{ usr | urlencode_strict }}&id={{ id | default(value=0) }}{% else %}/dyn/profile_image.svg?usr{% endif %}{% endif %}{#
-#}{% endmacro account_status_warnings %}
+{% macro profile_image(url="", usr, id=0) -%}
+  {% filter spaceless -%}
+    {% if url -%}
+      {{ url }}
+    {% else -%}
+      {% if usr -%}
+        /dyn/profile_image.svg?usr={{ usr | urlencode_strict }}&id={{ id }}&_
+      {% else -%}
+        /dyn/profile_image.svg?usr
+      {% endif -%}
+    {% endif -%}
+  {% endfilter -%}
+{% endmacro account_status_warnings %}
 
 {% macro something_gone(text) %}
   <p class="something-gone flex-center">

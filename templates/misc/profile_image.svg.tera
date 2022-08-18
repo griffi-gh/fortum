@@ -1,0 +1,11 @@
+{% if chr is matching("[a-z]") %}
+  {% set baseline = "middle" %}
+{% else %}
+  {% set baseline = "central"%}
+{% endif %}
+{% filter spaceless %}
+  <svg version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <rect width="64" height="64" fill="{{background_color}}"/>
+    <text x="50%" y="50%" dominant-baseline="{{baseline}}" text-anchor="middle" font-family="'Google Sans'" font-size="{{ font_size | default(value=40) }}px" fill="{{text_color}}">{{chr}}</text>
+  </svg>
+{% endfilter %}
