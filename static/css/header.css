@@ -211,6 +211,7 @@
       left: 0px;
       transition: opacity .5s;
       opacity: 0;
+      pointer-events: none;
     }
     #header-mobile-home-icon {
       display: flex;
