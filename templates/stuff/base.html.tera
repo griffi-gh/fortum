@@ -18,6 +18,9 @@
 
     {# import stylesheets #}
     <link rel="stylesheet" href="/static/cached_short/css/global.css">
+    {% if vars.user %}
+      <link rel="stylesheet" href="/static/cached_short/css/header_popup.css">
+    {% endif %}
 
     {# load fonts #}
     <link rel="stylesheet" href="/static/cached_long/fonts/FontAwesome/css/all.min.css">

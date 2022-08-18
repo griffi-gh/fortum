@@ -1,8 +1,4 @@
-<noscript>
-  <form action="/logout" method="post" class="display-none">
-    <input type="submit" id="actual-logout-button" value="">
-  </form>
-</noscript>
+<input type="checkbox" id="state-header-popup" autocomplete="off" style="display: none; pointer-events: none;" width="0" height="0" aria-hidden="true">
 <header class="header" id="header">
   <a href="/" id="header-title" class="nocolor">
     <img src="/static/cached_long/images/branding/t192.png" id="header-new-logo" alt="" height="24" width="24">
@@ -29,14 +25,14 @@
   </div>
   <div id="header-right">
     {% if vars.user %}
-      <a href="/user/{{ vars.user.user_id }}" class="nocolor" id="user-profile-section">
+      <label for="state-header-popup" class="nocolor" id="user-profile-section">
         <div id="user-profile-icon">
           <img src='{{ macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) }}' alt="User icon" width="32" height="32">
         </div>
         <div id="user-profile-username-section">
           <span id="user-profile-loggedinas">
             <span id="loggedinas-text">Logged in as</span>
-            <label for="actual-logout-button" class="link-custom" id="logout-button">Log out</label>
+            {# <label for="actual-logout-button" class="link-custom" id="logout-button">Log out</label> #}
           </span>
           <span id="user-profile-username">{{ vars.user.username }}</span>
         </div>
@@ -52,3 +48,23 @@
     {% endif %}
   </div>
 </header>
+{% if vars.user %}
+  <div style="display: none;">
+    <form action="/logout" method="post" id="logout-form"></form>
+    <form action="/user" method="get" id="user-form"></form>
+  </div>
+  <div id="header-popup">
+    <button type="submit" form="user-form">
+      <i class="header-popup-icon fa-solid fa-user"></i>
+      <span>User page</span>
+    </button>
+    <button type="submit" form="logout-form">
+      <i class="header-popup-icon fa-solid fa-arrow-right-from-bracket"></i>
+      <span>Log out</span>
+    </button>
+    <button type="button">
+      <i class="header-popup-icon fa-solid fa-poo-storm"></i>
+      <span>Does nothing!</span>
+    </button>
+  </div>
+{% endif %}
