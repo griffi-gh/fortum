@@ -51,25 +51,16 @@
 {% if vars.user %}
   <div style="display: none;">
     <form action="/logout" method="post" id="logout-form"></form>
-    <form action="/user" method="get" id="user-form"></form>
   </div>
   <div id="header-popup">
-    <button type="submit" form="user-form">
+    <a href="/user" class="nocolor">
       <i class="header-popup-icon fa-solid fa-user"></i>
       <span>User page</span>
-    </button>
-    <button type="button">
-      <i class="header-popup-icon fa-solid fa-poo-storm"></i>
-      <span>Does nothing!</span>
-    </button>
-    <button type="button">
-      <i class="header-popup-icon fa-solid fa-poo-storm"></i>
-      <span>Completely useless!</span>
-    </button>
-    <button type="button">
-      <i class="header-popup-icon fa-solid fa-poo-storm"></i>
-      <span>I'm useless too!</span>
-    </button>
+    </a>
+    <a href="/topics/create" class="nocolor">
+      <i class="header-popup-icon fa-solid fa-message-plus {# fa-grid-2-plus #}"></i>
+      <span>Create your own #topic</span>
+    </a>
     <button type="submit" form="logout-form">
       <i class="header-popup-icon fa-solid fa-arrow-right-from-bracket"></i>
       <span>Log out</span>
