@@ -6,7 +6,7 @@ use rocket_db_pools::Connection;
 use chrono::{DateTime, Utc};
 use rand::{Rng, thread_rng};
 use crate::db::MainDatabase;
-use crate::consts::AUTH_COOKIE_NAME;
+use crate::consts::{AUTH_COOKIE_NAME, USERNAME_REGEX_STR, PASSWORD_REGEX_STR, EMAIL_REGEX_STR};
 
 //== UTILS =====================================================
 
@@ -34,10 +34,12 @@ pub fn generate_token() -> String {
 
 //== SHARED VARS ===============================================
 
-//TODO maybe make `Authentication` return full `User` and remove TemplateVars
 #[derive(Serialize)]
 pub struct TemplateVars {
-  pub user: Option<User>
+  pub user: Option<User>,
+  pub username_regex: &'static str,
+  pub password_regex: &'static str,
+  pub email_regex: &'static str,
 }
 #[rocket::async_trait]
 impl<'r> FromRequest<'r> for TemplateVars {
@@ -51,6 +53,9 @@ impl<'r> FromRequest<'r> for TemplateVars {
     } else { None };
     Outcome::Success(Self {
       user: user,
+      username_regex: USERNAME_REGEX_STR,
+      password_regex: PASSWORD_REGEX_STR,
+      email_regex: EMAIL_REGEX_STR,
     })
   }
 }

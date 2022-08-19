@@ -1,4 +1,4 @@
-{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='', value="") %}
+{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='', value="", pattern="") %}
   {% if inner_id == "AUTO" %}
     {% set inner_id = "id-" ~ name ~ "-" ~ placeholder ~ "-" ~ size %}
   {% endif %}
@@ -9,9 +9,10 @@
       {% if required %} required="required" {% endif %}  
       id="{{ inner_id | slugify }}" 
       placeholder=" " 
+      value="{{value}}"
       {% if size > 0 %} size="{{size}}" {% endif %} 
       {% if autocomplete %} autocomplete="{{autocomplete}}" {% endif %}
-      value="{{value}}"
+      {% if pattern %} pattern="{{pattern}}" {% endif %}
     >
     <label for="{{ inner_id }}">{{ placeholder }}</label>
   </div>  

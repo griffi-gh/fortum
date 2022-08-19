@@ -58,13 +58,21 @@
       <i class="header-popup-icon fa-solid fa-user"></i>
       <span>User page</span>
     </button>
-    <button type="submit" form="logout-form">
-      <i class="header-popup-icon fa-solid fa-arrow-right-from-bracket"></i>
-      <span>Log out</span>
-    </button>
     <button type="button">
       <i class="header-popup-icon fa-solid fa-poo-storm"></i>
       <span>Does nothing!</span>
+    </button>
+    <button type="button">
+      <i class="header-popup-icon fa-solid fa-poo-storm"></i>
+      <span>Completely useless!</span>
+    </button>
+    <button type="button">
+      <i class="header-popup-icon fa-solid fa-poo-storm"></i>
+      <span>I'm useless too!</span>
+    </button>
+    <button type="submit" form="logout-form">
+      <i class="header-popup-icon fa-solid fa-arrow-right-from-bracket"></i>
+      <span>Log out</span>
     </button>
   </div>
 {% endif %}
