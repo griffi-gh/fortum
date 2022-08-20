@@ -1,0 +1,11 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Create topic
+{% endblock title %}
+
+{% block content %}
+  <div id="content-padding">
+    TODO
+  </div>
+{% endblock content %}

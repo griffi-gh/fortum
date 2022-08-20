@@ -26,7 +26,7 @@ pub async fn post_register(data: Form<RegisterData<'_>>, mut db: Connection<Main
   match MainDatabase::register(&mut db, &data.email, &data.username, &data.password).await {
     Ok(token) => {
       cookies.add_private(Cookie::build("auth", token).secure(true).http_only(true).finish());
-      Flash::success(Redirect::to(uri!(success)), "Your account was created successfully")
+      Flash::success(Redirect::to(uri!(success)), "Sign up ;;; Your account was created successfully")
     }
     Err(error) => Flash::error(Redirect::to(uri!(register)), error)
   }

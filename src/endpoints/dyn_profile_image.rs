@@ -3,12 +3,15 @@ use std::hash::{Hash, Hasher};
 use rocket_dyn_templates::{Template, context};
 
 #[get("/dyn/profile_image.svg?<usr>&<id>")]
-pub async fn profile_image(usr: &str, id: i32) -> Template {
+pub async fn profile_image(usr: &str, id: Option<i32>) -> Template {
   let user_color = if usr.trim().len() == 0 {
     0x708090 //SlateGray
   } else {
     let mut hasher = DefaultHasher::new();
-    id.hash(&mut hasher);
+    match id {
+      Some(id) => id.hash(&mut hasher),
+      None => usr.hash(&mut hasher)
+    }
     (hasher.finish() & 0xFFFFFF) as u32
   };
   let user_color_components = (

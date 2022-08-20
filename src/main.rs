@@ -27,7 +27,8 @@ use endpoints::{
   delete_account::delete_account,
   update_username::update_username,
   topics::{topic, topics},
-  misc::{sad}
+  topics_create::{topics_create},
+  misc::{sad, success}
 };
 
 #[launch]
@@ -53,7 +54,8 @@ fn rocket() -> _ {
       delete_account,
       update_username,
       topic, topics,
-      sad
+      topics_create,
+      sad, success
     ])
     .register("/", catchers![default_catcher])
     .mount("/static", FileServer::from("./static/"))
