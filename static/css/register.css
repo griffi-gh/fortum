@@ -9,6 +9,27 @@
     "password repeat"
     "submit submit";
 }
+@media only screen and (max-width: 500px) {
+  #reg-form {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "email" "username" "password" "repeat" "submit";
+  }
+  #reg-form > * {
+    width: 85vw;
+    min-width: 10rem;
+  }
+  #reg-form .styled-input input {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  #reg-form .styled-input {
+    margin-bottom: -.4rem;
+  }
+}
 #form-section-email {
   grid-area: email;
 }
@@ -26,4 +47,7 @@
 }
 #reg-form .styled-button {
   margin: .4rem;
+}
+#login-lnk {
+  white-space: nowrap;
 }

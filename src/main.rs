@@ -23,11 +23,11 @@ use endpoints::{
   post::post,
   vote::vote,
   dyn_profile_image::profile_image,
-  error::default_catcher,
+  error::{default_catcher, display_error},
   delete_account::delete_account,
   update_username::update_username,
   topics::{topic, topics},
-  topics_create::{topics_create},
+  topics_create::{topics_create, topics_create_get},
   misc::{sad, success}
 };
 
@@ -51,11 +51,12 @@ fn rocket() -> _ {
       post,
       vote,
       profile_image,
+      display_error,
       delete_account,
       update_username,
       topic, topics,
-      topics_create,
-      sad, success
+      topics_create, topics_create_get,
+      sad, success,
     ])
     .register("/", catchers![default_catcher])
     .mount("/static", FileServer::from("./static/"))

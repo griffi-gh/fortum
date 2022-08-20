@@ -11,6 +11,7 @@
 
 {% block content %}
   <div id="content-padding">
+    {{ macros_misc::flash_message() }}
     <h1>#{{_wip_name}}</h1>
     {% if vars.user %}
       {{ macros_posts::post_submit_button() }}

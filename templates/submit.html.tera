@@ -12,7 +12,7 @@
   <div id="content-padding">
     <h1>Submit to #[topic with id {{ topic | default(value='1') }}]</h1>
     {{ macros_misc::flash_message() }}
-    <form action="#" method="POST" class="form-with-loading">
+    <form method="POST" class="form-with-loading">
       <input type="hidden" name="topic" value="{{ topic | default(value='1') }}">
       {{ macros_inputs::styled_input(name = "title", placeholder = "Title", required = true) }}
       {{ macros_inputs::styled_input(name = "body", placeholder = "Post body (optional)") }}

@@ -25,7 +25,7 @@
         {% else %}
         {{ macros_misc::flash_message() }}
           <p class="error display-none" id="js_error">Error</p>
-          <form action="#" method="post" class="form-with-loading" id="reg-form">
+          <form method="post" class="form-with-loading" id="reg-form">
             {{ macros_inputs::styled_input(name = "email", id = "form-section-email", placeholder = "Email", pattern = vars.email_regex, required = true) }}
             {{ macros_inputs::styled_input(name = "username", id = "form-section-username", placeholder = "Username", pattern = vars.username_regex, required = true) }}
             {{ macros_inputs::styled_input(name = "password", id = "form-section-password", inner_id = "password-input-inner-main", placeholder = "Password", required = true, password = true, pattern = vars.password_regex,  autocomplete = "new-password") }}
@@ -33,7 +33,7 @@
             {{ macros_inputs::styled_submit_button(id = "reg-submit-btn") }}
           </form>
           <p>
-            Already have an account? <a href="/login" class="nocolor custom">Log in</a>
+            Already have an account? <a href="/login" class="nocolor custom" id="login-lnk">Log in</a>
           </p>
         {% endif %}
       {% endif %}

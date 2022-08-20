@@ -9,8 +9,7 @@ use super::login::rocket_uri_macro_login;
 
 #[get("/user")]
 pub async fn user_self(auth: Authentication) -> Redirect {
-  let tmp: Option<u32> = None;
-  Redirect::to(uri!(user(id = auth.user_id, page = tmp)))
+  Redirect::to(uri!(user(id = auth.user_id, page = Option::<u32>::None)))
 }
 #[get("/user", rank = 2)]
 pub async fn user_self_fail() -> Redirect {

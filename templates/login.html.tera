@@ -19,7 +19,7 @@
         <a class="nocolor custom" href="/">Go home</a>
       {% else %}
         {{ macros_misc::flash_message() }}
-        <form action="#" method="post" class="form-with-loading flex-center" id="login-form">
+        <form method="post" class="form-with-loading flex-center" id="login-form">
           {{ macros_inputs::styled_input(name = "email", placeholder = "Email", required = true, size = 40, autocomplete = "email", class = "reduce-margin", pattern = vars.email_regex) }}
           {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, password = true, size = 40, autocomplete = "current-password", pattern = vars.password_regex) }}
           {{ macros_inputs::styled_submit_button(value = "Login") }}

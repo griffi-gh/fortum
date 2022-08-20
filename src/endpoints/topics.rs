@@ -1,3 +1,4 @@
+use rocket::request::FlashMessage;
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{context, Template};
 use crate::db::MainDatabase;
@@ -10,7 +11,7 @@ pub async fn topics() {
 }
 
 #[get("/topic/<name>?<page>")]
-pub async fn topic(mut db: Connection<MainDatabase>, vars: TemplateVars, name: &str, page: Option<u32>) -> Template {
+pub async fn topic(mut db: Connection<MainDatabase>, vars: TemplateVars, name: &str, page: Option<u32>, message: Option<FlashMessage<'_>>) -> Template {
   //TODO fetch info about topic
   let posts = MainDatabase::fetch_posts(
     &mut db, 
@@ -24,5 +25,5 @@ pub async fn topic(mut db: Connection<MainDatabase>, vars: TemplateVars, name: &
     PostFilter::ByTopicName(name),
     RESULTS_PER_PAGE
   ).await;
-  Template::render("topic", context!{ vars, posts, page: page.unwrap_or_default(), page_count, _wip_name: name })
+  Template::render("topic", context!{ vars, message, posts, page: page.unwrap_or_default(), page_count, _wip_name: name })
 }

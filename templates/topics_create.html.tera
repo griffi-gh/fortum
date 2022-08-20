@@ -4,8 +4,40 @@
   Create topic
 {% endblock title %}
 
+{% block head %}
+  {{ super() }}
+  <style>
+    #uranus {
+      position: relative;
+    }
+    #inside-uranus {
+      padding-left: 2rem;
+      padding-right: 0;
+    }
+    #uranus label {
+      left: 1rem;
+    }
+    #uranus::before {
+      content: '#';
+      display: block;
+      position: absolute;
+      z-index: 20;
+      top: .45em;
+      left: 1.45rem;
+      font-size: 1.25rem;
+    }
+  </style>
+{% endblock head %}
+
 {% block content %}
   <div id="content-padding">
-    TODO
+    <h1 class="flex-center">
+      Create a topic
+    </h1>
+    <form method="post" class="form-with-loading flex-center">
+      {{ macros_inputs::styled_input(name = "name", placeholder = "Topic name", class = "reduce-margin", size = 40, required = true, id = "uranus", inner_id = "inside-uranus") }}
+      {{ macros_inputs::styled_input(name = "description", placeholder = "Topic description (Optional)", size = 40) }}
+      {{ macros_inputs::styled_submit_button() }}
+    </form>
   </div>
 {% endblock content %}
