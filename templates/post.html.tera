@@ -11,9 +11,7 @@
 
 {% block content %}
   <div id="content-padding">
-    {% if success %}
-      <div class="success flex-center flex-row">Your post was created successfully</div>
-    {% endif %}
+    {{ macros_misc::flash_message() }}
     {% if post %}
       {{ macros_posts::post(post = post, post_page = true) }}
       {{ macros_misc::something_gone(text = "No comments loaded") }}

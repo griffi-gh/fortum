@@ -23,9 +23,7 @@
           <p class="error">You are already logged in</p>
           <a class="nocolor custom" href="/">Go home</a>
         {% else %}
-          {% if error %}
-            <p class="error">{{message.message}}</p>
-          {% endif %}
+        {{ macros_misc::flash_message() }}
           <p class="error display-none" id="js_error">Error</p>
           <form action="#" method="post" class="form-with-loading" id="reg-form">
             {{ macros_inputs::styled_input(name = "email", id = "form-section-email", placeholder = "Email", pattern = vars.email_regex, required = true) }}

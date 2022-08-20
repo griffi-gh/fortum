@@ -36,3 +36,9 @@
     <span class="npl-text warning">{{ text }}</span>
   </p>
 {% endmacro something_gone %}
+
+{% macro flash_message() %}
+  {% if message %}
+    <p class="{{message.kind}}">{{message.message}}</p>
+  {% endif %}
+{% endmacro flash_message %}

@@ -21,10 +21,10 @@ pub async fn submit<'a>(vars: TemplateVars, error: Option<FlashMessage<'a>>, top
 }
 
 #[post("/submit", data = "<data>")]
-pub async fn submit_post(data: Form<PostSubmitData<'_>>, mut db: Connection<MainDatabase>, auth: Authentication) -> Result<Redirect, Flash<Redirect>> {
+pub async fn submit_post(data: Form<PostSubmitData<'_>>, mut db: Connection<MainDatabase>, auth: Authentication) -> Flash<Redirect> {
   match MainDatabase::submit_post(&mut db, Some(auth.user_id), data.topic, &data.title, data.body).await {
-    Ok(id) => Ok(Redirect::to(uri!(post(id = id)))),
-    Err(err) => Err(Flash::error(Redirect::to(uri!(submit(topic = Some(data.topic)))), err)),
+    Ok(id) => Flash::success(Redirect::to(uri!(post(id = id))), "Your post was created succesfully"),
+    Err(err) => Flash::error(Redirect::to(uri!(submit(topic = Some(data.topic)))), err),
   }
 }
 #[post("/submit", rank = 2)]
