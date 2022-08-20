@@ -25,7 +25,7 @@ pub async fn profile_image(usr: &str, id: Option<i32>) -> Template {
     (user_color_components.2 as f32) * 0.114
   };
   let user_char = usr.trim_start().chars().next().unwrap_or('?');
-  let text_color = if background_brightness < 186. { 0xFFFFFF } else { 0 };
+  let text_color: u32 = if background_brightness < 186. { 0xFFFFFF } else { 0 };
   Template::render("misc/profile_image", context!{
     chr: user_char,
     background_color: format!("#{:06x}", user_color),

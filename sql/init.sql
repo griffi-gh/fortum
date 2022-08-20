@@ -24,6 +24,7 @@ CREATE TABLE users (
 CREATE TABLE topics (
   topic_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   topic_name VARCHAR(30) UNIQUE NOT NULL,
+  topic_description VARCHAR(255),
   created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
   creator INTEGER,
   FOREIGN KEY(creator) 
