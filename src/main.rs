@@ -15,7 +15,7 @@ mod cache_file_server;
 
 use endpoints::{
   index::index,
-  register::{register, post_register, register_success},
+  register::{register, post_register},
   login::{login, post_login},
   logout::{logout, super_logout},
   user::{user, user_self, user_self_fail},
@@ -42,7 +42,7 @@ fn rocket() -> _ {
     .attach(Template::fairing())
     .mount("/", routes![
       index, 
-      register, post_register, register_success,
+      register, post_register,
       login, post_login,
       logout, super_logout,
       user, user_self, user_self_fail,

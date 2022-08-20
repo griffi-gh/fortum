@@ -20,7 +20,7 @@
       {% else %}
         <p class="error display-none" id="js_error">Error</p>
         {% if error %}
-          <p class="error">{{error.message}}</p>
+          <p class="error">{{message.message}}</p>
         {% endif %}
         <form action="#" method="post" class="form-with-loading flex-center" id="login-form">
           {{ macros_inputs::styled_input(name = "email", placeholder = "Email", required = true, size = 40, autocomplete = "email", class = "reduce-margin", pattern = vars.email_regex) }}

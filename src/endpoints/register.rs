@@ -1,21 +1,12 @@
 use rocket::form::Form;
-use rocket::request::FlashMessage;
 use rocket::response::{Redirect, Flash};
 use rocket::http::{Cookie, CookieJar};
 use rocket_db_pools::Connection;
-use rocket_dyn_templates::{Template, context};
 use crate::db::MainDatabase;
-use crate::common::TemplateVars;
+use crate::common::define_get_handler;
+use super::misc::rocket_uri_macro_success;
 
-#[get("/register/success")]
-pub fn register_success(vars: TemplateVars) -> Template {
-  Template::render("register", context! { success: true, vars })
-}
-
-#[get("/register")]
-pub fn register(vars: TemplateVars, error: Option<FlashMessage>) -> Template {
-  Template::render("register", context! { error, vars })
-}
+define_get_handler!(register, "/register", "register");
 
 #[derive(FromForm)]
 pub struct RegisterData<'a> {
@@ -26,19 +17,17 @@ pub struct RegisterData<'a> {
 }
 
 #[post("/register", data = "<data>")]
-pub async fn post_register(data: Form<RegisterData<'_>>, mut db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Result<Redirect, Flash<Redirect>> {
+pub async fn post_register(data: Form<RegisterData<'_>>, mut db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Flash<Redirect> {
   if let Some(repeat) = data.repeat_password.as_ref() {
     if &data.password != repeat {
-      return Err(Flash::error(Redirect::to(uri!(register)), "Passwords don't match"));
+      return Flash::error(Redirect::to(uri!(register)), "Passwords don't match");
     }
   }
   match MainDatabase::register(&mut db, &data.email, &data.username, &data.password).await {
     Ok(token) => {
-      cookies.add_private(Cookie::build("auth", token).secure(true).finish());
-      Ok(Redirect::to("/register/success"))
+      cookies.add_private(Cookie::build("auth", token).secure(true).http_only(true).finish());
+      Flash::success(Redirect::to(uri!(success)), "Your account was created successfully")
     }
-    Err(error) => {
-      return Err(Flash::error(Redirect::to(uri!(register)), error));
-    }
+    Err(error) => Flash::error(Redirect::to(uri!(register)), error)
   }
 }

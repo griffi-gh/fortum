@@ -1,16 +1,11 @@
-use rocket_dyn_templates::{Template, context};
 use rocket::form::Form;
 use rocket::http::{Cookie, CookieJar};
 use rocket::response::{Redirect, Flash};
-use rocket::request::FlashMessage;
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::common::TemplateVars;
+use crate::common::define_get_handler;
 
-#[get("/login")]
-pub fn login(vars: TemplateVars, error: Option<FlashMessage>) -> Template {
-  Template::render("login", context! { error, vars })
-}
+define_get_handler!(login, "/login", "login");
 
 #[derive(FromForm)]
 pub struct LoginData<'a> {
@@ -22,7 +17,7 @@ pub struct LoginData<'a> {
 pub async fn post_login(data: Form<LoginData<'_>>, mut db: Connection<MainDatabase>, cookies: &CookieJar<'_>) -> Result<Redirect, Flash<Redirect>> {
   match MainDatabase::login(&mut db, &data.email, &data.password).await {
     Ok(token) => {
-      cookies.add_private(Cookie::build("auth", token).secure(true).finish());
+      cookies.add_private(Cookie::build("auth", token).secure(true).http_only(true).finish());
       Ok(Redirect::to(uri!("/")))
     }
     Err(error) => {

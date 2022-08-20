@@ -12,7 +12,7 @@
   <div id="content-padding">
     <h1>Submit to #[topic with id {{ topic | default(value='1') }}]</h1>
     {% if error %}
-      <p class="error">{{error.message}}</p>
+      <p class="error">{{message.message}}</p>
     {% endif %}
     <form action="#" method="POST" class="form-with-loading">
       <input type="hidden" name="topic" value="{{ topic | default(value='1') }}">

@@ -5,7 +5,7 @@ use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
 use crate::common::{TemplateVars, PostSort, SortDirection::*, PostFilter, Authentication};
 use crate::consts::RESULTS_PER_PAGE;
-use crate::endpoints::login::rocket_uri_macro_login;
+use super::login::rocket_uri_macro_login;
 
 #[get("/user")]
 pub async fn user_self(auth: Authentication) -> Redirect {

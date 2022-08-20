@@ -1,0 +1,21 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Success
+{% endblock title %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" href="/static/cached_short/css/register.css">
+{% endblock head %}
+
+{% block content %}
+  <div id="content-padding">
+    <div class="flex-center">
+      {# <h1>Sign up</h1> #}
+      <i class="register-success fa-solid fa-circle-check"></i>
+      <p class="margin-bottom-only">{{message.message}}</p>{# Your account was created successfully #}
+      <a class="styled-button" href="/">Go home</a>
+    </div>
+  </div>
+{% endblock content %}

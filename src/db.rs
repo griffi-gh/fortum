@@ -147,7 +147,7 @@ impl MainDatabase {
     Ok(post_id)
   }
 
-  pub async fn fetch_posts<'a>(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'a>, page: u32, max_results_on_page: u32) -> Vec<TemplatePost> {
+  pub async fn fetch_posts(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'_>, page: u32, max_results_on_page: u32) -> Vec<TemplatePost> {
     //This is pretty inefficient but hey it works!
     //OFFSET is slow btw, https://use-the-index-luke.com/no-offset
     assert!(max_results_on_page > 0);
@@ -207,10 +207,30 @@ impl MainDatabase {
     ).fetch_all(executor(db)).await.unwrap()
   }
 
-  pub async fn count_pages<'a>(db: &mut Connection<Self>, filter: PostFilter<'a>, results_per_page: u32) -> u32 {
+  pub async fn count_pages(db: &mut Connection<Self>, filter: PostFilter<'_>, results_per_page: u32) -> u32 {
     //! //HACK Turn this into it's own query, this is extemely slow
     let post_count = Self::fetch_posts(db, PostSort::ByDate(SortDirection::Descending), filter, 0, u32::MAX).await.len();
     div_up(post_count, results_per_page as usize) as u32
+  }
+
+  pub async fn get_post(db: &mut Connection<Self>, id: i32) -> Option<TemplatePost> {
+    sqlx::query_as!(TemplatePost, r#"
+      SELECT 
+        users.username AS "username?", 
+        users.profile_image AS profile_image,
+        posts.title AS title, 
+        posts.content AS content, 
+        posts.created_on AS created_on, 
+        topics.topic_name AS topic_name, 
+        posts.votes AS votes,
+        users.user_id AS "user_id?",
+        posts.post_id as post_id
+      FROM posts
+      LEFT JOIN users ON users.user_id = posts.author
+      INNER JOIN topics ON topics.topic_id = posts.topic
+      WHERE posts.post_id = $1
+      ORDER BY votes DESC;
+    "#, id).fetch_optional(executor(db)).await.unwrap()
   }
 
   //stats

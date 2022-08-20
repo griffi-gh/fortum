@@ -51,7 +51,7 @@
       {% if self_page %}
         <h1>Account actions</h1>
         {% if error %}
-          <p class="error">{{error.message}}</p>
+          <p class="error">{{message.message}}</p>
         {% endif %}
         <details class="accordion styled-collapsible">
           <summary>Account security</summary>
