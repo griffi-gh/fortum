@@ -1,5 +1,8 @@
 FROM rust:slim-buster as build
 
+# import env vars
+ARG DATABASE_URL
+
 # create a new empty shell project
 RUN USER=root cargo new --bin forum
 WORKDIR /forum
@@ -14,8 +17,6 @@ RUN rm src/*.rs
 
 # copy your source tree
 COPY ./src ./src
-
-ENV DATABASE_URL
 
 # build for release
 RUN rm ./target/release/deps/forum*
