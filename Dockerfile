@@ -12,7 +12,8 @@ COPY ./Cargo.lock ./Cargo.lock
 COPY ./Cargo.toml ./Cargo.toml
 
 # this build step will cache your dependencies
-RUN cargo build --release
+RUN cargo build 
+#--release
 RUN rm src/*.rs
 
 # copy your source tree
