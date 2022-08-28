@@ -15,6 +15,8 @@ RUN rm src/*.rs
 # copy your source tree
 COPY ./src ./src
 
+ENV DATABASE_URL
+
 # build for release
 RUN rm ./target/release/deps/forum*
 RUN cargo build --release
