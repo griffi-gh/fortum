@@ -28,8 +28,9 @@ FROM debian:buster-slim
 # copy the build artifact from the build stage
 COPY --from=build /forum/target/release/forum .
 
-# copy the static sirectory
+# copy stuff
 COPY ./static ./static
+COPY ./templates ./templates
 
 # set the startup command to run your binary
 CMD ["./forum"]
