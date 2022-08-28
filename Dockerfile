@@ -1,4 +1,4 @@
-FROM rust:latest-slim-buster as build
+FROM rust:slim-buster as build
 
 # create a new empty shell project
 RUN USER=root cargo new --bin forum
