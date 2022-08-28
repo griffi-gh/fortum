@@ -7,7 +7,7 @@ ARG DATABASE_URL
 RUN USER=root cargo new --bin forum
 WORKDIR /forum
 
-# copy over your manifests
+# copy over manifests
 COPY ./Cargo.lock ./Cargo.lock
 COPY ./Cargo.toml ./Cargo.toml
 
@@ -27,6 +27,9 @@ FROM debian:buster-slim
 
 # copy the build artifact from the build stage
 COPY --from=build /forum/target/release/forum .
+
+# copy the static sirectory
+COPY ./static ./static
 
 # set the startup command to run your binary
 CMD ["./forum"]
