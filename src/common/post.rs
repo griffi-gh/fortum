@@ -3,15 +3,19 @@ use serde::Serialize;
 
 #[derive(Serialize, Debug)]
 pub struct Post {
-  pub username: Option<String>,
-  pub profile_image: Option<String>, 
+  //post
+  pub post_id: i32,
   pub title: String, 
   pub content: Option<String>, 
   pub created_on: DateTime<Utc>, 
-  pub topic_name: String, 
-  pub votes: i64,
+  //user
   pub user_id: Option<i32>,
-  pub post_id: i32,
+  pub username: Option<String>,
+  pub profile_image: Option<String>, 
+  //topic
+  pub topic_name: String, 
+  //votes
+  pub votes: i64,
 }
 
 #[derive(Clone, Copy)]
