@@ -2,8 +2,8 @@ use rocket_db_pools::{Database, Connection};
 use sqlx::{self, PgPool, Row};
 use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
-use crate::{consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX}, common::TemplatePost};
-use crate::common::{executor, div_up, generate_token, User, PostFilter, Stats, PostSort, SortDirection};
+use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX};
+use crate::common::{executor, div_up, generate_token, User, Post, PostFilter, Stats, PostSort, SortDirection};
 
 #[derive(Database)]
 #[database("main")]
@@ -147,7 +147,7 @@ impl MainDatabase {
     Ok(post_id)
   }
 
-  pub async fn fetch_posts(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'_>, page: u32, max_results_on_page: u32) -> Vec<TemplatePost> {
+  pub async fn fetch_posts(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'_>, page: u32, max_results_on_page: u32) -> Vec<Post> {
     //This is pretty inefficient but hey it works!
     //OFFSET is slow btw, https://use-the-index-luke.com/no-offset
     assert!(max_results_on_page > 0);
@@ -159,7 +159,7 @@ impl MainDatabase {
       #[allow(unreachable_patterns)]
       _ => unimplemented!("Filter type not implemented")
     };
-    sqlx::query_as!(TemplatePost, r#"
+    sqlx::query_as!(Post, r#"
         SELECT 
           users.username AS "username?", 
           users.profile_image AS "profile_image?",
@@ -213,8 +213,8 @@ impl MainDatabase {
     div_up(post_count, results_per_page as usize) as u32
   }
 
-  pub async fn get_post(db: &mut Connection<Self>, id: i32) -> Option<TemplatePost> {
-    sqlx::query_as!(TemplatePost, r#"
+  pub async fn get_post(db: &mut Connection<Self>, id: i32) -> Option<Post> {
+    sqlx::query_as!(Post, r#"
       SELECT 
         users.username AS "username?", 
         users.profile_image AS profile_image,
