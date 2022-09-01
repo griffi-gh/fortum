@@ -37,7 +37,13 @@ fn rocket() -> _ {
   let db_url = env::var("DATABASE_URL").unwrap();
   let figment = rocket::Config::figment()
     .merge(Env::raw().only(&["PORT", "SECRET_KEY"]))
-    .merge(("databases", map!["main" => map!["url" => db_url]]));
+    .merge(("databases", map![
+      "main" => map![
+        "url" => db_url, 
+        "min_connections" => 1.to_string(),
+        "max_connections" => 5.to_string()
+      ]
+    ]));
   rocket::custom(figment)
     .attach(db::MainDatabase::init())
     .attach(Template::fairing())
