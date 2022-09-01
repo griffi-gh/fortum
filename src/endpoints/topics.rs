@@ -2,7 +2,8 @@ use rocket::request::FlashMessage;
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{context, Template};
 use crate::db::MainDatabase;
-use crate::common::{TemplateVars, PostFilter, PostSort, SortDirection::*};
+use crate::common::template_vars::TemplateVars;
+use crate::common::post::{PostFilter, PostSort, SortDirection};
 use crate::consts::RESULTS_PER_PAGE;
 
 #[get("/topics")]
@@ -15,7 +16,7 @@ pub async fn topic(mut db: Connection<MainDatabase>, vars: TemplateVars, name: &
   //TODO fetch info about topic
   let posts = MainDatabase::fetch_posts(
     &mut db, 
-    PostSort::ByDate(Descending),
+    PostSort::ByDate(SortDirection::Descending),
     PostFilter::ByTopicName(name),
     page.unwrap_or_default(),
     RESULTS_PER_PAGE

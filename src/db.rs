@@ -2,8 +2,12 @@ use rocket_db_pools::{Database, Connection};
 use sqlx::{self, PgPool, Row};
 use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
+//use rocket::tokio::join;
 use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX};
-use crate::common::{executor, div_up, generate_token, User, Post, PostFilter, Stats, PostSort, SortDirection};
+use crate::common::utils::{executor, div_up, generate_token};
+use crate::common::stats::Stats;
+use crate::common::post::{Post, PostFilter, PostSort, SortDirection};
+use crate::common::user::User;
 
 #[derive(Database)]
 #[database("main")]
@@ -211,6 +215,13 @@ impl MainDatabase {
     //! //HACK Turn this into it's own query, this is extemely slow
     let post_count = Self::fetch_posts(db, PostSort::ByDate(SortDirection::Descending), filter, 0, u32::MAX).await.len();
     div_up(post_count, results_per_page as usize) as u32
+  }
+
+  //TODO somehow `join` instead of awaiting. Requires two mut references to db
+  pub async fn fetch_posts_and_count_pages(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'_>, page: u32, max_results_on_page: u32) -> (Vec<Post>, u32) {
+    let posts = Self::fetch_posts(db, sort, filter, page, max_results_on_page).await;
+    let pages = Self::count_pages(db, filter, max_results_on_page).await;
+    (posts, pages)
   }
 
   pub async fn get_post(db: &mut Connection<Self>, id: i32) -> Option<Post> {

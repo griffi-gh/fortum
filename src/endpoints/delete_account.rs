@@ -4,7 +4,8 @@ use rocket::form::Form;
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{context, Template};
 use crate::db::MainDatabase;
-use crate::common::{Authentication, TemplateVars};
+use crate::common::authentication::Authentication;
+use crate::common::template_vars::TemplateVars;
 use crate::consts::AUTH_COOKIE_NAME;
 
 //TODO "soft deletion"

@@ -3,7 +3,7 @@ use rocket::form::Form;
 use rocket_db_pools::Connection;
 use sqlx::{self, Row};
 use crate::db::MainDatabase;
-use crate::common::Authentication;
+use crate::common::authentication::Authentication;
 
 #[derive(FromForm)]
 pub struct VoteData {

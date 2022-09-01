@@ -2,7 +2,8 @@ use rocket::http::{Cookie, CookieJar};
 use rocket::response::Redirect;
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::common::{Authentication, generate_token};
+use crate::common::authentication::Authentication;
+use crate::common::utils::generate_token;
 use crate::consts::AUTH_COOKIE_NAME;
 
 #[post("/super_logout")]

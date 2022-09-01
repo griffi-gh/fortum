@@ -1,6 +1,6 @@
 use rocket::{Request, http::Status};
 use rocket_dyn_templates::{Template, context};
-use crate::common::TemplateVars;
+use crate::common::template_vars::TemplateVars;
 
 #[catch(default)]
 pub async fn default_catcher(status: Status, request: &Request<'_>) -> Template {

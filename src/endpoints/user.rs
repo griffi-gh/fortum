@@ -3,7 +3,9 @@ use rocket::response::Redirect;
 use rocket_dyn_templates::{Template, context};
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::common::{TemplateVars, PostSort, SortDirection::*, PostFilter, Authentication};
+use crate::common::template_vars::TemplateVars;
+use crate::common::post::{PostSort, SortDirection, PostFilter};
+use crate::common::authentication::Authentication;
 use crate::consts::RESULTS_PER_PAGE;
 use super::login::rocket_uri_macro_login;
 
@@ -25,7 +27,7 @@ pub async fn user(vars: TemplateVars, id: i32, mut db: Connection<MainDatabase>,
   };
   let posts = MainDatabase::fetch_posts(
     &mut db, 
-    PostSort::ByDate(Descending),
+    PostSort::ByDate(SortDirection::Descending),
     PostFilter::ByUserId(id),
     page.unwrap_or_default(),
     RESULTS_PER_PAGE

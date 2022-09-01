@@ -2,7 +2,7 @@ use rocket::response::status::BadRequest;
 use rocket::form::Form;
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::common::Authentication;
+use crate::common::authentication::Authentication;
 use crate::consts::USERNAME_REGEX;
 
 #[derive(FromForm)]

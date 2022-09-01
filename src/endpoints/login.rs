@@ -3,7 +3,7 @@ use rocket::http::{Cookie, CookieJar};
 use rocket::response::{Redirect, Flash};
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
-use crate::common::define_get_handler;
+use crate::common::get_handler_macros::define_get_handler;
 
 define_get_handler!(login, "/login", "login");
 

@@ -1,6 +1,6 @@
 use rocket::response::{Flash, Redirect};
 use rocket::form::Form;
-use crate::common::define_get_handler;
+use crate::common::get_handler_macros::define_get_handler;
 use super::topics::rocket_uri_macro_topic;
 
 define_get_handler!(topics_create_get, "/topics/create", "topics_create");
