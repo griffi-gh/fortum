@@ -7,15 +7,10 @@ use crate::common::template_vars::TemplateVars;
 use crate::common::post::{PostSort, SortDirection, PostFilter};
 use crate::common::authentication::Authentication;
 use crate::consts::RESULTS_PER_PAGE;
-use super::login::rocket_uri_macro_login;
 
 #[get("/user")]
 pub async fn user_self(auth: Authentication) -> Redirect {
   Redirect::to(uri!(user(id = auth.user_id, page = Option::<u32>::None)))
-}
-#[get("/user", rank = 2)]
-pub async fn user_self_fail() -> Redirect {
-  Redirect::to(uri!(login))
 }
 
 #[get("/user/<id>?<page>")] 
