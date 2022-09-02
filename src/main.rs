@@ -13,6 +13,7 @@ pub mod endpoints;
 pub mod common;
 mod cache_file_server;
 
+use cache_file_server::CacheFileServer;
 use endpoints::{
   index::index,
   register::{register, post_register},
@@ -30,6 +31,11 @@ use endpoints::{
   misc::{sad, success},
   error::{default_catcher, display_error},
 };
+
+//TODO turn into config options
+//TODO use long for evverything and add version to templates
+const CACHE_SHORT: usize = 300;     //5 minutes
+const CACHE_LONG: usize = 1209600;  //2 weeks
 
 #[launch]
 fn rocket() -> _ {
@@ -65,7 +71,10 @@ fn rocket() -> _ {
       sad, success,
     ])
     .register("/", catchers![default_catcher])
-    .mount("/static", FileServer::from("./static/"))
-    .mount("/static/cached_long/", routes![cache_file_server::files_long])
-    .mount("/static/cached_short/", routes![cache_file_server::files_short])
+    .mount("/static/css", CacheFileServer::new("./static/css", CACHE_SHORT))
+    .mount("/static/js", CacheFileServer::new("./static/js", CACHE_SHORT))
+    .mount("/static/images", CacheFileServer::new("./static/images", CACHE_LONG))
+    .mount("/static/fonts", CacheFileServer::new("./static/fonts", CACHE_LONG))
+    .mount("/static/favicon", CacheFileServer::new("./static/favicon", CACHE_LONG))
+    .mount("/static", FileServer::from("./static/").rank(11))
 }
