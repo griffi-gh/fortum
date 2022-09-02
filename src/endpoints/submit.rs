@@ -28,7 +28,3 @@ pub async fn submit_post(data: Form<PostSubmitData<'_>>, mut db: Connection<Main
     Err(err) => Flash::error(Redirect::to(uri!(submit(topic = Some(data.topic)))), err),
   }
 }
-#[post("/submit", rank = 2)]
-pub async fn submit_post_error() -> Flash<Redirect> {
-  Flash::error(Redirect::to(uri!(login)), "Log in before posting")
-}

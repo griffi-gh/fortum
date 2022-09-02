@@ -19,16 +19,16 @@ use endpoints::{
   login::{login, post_login},
   logout::{logout, super_logout},
   user::{user, user_self, user_self_fail},
-  submit::{submit, submit_post, submit_post_error},
+  submit::{submit, submit_post},
   post::post,
   vote::vote,
   dyn_profile_image::profile_image,
-  error::{default_catcher, display_error},
   delete_account::delete_account,
   update_username::update_username,
   topics::{topic, topics},
   topics_create::{topics_create, topics_create_get},
-  misc::{sad, success}
+  misc::{sad, success},
+  error::{default_catcher, display_error},
 };
 
 #[launch]
@@ -53,7 +53,7 @@ fn rocket() -> _ {
       login, post_login,
       logout, super_logout,
       user, user_self, user_self_fail,
-      submit, submit_post, submit_post_error,
+      submit, submit_post,
       post,
       vote,
       profile_image,
