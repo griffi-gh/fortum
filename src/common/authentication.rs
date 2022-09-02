@@ -30,3 +30,5 @@ impl<'r> FromRequest<'r> for Authentication {
     }    
   }
 }
+
+//TODO authorization
