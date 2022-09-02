@@ -20,7 +20,6 @@ impl<'r> FromRequest<'r> for Authentication {
       MainDatabase::get_user_id_by_token(&mut db, &token).await
     } else { None };
     let valid = token.is_some() && user_id.is_some();
-    //TODO maybe fail if no auth??
     match valid {
       true => Outcome::Success(Self {
         token: token.unwrap(),
