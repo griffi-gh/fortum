@@ -23,6 +23,11 @@ FROM rust:slim-buster as build
 
 # preprocess css
 FROM node:buster-slim as preprocess
+  # init npm project
+  RUN mkdir pre
+  WORKDIR /pre
+  RUN npm init -y
+
   # copy assets
   COPY ./postcss.config.js ./postcss.config.js
   COPY ./static ./static
