@@ -1,3 +1,10 @@
+#user-profile-section-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  cursor: pointer;
+}
 #user-profile-section {
   cursor: pointer;
   display: flex;

@@ -6,6 +6,11 @@
     --estim-header-height: 112.883px;
   }
 }
+@media only screen and (max-width: 134px) {
+  :root {
+    --estim-header-height: 144.883px;
+  }
+}
 #header {
   position: sticky;
   top: 0;
@@ -180,5 +185,24 @@
     justify-content: center;
     align-items: center;
     margin-top: 5px;
+  }
+  body #user-profile-section#user-profile-section {
+    background: transparent;
+    border: none;
+  }
+  @media only screen and (max-width: 134px) {
+    body #user-profile-section#user-profile-section {
+      /* 
+        NOT `flex-direction: column` 
+        to make sure that the pfp and arrow
+        are on the same row.
+        ik it's rather hacky but who tf 
+        actually uses 130px screens lol
+      */
+      flex-wrap: wrap; 
+    }
+    #user-profile-arrow {
+      margin-left: -5px;
+    }
   }
 }
