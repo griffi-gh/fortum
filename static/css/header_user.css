@@ -1,0 +1,84 @@
+#user-profile-section {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background .33s, border-left-color .33s;
+  padding-left: .5rem;
+  border-left: 1px solid transparent;
+}
+#user-profile-section:is(:hover, :focus-within) {
+  background-color: var(--color-primary-light-slight);
+  border-left-color: rgba(0,0,128,.33);
+}
+#user-profile-section:active:not(:focus-within) {
+  background-color: var(--color-primary-light);
+}
+#user-profile-section:focus-within {
+  background-color: var(--color-primary-light-slight2);
+  pointer-events: none;
+}
+#user-profile-section:focus-within > * {
+  pointer-events: auto;
+}
+#user-profile-section:focus-within #user-profile-arrow {
+  transform: rotate(180deg);
+  color: var(--color-gray-dark);
+}
+#user-profile-arrow {
+  color: gray;
+  transition: transform .4s;
+  /* margin: 0 .25rem; */
+  margin-right: .2rem;
+}
+#user-profile-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#user-profile-icon img {
+  border-radius: 50%;
+  background-color: darkslateblue;
+}
+#user-profile-username-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 .5rem;
+  overflow: hidden;
+  position: relative;
+}
+#user-profile-loggedinas {
+  color: gray;
+  font-size: .75rem;
+  transition: .33s color;
+}
+#user-profile-section:focus-within #user-profile-loggedinas {
+  color: var(--color-gray-dark);
+}
+#user-profile-username {
+  font-size: .9rem;
+  display: block;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: min(50vw, 10rem);
+}
+@media only screen and (max-width: 550px) {
+  #user-profile-username#user-profile-username {
+    max-width: 8rem;
+  }
+}
+@media only screen and (max-width: 500px) {
+  #user-profile-username#user-profile-username {
+    max-width: 5rem;
+  }
+}
+#user-profile-loggedinas > * {
+  white-space: nowrap;
+}

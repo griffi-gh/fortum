@@ -1,4 +1,3 @@
-<input type="checkbox" id="state-header-popup" autocomplete="off" style="display: none; pointer-events: none;" width="0" height="0" aria-hidden="true">
 <header class="header" id="header">
   <a href="/" id="header-title" class="nocolor">
     <img src="/static/images/branding/t192.png" id="header-new-logo" alt="" height="24" width="24">
@@ -25,18 +24,42 @@
   </div>
   <div id="header-right">
     {% if vars.user %}
-      <label for="state-header-popup" class="nocolor" id="user-profile-section">
-        <div id="user-profile-icon">
-          <img src='{{ macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) }}' alt="User icon" width="32" height="32">
-        </div>
-        <div id="user-profile-username-section">
-          <span id="user-profile-loggedinas">
-            <span id="loggedinas-text">Logged in as</span>
-            {# <label for="actual-logout-button" class="link-custom" id="logout-button">Log out</label> #}
-          </span>
-          <span id="user-profile-username">{{ vars.user.username }}</span>
-        </div>
-      </label>
+      <div id="user-profile-section" tabindex="0">
+        {# Normal items #}
+          <div id="user-profile-arrow">
+            <i class="fa-solid fa-caret-down"></i>
+          </div>
+          <div id="user-profile-icon">
+            <img src='{{ macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) }}' alt="User icon" width="32" height="32">
+          </div>
+          <div id="user-profile-username-section">
+            <span id="user-profile-loggedinas">
+              <span id="loggedinas-text">Logged in as</span>
+            </span>
+            <span id="user-profile-username">{{ vars.user.username }}</span>
+          </div>
+        {# Normal items end #}
+        {# Popup #}
+          <div id="header-popup">
+            <div style="display: none;">
+              <form action="/logout" method="post" id="logout-form"></form>
+            </div>
+            <a href="/user" class="nocolor" tabindex="0">
+              <i class="header-popup-icon fa-solid fa-user"></i>
+              <span>User page</span>
+            </a>
+            <a href="/topics/create" class="nocolor" tabindex="0">
+              <i class="header-popup-icon fa-solid fa-message-plus {# fa-grid-2-plus #}"></i>
+              <span>Create your own #topic</span>
+            </a>
+            <button type="submit" form="logout-form" tabindex="0">
+              <i class="header-popup-icon fa-solid fa-arrow-right-from-bracket"></i>
+              <span>Log out</span>
+            </button>
+          </div>
+        {# Popup end #}
+      </div>
+      <div id="focus-catcher" class="display-none"></div>
     {% else %}
       <a href="/register" id="header-login" class="styled-button style-outline">
         Sign up
@@ -48,22 +71,3 @@
     {% endif %}
   </div>
 </header>
-{% if vars.user %}
-  <div style="display: none;">
-    <form action="/logout" method="post" id="logout-form"></form>
-  </div>
-  <div id="header-popup">
-    <a href="/user" class="nocolor">
-      <i class="header-popup-icon fa-solid fa-user"></i>
-      <span>User page</span>
-    </a>
-    <a href="/topics/create" class="nocolor">
-      <i class="header-popup-icon fa-solid fa-message-plus {# fa-grid-2-plus #}"></i>
-      <span>Create your own #topic</span>
-    </a>
-    <button type="submit" form="logout-form">
-      <i class="header-popup-icon fa-solid fa-arrow-right-from-bracket"></i>
-      <span>Log out</span>
-    </button>
-  </div>
-{% endif %}

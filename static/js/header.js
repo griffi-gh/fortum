@@ -13,12 +13,12 @@
 //   });
 // }
 
-const popupState = document.getElementById('state-header-popup');
-document.addEventListener('click', event => {
-  if (!popupState.checked) return;
-  const closest = event.target.closest('#header-popup, #header, #state-header-popup');
-  if (closest == null) {
-    popupState.checked = false;
-    console.log('blur overlay');
-  }
-});
+// const popupState = document.getElementById('state-header-popup');
+// document.addEventListener('click', event => {
+//   if (!popupState.checked) return;
+//   const closest = event.target.closest('#header-popup, #header, #state-header-popup');
+//   if (closest == null) {
+//     popupState.checked = false;
+//     console.log('blur overlay');
+//   }
+// });

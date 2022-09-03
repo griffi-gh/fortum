@@ -3,6 +3,7 @@
   --color-primary: #0277bc;
   --color-primary-light: #58a5f0;
   --color-primary-light-slight: #cde4fa;
+  --color-primary-light-slight2: #9cccfa;
   --color-primary-dark: #004c8c;
   --color-primary-darker: #003a6b;
   --color-error: #eb0000;
@@ -12,4 +13,5 @@
   --color-downvote: #8b0000;
   --color-branding: #aaaaff;
   --color-branding-dark: #080839;
+  --color-gray-dark: #3a3a3a;
 }

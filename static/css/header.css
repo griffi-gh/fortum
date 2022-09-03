@@ -13,11 +13,19 @@
   display: flex;
   background: rgba(255,255,255,.79);
   box-shadow: 0 0 .33rem rgba(0,0,0,.25);
-  overflow: hidden;
+  /* overflow: hidden; */
   align-items: stretch;
   border-bottom: 1px solid rgba(128,128,128,.33);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+#--make-header-fixed {
+  display: none;
+}
+#--make-header-fixed ~ #header, #--make-header-fixed #header {
+  position: fixed;
+  inset: 0;
+  bottom: unset;
 }
 #header-title {
   display: flex;
@@ -60,12 +68,6 @@
 #header-title:is(:hover,:active) #header-name::after { 
   transform: none;
 }
-/* #header-title:hover .header-logo-no-hover, .header-logo-hover {
-  display: none;
-}
-#header-title:hover .header-logo-hover {
-  display: inline-block;
-} */
 #header-center {
   display: flex;
   align-items: center;
@@ -76,100 +78,7 @@
   align-items: stretch;
   margin-left: auto;
 }
-#user-profile-section {
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  transition: background .33s, border-left-color .33s;
-  padding-left: .5rem;
-  border-left: 1px solid transparent;
-}
-#user-profile-section:hover {
-  background-color: var(--color-primary-light-slight);
-  border-left-color: rgba(0,0,128,.33);
-}
-#user-profile-section:active {
-  background-color: var(--color-primary-light);
-}
-#user-profile-section:active #logout-button {
-  color: var(--color-primary-dark, darblue);
-}
-#user-profile-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#user-profile-icon img {
-  border-radius: 50%;
-  background-color: darkslateblue;
-}
-#user-profile-username-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 .5rem;
-  overflow: hidden;
-  position: relative;
-}
-#user-profile-loggedinas {
-  color: gray;
-  font-size: .75rem;
-}
-#user-profile-username {
-  font-size: .9rem;
-  display: block;
-  text-overflow: ellipsis;
-  word-break: break-all;
-  overflow: hidden;
-  white-space: nowrap;
-  max-width: min(50vw, 10rem);
-}
-@media only screen and (max-width: 550px) {
-  #user-profile-username#user-profile-username {
-    max-width: 8rem;
-  }
-}
-@media only screen and (max-width: 500px) {
-  #user-profile-username#user-profile-username {
-    max-width: 5rem;
-  }
-}
-/* #user-profile-loggedinas {
-  display: grid;
-}
-#user-profile-loggedinas > * {
-  grid-column: 1;
-  grid-row: 1;
-  transition: opacity .33s, color .33s;
-  white-space: nowrap;
-}  */
-  #user-profile-loggedinas > * {
-    white-space: nowrap;
-  }
-/* #logout-button::after { content: '?'; }
-#loggedinas-text { opacity: 1; z-index: 1; }
-#logout-button { opacity: 0; z-index: 2; }
-#user-profile-section:hover #loggedinas-text { opacity: 0; }
-#user-profile-section:hover #logout-button { opacity: 1; }
-@media (pointer: coarse) { 
-  #user-profile-section #loggedinas-text { opacity: 0; }
-  #user-profile-section #logout-button { opacity: 1; }
-  #logout-button::after { content: ''; }
-} */
 
-#--make-header-fixed {
-  display: none;
-}
-#--make-header-fixed ~ #header {
-  position: fixed;
-  inset: 0;
-  bottom: unset;
-}
 
 #header-search-bar {
   opacity: .65;

@@ -19,6 +19,7 @@
     {# import stylesheets #}
     {{ macros_misc::css(static="global") }}
     {% if vars.user %}
+      {{ macros_misc::css(static="header_user") }}
       {{ macros_misc::css(static="header_popup") }}
     {% endif %}
 
