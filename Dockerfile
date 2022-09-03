@@ -1,6 +1,7 @@
 FROM rust:slim-buster as build
   # import env vars
   ARG DATABASE_URL
+  ENV DATABASE_URL=$DATABASE_URL
 
   # create a new empty shell project
   RUN USER=root cargo new --bin forum
