@@ -25,6 +25,9 @@ a.custom:hover {
 img {
   display: block;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   padding: 0;
@@ -130,5 +133,8 @@ body {
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
     transition: none !important;
+  }
+  html {
+    scroll-behavior: unset !important;
   }
 }
