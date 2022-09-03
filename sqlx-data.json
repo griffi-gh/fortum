@@ -1,3 +1,222 @@
 {
-  "db": "PostgreSQL"
+  "db": "PostgreSQL",
+  "0d975be07317c96c240828eb500835aec1505d98d5dfbe92b360194a11291fe5": {
+    "describe": {
+      "columns": [
+        {
+          "name": "username?",
+          "ordinal": 0,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "profile_image?",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "title!",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "content?",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "created_on!",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "topic_name!",
+          "ordinal": 5,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "votes!",
+          "ordinal": 6,
+          "type_info": "Int8"
+        },
+        {
+          "name": "user_id?",
+          "ordinal": 7,
+          "type_info": "Int4"
+        },
+        {
+          "name": "post_id!",
+          "ordinal": 8,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int8",
+          "Int8",
+          "Int4",
+          "Int4",
+          "Text",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n        SELECT \n          users.username AS \"username?\", \n          users.profile_image AS \"profile_image?\",\n          posts.title AS \"title!\", \n          posts.content AS \"content?\", \n          posts.created_on AS \"created_on!\", \n          topics.topic_name AS \"topic_name!\", \n          posts.votes AS \"votes!\",\n          users.user_id AS \"user_id?\",\n          posts.post_id as \"post_id!\"\n        FROM posts\n        LEFT JOIN users ON users.user_id = posts.author\n        INNER JOIN topics ON topics.topic_id = posts.topic\n        WHERE (\n          $4 = 0 OR\n          ($4 = 1 AND topics.topic_id = $5) OR\n          ($4 = 2 AND topics.topic_name = $6) OR\n          ($4 = 3 AND users.user_id = $7)\n        )\n        ORDER BY\n          CASE WHEN $1 = 1 THEN posts.created_on END DESC, \n          CASE WHEN $1 = 2 THEN posts.created_on END ASC, \n          CASE WHEN $1 = 3 THEN posts.votes END DESC, \n          CASE WHEN $1 = 4 THEN posts.votes END ASC\n        LIMIT $2 OFFSET $3\n      "
+  },
+  "1caf00bdcd52efc4751ece929ebf3e97dc6fc970620c13feb58c7cd71302f0f6": {
+    "describe": {
+      "columns": [
+        {
+          "name": "username?",
+          "ordinal": 0,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "profile_image",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "title",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "content",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "created_on",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "topic_name",
+          "ordinal": 5,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "votes",
+          "ordinal": 6,
+          "type_info": "Int8"
+        },
+        {
+          "name": "user_id?",
+          "ordinal": 7,
+          "type_info": "Int4"
+        },
+        {
+          "name": "post_id",
+          "ordinal": 8,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n      SELECT \n        users.username AS \"username?\", \n        users.profile_image AS profile_image,\n        posts.title AS title, \n        posts.content AS content, \n        posts.created_on AS created_on, \n        topics.topic_name AS topic_name, \n        posts.votes AS votes,\n        users.user_id AS \"user_id?\",\n        posts.post_id as post_id\n      FROM posts\n      LEFT JOIN users ON users.user_id = posts.author\n      INNER JOIN topics ON topics.topic_id = posts.topic\n      WHERE posts.post_id = $1\n      ORDER BY votes DESC;\n    "
+  },
+  "371777ab4ca69dd66f07d227d8f33c5f8ac4f4d10b1b9023b2f725e3d8e52022": {
+    "describe": {
+      "columns": [
+        {
+          "name": "vote_id",
+          "ordinal": 0,
+          "type_info": "Int8"
+        },
+        {
+          "name": "vote",
+          "ordinal": 1,
+          "type_info": "Bool"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "SELECT vote_id, vote FROM votes WHERE user_id = $1 AND post_id = $2"
+  },
+  "cb027e1383cee8690556a9def0c73ef43f9a1acb4720779b1e1db2d00cb19da0": {
+    "describe": {
+      "columns": [
+        {
+          "name": "users",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "posts",
+          "ordinal": 1,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "SELECT * FROM stats"
+  },
+  "f2329f313bc1af2a88d3432347bff12afdfee729deea0213ad6090b7ecae6f25": {
+    "describe": {
+      "columns": [
+        {
+          "name": "password_hash",
+          "ordinal": 0,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "token",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        }
+      ],
+      "nullable": [
+        false,
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "SELECT password_hash, token FROM users WHERE email = $1"
+  }
 }
