@@ -11,13 +11,12 @@
 {% block head %}
   {{ super() }}
   {% include "stuff/post_imports" %}
-  <link rel="stylesheet" href="/static/cached_short/css/user.css">
+  {{ macros_misc::css(static="user") }}
   {% if self_page %}
-    <script src="/static/cached_short/js/accordion.js" async defer></script>
-    <script src="/static/cached_short/js/user_self.js" async defer></script>
-    <link rel="stylesheet" href="/static/cached_short/css/user_self.css">
+    {{ macros_misc::js(static="accordion") }}
+    {{ macros_misc::js(static="user_self") }}
+    {{ macros_misc::css(static="user_self") }}
   {% endif %}
-  {# <script src="/static/cached_short/js/user_self.js" async defer></script> #}
 {% endblock head %}
 
 {% block body_top %}
@@ -36,7 +35,7 @@
   {% endif %}
   {% if user %}
     <div id="user-banner">
-      <img src="/static/cached_long/images/background/0.jpg" alt="Banner image">
+      <img src="/static/images/background/0.jpg" alt="Banner image">
     </div>
     <div id="pfp-overlay">
       <div class="pfp-image-wrapper">

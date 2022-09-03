@@ -7,11 +7,11 @@
 {% block head %}
   {{ super() }}
   {% include "stuff/post_imports" %}
-  <link rel="stylesheet" href="/static/cached_short/css/index.css">
+  {{ macros_misc::css(static="index") }}
   {% if not vars.user and not page %}
-    <link rel="stylesheet" href="/static/cached_short/css/index_landing.css">
-    <script src="/static/cached_short/js/index_landing.js" defer async></script>
-    <link rel="preload" href="/static/cached_long/images/background/1-q4.jpg" as="image">
+    {{ macros_misc::css(static="index_landing") }}
+    {{ macros_misc::js(static="index_landing") }}
+    <link rel="preload" href="/static/images/background/1-q4.jpg" as="image">
   {% endif %}
 {% endblock head %}
 

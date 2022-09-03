@@ -3,7 +3,7 @@ use rocket_db_pools::Connection;
 use rocket::request::{FromRequest, Outcome};
 use rocket::Request;
 use crate::db::MainDatabase;
-use crate::consts::{USERNAME_REGEX_STR, PASSWORD_REGEX_STR, EMAIL_REGEX_STR, RANDOM};
+use crate::consts::{USERNAME_REGEX_STR, PASSWORD_REGEX_STR, EMAIL_REGEX_STR, RANDOM_VERSION};
 use super::user::User;
 use super::utils::get_token;
 
@@ -31,7 +31,7 @@ impl<'r> FromRequest<'r> for TemplateVars {
       username_regex: USERNAME_REGEX_STR,
       password_regex: PASSWORD_REGEX_STR,
       email_regex: EMAIL_REGEX_STR,
-      version: RANDOM.as_str(),
+      version: RANDOM_VERSION,
     })
   }
 }

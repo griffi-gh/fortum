@@ -6,7 +6,7 @@
 
 {% block head %}
   {{ super() }}
-  <link rel="stylesheet" href="/static/cached_short/css/success.css">
+  {{ macros_misc::css(static="success") }}
 {% endblock head %}
 
 {% block content %}

@@ -34,8 +34,8 @@ use endpoints::{
 
 //TODO turn into config options
 //TODO use long for evverything and add version to templates
-const CACHE_SHORT: usize = 300;     //5 minutes
-const CACHE_LONG: usize = 1209600;  //2 weeks
+const CACHE_SHORT: usize = 300;    //5 minutes
+const CACHE_LONG: usize = 1209600; //2 weeks
 
 #[launch]
 fn rocket() -> _ {

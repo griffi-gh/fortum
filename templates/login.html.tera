@@ -6,8 +6,8 @@
 
 {% block head %}
   {{ super() }}
-  <script src="/static/cached_short/js/login.js" defer async></script>
-  <link rel="stylesheet" href="/static/cached_short/css/login.css">
+  {{ macros_misc::js(static="login") }}
+  {{ macros_misc::css(static="login") }}
 {% endblock head %}
 
 {% block content %}

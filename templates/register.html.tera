@@ -6,8 +6,8 @@
 
 {% block head %}
   {{ super() }}
-  <script src="/static/cached_short/js/register.js" defer async></script>
-  <link rel="stylesheet" href="/static/cached_short/css/register.css">
+  {{ macros_misc::css(static="register") }}
+  {{ macros_misc::js(static="register") }}
 {% endblock head %}
 
 {% block content %}

@@ -42,3 +42,31 @@
     <p class="{{message.kind}}">{{message.message}}</p>
   {% endif %}
 {% endmacro flash_message %}
+
+{% macro versioned(file, version=false) -%}
+  {{ file }}?v={% if version -%}{{ version }}{% else -%}{{ vars.version }}{% endif -%}
+{% endmacro versioned %}
+
+{% macro js(file=false, static=false, ver=true, async=true, defer=true) %}
+  {% if static %}
+    {% set file = "/static/js/" ~ static ~ ".js" %}
+  {% endif %}
+  {% if ver %}
+    {% set file = macros_misc::versioned(file=file) %}
+  {% endif %}
+  <script src="{{file}}" {% if async %} async {% endif %} {% if defer %} defer {% endif %}></script>
+{% endmacro js %}
+
+{% macro link(file=false, rel="stylesheet", ver=true) %}
+  {% if ver %}
+    {% set file = macros_misc::versioned(file=file) %}
+  {% endif %}
+  <link rel="{{rel}}" href="{{file}}">
+{% endmacro link %}
+
+{% macro css(file=false, static=false, ver=true) %}
+  {% if static %}
+    {% set file = "/static/css/" ~ static ~ ".css" %}
+  {% endif %}
+  {{ macros_misc::link(file=file, ver=ver, static=static) }}
+{% endmacro css %}

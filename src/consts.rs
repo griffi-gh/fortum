@@ -1,17 +1,10 @@
 use regex::Regex;
-use rand::{thread_rng, Rng};
-use rand::distributions::Alphanumeric;
+use const_random::const_random;
+use const_format::formatcp;
 
+pub const RANDOM_VERSION: &str = formatcp!("{:x}", const_random!(u128));
 pub const AUTH_COOKIE_NAME: &str = "auth";
 pub const RESULTS_PER_PAGE: u32 = 25;
-
-lazy_static! {
-  pub static ref RANDOM: String = thread_rng()
-    .sample_iter(&Alphanumeric)
-    .take(30)
-    .map(char::from)
-    .collect();
-}
 
 //REGEX
 pub const EMAIL_REGEX_STR: &str = r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})";

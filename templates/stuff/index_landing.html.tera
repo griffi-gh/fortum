@@ -1,6 +1,6 @@
 <div id="landing">
   <div id="landing-bg">
-    <img src="/static/cached_long/images/background/1.jpg" alt="Background image">
+    <img src="/static/images/background/1.jpg" alt="Background image">
   </div>
   <div id="landing-content">
     <h1 id="landing-tagline">
