@@ -113,6 +113,8 @@ class Accordion {
   }
 }
 
-document.querySelectorAll('details.accordion').forEach((el) => {
-  new Accordion(el);
-});
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('details.accordion').forEach((el) => {
+    new Accordion(el);
+  });
+}
