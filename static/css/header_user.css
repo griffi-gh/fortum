@@ -20,7 +20,7 @@
   background-color: var(--color-primary-light-slight2);
   pointer-events: none;
 }
-#user-profile-section:focus-within > * {
+#user-profile-section:focus-within #header-popup {
   pointer-events: auto;
 }
 #user-profile-section:focus-within #user-profile-arrow {
