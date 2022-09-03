@@ -50,7 +50,7 @@ FROM debian:buster-slim
   COPY --from=build /forum/target/release/forum .
 
   # copy stuff
-  COPY --from=preprocess ./static ./static
+  COPY --from=preprocess /pre/static .
   COPY ./templates ./templates
 
   # set the startup command to run your binary
