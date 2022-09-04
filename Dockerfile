@@ -33,14 +33,14 @@ FROM node:bullseye-slim as preprocess
   # run preprocessors
   RUN postcss ./input/**/*.css --dir ./css --no-map --base ./input
   # move minified css
-  RUN mv ./css ./static
+  RUN mv css ./static
 
 # our final base
 FROM debian:bullseye-slim
   # copy the build artifact from the build stage
   COPY --from=build /forum/target/release/forum .
   # copy preprocessed static files
-  COPY --from=preprocess /pre/static .
+  COPY --from=preprocess /pre/static ./static
   # copy tera templates
   COPY ./templates ./templates
   # set the startup command to run the binary
