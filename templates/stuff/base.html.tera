@@ -35,7 +35,7 @@
     <link rel="icon" href="/static/favicon.ico" sizes="any">
     
     {# page title #}
-    <title>Forum: {% block title %}{% endblock title %}</title>
+    <title>Fortum: {% block title %}{% endblock title %}</title>
 
   {% endblock head %}
 </head>

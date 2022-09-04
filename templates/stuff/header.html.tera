@@ -1,7 +1,7 @@
 <header class="header" id="header">
   <a href="/" id="header-title" class="nocolor">
     <img src="/static/images/branding/t192.png" id="header-new-logo" alt="" height="24" width="24">
-    <span id="header-name">Forum</span>
+    <span id="header-name">Fortum</span>
   </a>
   <a href="/" id="header-mobile-home-icon" class="nocolor display-none">
     <img src="/static/images/branding/t192.png" id="new-logo-mob" alt="" height="24" width="24">
