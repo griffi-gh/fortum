@@ -45,11 +45,11 @@ fn rocket() -> _ {
     .merge(Env::raw().only(&["PORT", "SECRET_KEY"]))
     .merge(("databases", map!["main" => map![
       "url" => db_url
-    ]]))
-    .merge(("databases", map![ "main" => map![
-      "min_connections" => 1,
-      "max_connections" => 5
     ]]));
+    // .merge(("databases", map![ "main" => map![
+    //   "min_connections" => 1,
+    //   "max_connections" => 5
+    // ]]));
   rocket::custom(figment)
     .attach(db::MainDatabase::init())
     .attach(Template::fairing())
