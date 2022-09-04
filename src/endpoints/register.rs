@@ -1,9 +1,10 @@
 use rocket::form::Form;
 use rocket::response::{Redirect, Flash};
-use rocket::http::{Cookie, CookieJar};
+use rocket::http::CookieJar;
 use rocket_db_pools::Connection;
 use crate::db::MainDatabase;
 use crate::common::get_handler_macros::define_get_handler;
+use crate::common::utils::token_cookie;
 use super::misc::rocket_uri_macro_success;
 
 define_get_handler!(register, "/register", "register");
@@ -25,7 +26,7 @@ pub async fn post_register(data: Form<RegisterData<'_>>, mut db: Connection<Main
   }
   match MainDatabase::register(&mut db, &data.email, &data.username, &data.password).await {
     Ok(token) => {
-      cookies.add_private(Cookie::build("auth", token).secure(true).http_only(true).finish());
+      cookies.add_private(token_cookie(token));
       Flash::success(Redirect::to(uri!(success)), "Sign up ;;; Your account was created successfully")
     }
     Err(error) => Flash::error(Redirect::to(uri!(register)), error)

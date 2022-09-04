@@ -2,7 +2,7 @@ use sqlx::Postgres;
 use sqlx::pool::PoolConnection;
 use rand::{Rng, thread_rng};
 use rocket_db_pools::Connection;
-use rocket::http::CookieJar;
+use rocket::http::{CookieJar, Cookie, SameSite};
 use crate::db::MainDatabase;
 use crate::consts::AUTH_COOKIE_NAME;
 
@@ -13,6 +13,16 @@ pub fn div_up(a: usize, b: usize) -> usize {
 //TODO allow passing any db as input
 pub fn executor<'a>(db: &'a mut Connection<MainDatabase>) -> &'a mut PoolConnection<Postgres> {
   &mut *(*db)
+}
+
+//TODO accept &str
+pub fn token_cookie<'a>(token: String) -> Cookie<'a> {
+  Cookie::build(AUTH_COOKIE_NAME, token)
+    .secure(true)
+    .http_only(true)
+    .same_site(SameSite::Lax)
+    .permanent()
+    .finish()
 }
 
 pub fn get_token(cookies: &CookieJar<'_>) -> Option<String> {
