@@ -49,9 +49,9 @@
                 <i class="header-popup-icon fa-solid fa-user"></i>
                 <span>User page</span>
               </a>
-              <a href="/messages" class="header-popup-item" tabindex="0">
+              <a href="/chat" class="header-popup-item" tabindex="0">
                 <i class="header-popup-icon fa-solid fa-envelopes"></i>
-                <span>Direct messages</span>
+                <span>Chat</span>
               </a>
               <a href="/topics/create" class="header-popup-item" tabindex="0">
                 <i class="header-popup-icon fa-solid fa-message-plus {# fa-grid-2-plus #}"></i>
