@@ -1,6 +1,6 @@
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate lazy_static;
-use figment::{Figment, providers::Env, util::map};
+use figment::{providers::Env, util::map};
 use serde::{Serialize, Deserialize};
 use rocket::fairing::AdHoc;
 use rocket_dyn_templates::Template;
