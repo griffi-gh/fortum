@@ -2,12 +2,19 @@ use rocket_db_pools::{Database, Connection};
 use sqlx::{self, PgPool, Row};
 use argon2::{self, Config as ArgonConfig};
 use rand::{Rng, thread_rng};
-//use rocket::tokio::join;
+use rocket::{fairing, Rocket, Build};
 use crate::consts::{EMAIL_REGEX, PASSWORD_REGEX, USERNAME_REGEX};
 use crate::common::utils::{executor, div_up, generate_token};
 use crate::common::stats::Stats;
 use crate::common::post::{Post, PostFilter, PostSort, SortDirection};
 use crate::common::user::User;
+
+pub async fn run_migrations(rocket: Rocket<Build>) -> fairing::Result {
+  let db = MainDatabase::fetch(&rocket).unwrap();
+  let pool = &db.0;
+  sqlx::migrate!().run(pool).await.unwrap();
+  Ok(rocket)
+}
 
 #[derive(Database)]
 #[database("main")]

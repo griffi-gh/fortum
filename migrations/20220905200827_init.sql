@@ -1,14 +1,10 @@
-DROP TABLE IF EXISTS stats CASCADE;
-DROP TABLE IF EXISTS comment_votes CASCADE;
-DROP TABLE IF EXISTS comments CASCADE;
-DROP TABLE IF EXISTS topics CASCADE;
-DROP TABLE IF EXISTS posts CASCADE;
-DROP TABLE IF EXISTS votes CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
-DROP TYPE IF EXISTS role_type; 
---
-CREATE TYPE role_type AS ENUM ('banned', 'unverified', 'user', 'moderator', 'admin');
-CREATE TABLE users (
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'role_type') THEN
+    CREATE TYPE role_type AS ENUM ('banned', 'unverified', 'user', 'moderator', 'admin');
+  END IF;
+END$$;
+CREATE TABLE IF NOT EXISTS users (
   user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   username VARCHAR(25) NOT NULL,
   email VARCHAR(255) UNIQUE NOT NULL,
@@ -21,7 +17,7 @@ CREATE TABLE users (
   banner_image VARCHAR,
   email_verify VARCHAR UNIQUE DEFAULT md5(random()::text)
 );
-CREATE TABLE topics (
+CREATE TABLE IF NOT EXISTS  topics (
   topic_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   topic_name VARCHAR(30) UNIQUE NOT NULL,
   topic_description VARCHAR(255),
@@ -31,7 +27,7 @@ CREATE TABLE topics (
     REFERENCES users(user_id)
     ON DELETE SET NULL
 );
-CREATE TABLE posts (
+CREATE TABLE IF NOT EXISTS  posts (
   post_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   author INTEGER,
   title VARCHAR(255) NOT NULL,
@@ -46,7 +42,7 @@ CREATE TABLE posts (
     REFERENCES topics(topic_id)
     ON DELETE CASCADE
 );
-CREATE TABLE votes (
+CREATE TABLE IF NOT EXISTS  votes (
   vote_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   post_id INTEGER NOT NULL,
   user_id INTEGER,
@@ -59,7 +55,7 @@ CREATE TABLE votes (
     REFERENCES users(user_id)
     ON DELETE CASCADE
 );
-CREATE TABLE comments (
+CREATE TABLE IF NOT EXISTS comments (
   comment_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   author INTEGER,
   content VARCHAR(500) NOT NULL,
@@ -69,7 +65,7 @@ CREATE TABLE comments (
     REFERENCES users(user_id)
     ON DELETE SET NULL
 );
-CREATE TABLE comment_votes (
+CREATE TABLE IF NOT EXISTS comment_votes (
   vote_id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   comment_id INTEGER NOT NULL,
   user_id INTEGER,
@@ -82,10 +78,10 @@ CREATE TABLE comment_votes (
     REFERENCES users(user_id)
     ON DELETE CASCADE
 );
-CREATE TABLE stats (
+CREATE TABLE IF NOT EXISTS stats (
   users INTEGER NOT NULL DEFAULT 0,
   posts INTEGER NOT NULL DEFAULT 0
 );
 --Init
-INSERT INTO topics (topic_name) VALUES('main');
-INSERT INTO stats DEFAULT VALUES;
+INSERT INTO topics (topic_name) SELECT 'main' WHERE NOT EXISTS (SELECT 1 FROM topics);
+INSERT INTO stats (users, posts) SELECT 0, 0 WHERE NOT EXISTS (SELECT 1 FROM stats);

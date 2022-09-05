@@ -14,6 +14,7 @@ pub mod endpoints;
 pub mod common;
 mod cache_file_server;
 
+use db::{MainDatabase, run_migrations};
 use cache_file_server::CacheFileServer;
 use endpoints::{
   index::index,
@@ -50,7 +51,8 @@ fn rocket() -> _ {
     .merge(("databases", map!["main" => map!["url" => db_url]]));
   let config: Config = figment.extract().unwrap();
   rocket::custom(figment)
-    .attach(db::MainDatabase::init())
+    .attach(MainDatabase::init())
+    .attach(AdHoc::try_on_ignite("DB Migrations", run_migrations))
     .attach(AdHoc::config::<Config>())
     .attach(Template::fairing())
     .mount("/", routes![
