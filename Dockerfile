@@ -20,8 +20,10 @@ FROM rust:slim-bullseye as build
 FROM debian:bullseye-slim
   # copy the build artifact from the build stage
   COPY --from=build /forum/target/release/forum .
-  # copy files
+  # copy static files and templates
   COPY ./templates ./templates
   COPY ./static ./static
+  # copy rocket configuration file
+  COPY ./Rocket.toml ./Rocket.toml
   # set the startup command to run the binary
   CMD ["./forum"]

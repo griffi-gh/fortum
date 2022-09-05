@@ -1,4 +1,7 @@
-/.git
-/.vscode
-/target
+.git
+.github
+.vscode
 .env
+.gitattributes
+.gitignore
+/target

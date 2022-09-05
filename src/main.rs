@@ -1,6 +1,8 @@
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate lazy_static;
-use rocket::figment::{providers::Env, util::map};
+use figment::{Figment, providers::Env, util::map};
+use serde::{Serialize, Deserialize};
+use rocket::fairing::AdHoc;
 use rocket_dyn_templates::Template;
 use rocket_db_pools::Database;
 use dotenv::dotenv;
@@ -32,15 +34,21 @@ use endpoints::{
   error::{default_catcher, display_error},
 };
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Config {
+  versioning: u64,
+}
+
 #[launch]
 fn rocket() -> _ {
   dotenv().ok();
   let db_url = env::var("DATABASE_URL").unwrap();
-  let figment = rocket::Config::figment()
+  let figment = Figment::from(rocket::Config::default())
     .merge(Env::raw().only(&["ADDRESS", "PORT", "SECRET_KEY"]))
     .merge(("databases", map!["main" => map!["url" => db_url]]));
   rocket::custom(figment)
     .attach(db::MainDatabase::init())
+    .attach(AdHoc::config::<Config>())
     .attach(Template::fairing())
     .mount("/", routes![
       index, 

@@ -8,6 +8,7 @@ rocket = { version = "0.5.0-rc.2", features = ["json", "secrets"] }
 rocket_dyn_templates = { version = "0.1.0-rc.2", features = ["tera"] }
 rocket_db_pools = { version = "0.1.0-rc.2", features = ["sqlx_postgres"] }
 sqlx = { version = "0.5", default-features = false, features = ["offline", "postgres", "chrono", "macros"] }
+figment = { version = "0.10", features = ["env", "toml"] }
 serde = { version = "1.0", features = ["derive"] }
 chrono = { version = "0.4.20", features = ["serde"] }
 regex = "1"
@@ -16,7 +17,5 @@ rust-argon2 = "1.0"
 dotenv = "0.15"
 rand = "0.8"
 base64 = "0.13"
-const-random = "0.1"
-const_format = "0.2.5"
 # lettre = "0.10" TODO FOR VERIFICATION
 # rust-s3 = "0.32" TODO FOR STORING USER UPLOADS (on filebase?)

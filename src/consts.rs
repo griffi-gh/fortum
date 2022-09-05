@@ -1,9 +1,6 @@
 use regex::Regex;
-use const_random::const_random;
-use const_format::formatcp;
 
 //TODO move to config
-pub const RANDOM_VERSION: &str = formatcp!("{:x}", const_random!(u128));
 pub const AUTH_COOKIE_NAME: &str = "auth";
 pub const RESULTS_PER_PAGE: u32 = 25;
 pub const CACHE_LENGTH: usize = 1209600; //2 weeks

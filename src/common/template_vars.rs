@@ -1,9 +1,10 @@
 use serde::Serialize;
 use rocket_db_pools::Connection;
 use rocket::request::{FromRequest, Outcome};
-use rocket::Request;
+use rocket::{Request, State};
+use crate::Config;
 use crate::db::MainDatabase;
-use crate::consts::{USERNAME_REGEX_STR, PASSWORD_REGEX_STR, EMAIL_REGEX_STR, RANDOM_VERSION};
+use crate::consts::{USERNAME_REGEX_STR, PASSWORD_REGEX_STR, EMAIL_REGEX_STR};
 use super::user::User;
 use super::utils::get_token;
 
@@ -13,7 +14,7 @@ pub struct TemplateVars {
   pub username_regex: &'static str,
   pub password_regex: &'static str,
   pub email_regex: &'static str,
-  pub version: &'static str,
+  pub version: u64,
 }
 
 #[rocket::async_trait]
@@ -26,12 +27,13 @@ impl<'r> FromRequest<'r> for TemplateVars {
     let user = if let Some(token) = token {
       MainDatabase::get_user_by_token(&mut db, &token).await
     } else { None };
+    let config = req.guard::<&State<Config>>().await.succeeded().unwrap();
     Outcome::Success(Self {
       user: user,
       username_regex: USERNAME_REGEX_STR,
       password_regex: PASSWORD_REGEX_STR,
       email_regex: EMAIL_REGEX_STR,
-      version: RANDOM_VERSION,
+      version: config.versioning,
     })
   }
 }
