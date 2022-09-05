@@ -40,7 +40,7 @@
 }
 
 /* Style buttons */
-#header-popup > * {
+#header-popup > .header-popup-item {
   border: none;
   background: transparent;
   outline: none;
@@ -54,38 +54,41 @@
   padding-left: .5rem;
   padding-right: .75rem;
   transition: background .14s;
+  color: black;
+  text-decoration: none;
 }
-#header-popup > :not(:last-child) {
+#header-popup > .header-popup-item:not(:last-child) {
   padding-bottom: .5rem;
   border-bottom: 1px solid gray;
 }
-#header-popup > :not(:first-child) {
+#header-popup > .header-popup-item:not(:first-child) {
   padding-top: .5rem;
 }
-#header-popup > :first-child {
+#header-popup > .header-popup-item:first-child {
   padding-top: .65rem;
 }
-#header-popup > :last-child {
+#header-popup > .header-popup-item:last-child {
   padding-bottom: .65rem;
 }
 
 /* Icons */
 .header-popup-icon {
   font-size: 1.2rem;
-  width: 1.2rem;
+  width: 1.5rem;
   margin-right: .4rem;
+  text-align: center;
 }
 
 /* Hover effects */
-#header-popup > * > :not(:first-child) {
+#header-popup > .header-popup-item > :not(:first-child) {
   transition: transform .33s;
 }
-#header-popup > :hover > :not(:first-child) {
+#header-popup > .header-popup-item:hover > :not(:first-child) {
   transform: translateX(.25rem);
 }
-#header-popup > :hover {
+#header-popup > .header-popup-item:hover {
   background: var(--color-primary-light-slight);
 }
-#header-popup > :is(:active, :focus-visible) {
+#header-popup > .header-popup-item:is(:active, :focus-visible) {
   background: var(--color-primary-light);
 }
