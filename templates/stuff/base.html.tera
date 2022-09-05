@@ -24,7 +24,7 @@
     {% endif %}
 
     {# load fonts #}
-    {{ macros_misc::css(file="/static/fonts/FontAwesome/css/all.min.css", ver=false) }}
+    {{ macros_misc::css(file="/static/fonts/FontAwesome/v6.2.0/css/all.css", ver=false) }}
     {{ macros_misc::css(file="/static/fonts/Fontello/css/fontello.min.css", ver=false) }}
     {{ macros_misc::css(file="/static/fonts/GoogleSans/style.css", ver=false) }}
     
