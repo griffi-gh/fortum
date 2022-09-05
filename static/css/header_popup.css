@@ -54,7 +54,11 @@
   padding-left: .5rem;
   padding-right: .75rem;
   transition: background .14s;
-  color: black;
+  
+}
+#header-popup > a.header-popup-item,
+#header-popup > a.header-popup-item:is(:hover, :visited, :active) {
+  color: inherit;
   text-decoration: none;
 }
 #header-popup > .header-popup-item:not(:last-child) {
