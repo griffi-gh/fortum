@@ -14,7 +14,6 @@ pub mod endpoints;
 pub mod common;
 mod cache_file_server;
 
-use consts::CACHE_LENGTH;
 use cache_file_server::CacheFileServer;
 use endpoints::{
   index::index,
@@ -38,6 +37,7 @@ use endpoints::{
 pub struct Config {
   versioning: u64,
   results_per_page: u32,
+  cache_length: usize,
 }
 
 #[launch]
@@ -47,6 +47,7 @@ fn rocket() -> _ {
   let figment = Figment::from(rocket::Config::default())
     .merge(Env::raw().only(&["ADDRESS", "PORT", "SECRET_KEY"]))
     .merge(("databases", map!["main" => map!["url" => db_url]]));
+  let config: Config = figment.extract().unwrap();
   rocket::custom(figment)
     .attach(db::MainDatabase::init())
     .attach(AdHoc::config::<Config>())
@@ -69,5 +70,5 @@ fn rocket() -> _ {
       sad, success,
     ])
     .register("/", catchers![default_catcher])
-    .mount("/static", CacheFileServer::new("./static", CACHE_LENGTH))
+    .mount("/static", CacheFileServer::new("./static", config.cache_length))
 }

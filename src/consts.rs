@@ -2,7 +2,6 @@ use regex::Regex;
 
 //TODO move to config
 pub const AUTH_COOKIE_NAME: &str = "auth";
-pub const CACHE_LENGTH: usize = 1209600; //2 weeks
 
 //REGEX
 pub const EMAIL_REGEX_STR: &str = r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})";
