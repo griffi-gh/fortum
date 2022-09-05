@@ -43,7 +43,8 @@ pub struct Config {
 #[launch]
 fn rocket() -> _ {
   dotenv().ok();
-  let db_url = env::var("DATABASE_URL").unwrap();
+  //TODO extract DATABASE_URL from figment instead
+  let db_url = env::var("DATABASE_URL").unwrap(); 
   let figment = Figment::from(rocket::Config::default())
     .merge(Env::raw().only(&["ADDRESS", "PORT", "SECRET_KEY"]))
     .merge(("databases", map!["main" => map!["url" => db_url]]));
