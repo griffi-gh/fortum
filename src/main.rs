@@ -37,6 +37,7 @@ use endpoints::{
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Config {
   versioning: u64,
+  results_per_page: u32,
 }
 
 #[launch]

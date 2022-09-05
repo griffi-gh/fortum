@@ -2,7 +2,6 @@ use regex::Regex;
 
 //TODO move to config
 pub const AUTH_COOKIE_NAME: &str = "auth";
-pub const RESULTS_PER_PAGE: u32 = 25;
 pub const CACHE_LENGTH: usize = 1209600; //2 weeks
 
 //REGEX
