@@ -18,7 +18,7 @@
         <h1>{{ msg.0 | trim }}</h1>
         {% set msg = msg.1 %}
       {% endif %}
-      <i class="register-success fa-solid fa-circle-check"></i>
+      <i class="register-success fa-sharp fa-solid fa-circle-check"></i>
       <p class="margin-bottom-only">{{ msg | trim }}</p>
       <a class="styled-button" href="/">Go home</a>
     </div>

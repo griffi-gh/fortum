@@ -3,50 +3,49 @@
 {% import "stuff/macros/posts" as macros_posts %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  {% block head %}
+  <head>
+    {% block head %}
+      {# generic html head tags #}
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      {# import js #}
+      {{ macros_misc::js(static="global") }}
+      {{ macros_misc::js(static="buttons") }}
+      {{ macros_misc::js(static="header") }}
 
-    {# generic html head tags #}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    {# import js #}
-    {{ macros_misc::js(static="global") }}
-    {{ macros_misc::js(static="buttons") }}
-    {{ macros_misc::js(static="header") }}
+      {# import stylesheets #}
+      {{ macros_misc::css(static="global") }}
+      {% if vars.user %}
+        {{ macros_misc::css(static="header_user") }}
+        {{ macros_misc::css(static="header_popup") }}
+      {% endif %}
 
-    {# import stylesheets #}
-    {{ macros_misc::css(static="global") }}
-    {% if vars.user %}
-      {{ macros_misc::css(static="header_user") }}
-      {{ macros_misc::css(static="header_popup") }}
-    {% endif %}
-
-    {# load fonts #}
-    {{ macros_misc::css(file="/static/fonts/FontAwesome/v6.2.0/css/all.css", ver=false) }}
-    {{ macros_misc::css(file="/static/fonts/Fontello/css/fontello.min.css", ver=false) }}
-    {{ macros_misc::css(file="/static/fonts/GoogleSans/style.css", ver=false) }}
-    
-    {# favicon #}
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
-    <link rel="icon" href="/static/favicon.ico" sizes="any">
-    
-    {# page title #}
-    <title>Fortum: {% block title %}{% endblock title %}</title>
-
-  {% endblock head %}
-</head>
-<body class="{% block body_class %}{% endblock body_class %}">
-  <a id="top"></a>
-  {% block body_top %}{% endblock body_top %}
-  {% include "stuff/header" %}
-  <main id="content" class="content main">
-    {% block content %}{% endblock content %}
-  </main>
-  {% include "stuff/footer" %}
-  <a id="bottom"></a>
-</body>
+      {# load fonts #}
+      {{ macros_misc::css(file="/static/fonts/FontAwesome/v6.2.0/css/all.css", ver=false) }}
+      {{ macros_misc::css(file="/static/fonts/FontAwesome/v6.2.0/css/sharp-solid.css", ver=false) }}
+      {{ macros_misc::css(file="/static/fonts/Fontello/css/fontello.min.css", ver=false) }}
+      {{ macros_misc::css(file="/static/fonts/GoogleSans/style.css", ver=false) }}
+      
+      {# favicon #}
+      <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+      <link rel="icon" href="/static/favicon.ico" sizes="any">
+      
+      {# page title #}
+      <title>Fortum: {% block title %}{% endblock title %}</title>
+    {% endblock head %}
+  </head>
+  <body class="{% block body_class %}{% endblock body_class %}">
+    <a id="top"></a>
+    {% block body_top %}{% endblock body_top %}
+    {% include "stuff/header" %}
+    <main id="content" class="content main">
+      {% block content %}{% endblock content %}
+    </main>
+    {% include "stuff/footer" %}
+    <a id="bottom"></a>
+  </body>
 </html>
