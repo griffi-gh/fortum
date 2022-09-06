@@ -1,6 +1,7 @@
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
+use chrono::{DateTime, Utc};
 
-#[derive(Serialize, sqlx::Type, Default)]
+#[derive(Serialize, Deserialize, sqlx::Type, Default)]
 #[sqlx(type_name = "role_type", rename_all = "lowercase")]
 #[serde(rename_all = "lowercase")]
 #[non_exhaustive]
@@ -19,8 +20,8 @@ pub struct User {
   pub username: String,
   pub email: String,
   pub password_hash: String,
-  pub created_on: chrono::DateTime<chrono::Utc>,
-  pub last_activity: chrono::DateTime<chrono::Utc>,
+  pub created_on: DateTime<Utc>,
+  pub last_activity: DateTime<Utc>,
   pub user_role: UserRole,
   pub token: String,
 }

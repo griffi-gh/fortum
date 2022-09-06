@@ -1,4 +1,5 @@
 pub mod authentication;
+pub mod chat;
 pub mod get_handler_macros;
 pub mod post;
 pub mod stats;

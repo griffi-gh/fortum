@@ -1,5 +1,5 @@
 :root {
-  --pfp-size: 200px;
+  --pfp-size: min(200px, 75vw);
   --pfp-margin-left: 2rem;
 }
 #user-banner {
@@ -42,22 +42,20 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: calc(var(--pfp-size) / 2);
   margin: 0;
   padding-left: calc(var(--pfp-size) + var(--pfp-margin-left) + 2rem);
+  flex-wrap: wrap;
 }
-#user-username, #user-username-mobile {
+#user-username {
   padding: 0;
   margin: 0;
   font-size: 3rem;
   word-break: break-all;
 }
-#user-username-mobile {
-  display: none;
-  text-align: center;
-  padding-top: 1rem;
-  font-weight: normal;
+#oth-user-actions {
+  margin-right: 1rem;
 }
 @media only screen and (max-width: 600px) {
   #pfp-overlay {
@@ -68,16 +66,44 @@
   #pfp-overlay img {
     margin: 0;
   }
-  #user-username {
-    display: none;
-  }
-  #user-username-mobile {
-    display: block;
-  }
   #pfp-overlay {
     right: 0;
   }
   #pfp-overlay > div {
     margin-left: 0;
+  }
+  #oth-user-actions {
+    margin-right: 0;
+  }
+  #pfp-overlay-spacer {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-left: 0;
+    margin-top: calc(var(--pfp-size) / 2);
+    height: unset;
+  }
+  #user-username {
+    text-align: center;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  #pfp-overlay-spacer {
+    justify-content: flex-start;
+  }
+  #oth-user-actions {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+}
+@media only screen and (max-width: 275px) {
+  #user-username {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+}
+@media only screen and (max-width: 200px) {
+  #user-username {
+    font-size: 2rem;
   }
 }

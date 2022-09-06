@@ -34,64 +34,73 @@
     {% set user = vars.user %}
   {% endif %}
   {% if user %}
-    <div id="user-banner">
+    <div id="user-banner" {% if self_page %} tabindex="0" {% endif %}>
       <img src="/static/images/background/0.jpg" alt="Banner image">
     </div>
-    <div id="pfp-overlay">
+    <div id="pfp-overlay" {% if self_page %} tabindex="0" {% endif %}>
       <div class="pfp-image-wrapper">
         <img src='{{ macros_misc::profile_image(url = user.profile_image | default(value=""), usr = user.username, id = user.user_id) }}' alt="Profile image" width="200" height="200">
       </div>
     </div>
     <div id="pfp-overlay-spacer">
-      <p id="user-username">{{ user.username }}</p>
+      <p id="user-username" {% if self_page %} tabindex="0" {% endif %}>{{ user.username }}</p>
+      {% if vars.user and not self_page %}
+        <div id="oth-user-actions">
+          <button type="submit" class="styled-button style-outline">
+            <span class="fa-solid fa-envelope margin-icon"></span>
+            Message
+          </button>
+        </div>
+      {% endif %} 
     </div>
-    <p id="user-username-mobile" aria-hidden="true">{{ user.username }}</p>
     <div class="content-padding">
       {% if self_page %}
-        <h1>Account actions</h1>
         {{ macros_misc::flash_message() }}
-        <details class="accordion styled-collapsible">
-          <summary>Account security</summary>
-          <div class="content">
-            <form method="POST" class="form-with-loading" id="account-actions-form">
-              {{ macros_inputs::styled_submit_button(value = "Log out on all devices", formaction = "/super_logout", is_outline = true) }}
-            </form>
-          </div>
-        </details>
-        <details class="accordion styled-collapsible">
-          <summary>Change password</summary>
-          <div class="content">
-            <form method="POST" action="/change_password" class="iform form-with-loading">
-              <span class="flex-center" style="color: red;">This feature is not implemented yet</span>
-              {{ macros_inputs::styled_input(name = "old_password", placeholder = "Old password", required = true, type = "password", class = "reduce-margin", autocomplete = "current-password") }}
-              {{ macros_inputs::styled_input(name = "new_password", placeholder = "New password", required = true, autocomplete = "new-password") }}
-              {{ macros_inputs::styled_submit_button(value = "Update") }}
-            </form>
-          </div>
-        </details>
-        <details class="accordion styled-collapsible">
-          <summary>Delete account</summary>
-          <div class="content">
-            <form method="POST" action="/delete_account" id="account-delete-form" class="iform form-with-loading">
-              {{ macros_inputs::styled_input(name = "email", placeholder = "Email", required = true, type = "email", class = "reduce-margin", autocomplete = "email") }}
-              {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, type = "password", class = "reduce-margin", autocomplete = "current-password") }}
-              {{ macros_inputs::styled_input(name = "confirmation", placeholder = '"Yes, delete my account"', required = true, autocomplete = "off") }}
-              <div id="del-checkbox-wrapper">
-                <input type="checkbox" name="delete_posts" id="delete-posts-cb">
-                <label for="delete-posts-cb">Delete my posts</label>
-                <div id="anon-com">
-                  <i class="fa-solid fa-square-info"></i>
-                  Your posts will become anonymous
+        <h1>Account actions</h1>
+        <div>
+          <details class="accordion styled-collapsible">
+            <summary>Account security</summary>
+            <div class="content">
+              <form method="POST" class="form-with-loading" id="account-actions-form">
+                {{ macros_inputs::styled_submit_button(value = "Log out on all devices", formaction = "/super_logout", is_outline = true) }}
+              </form>
+            </div>
+          </details>
+          <details class="accordion styled-collapsible">
+            <summary>Change password</summary>
+            <div class="content">
+              <form method="POST" action="/change_password" class="iform form-with-loading">
+                <span class="flex-center" style="color: red;">This feature is not implemented yet</span>
+                {{ macros_inputs::styled_input(name = "old_password", placeholder = "Old password", required = true, type = "password", class = "reduce-margin", autocomplete = "current-password") }}
+                {{ macros_inputs::styled_input(name = "new_password", placeholder = "New password", required = true, autocomplete = "new-password") }}
+                {{ macros_inputs::styled_submit_button(value = "Update") }}
+              </form>
+            </div>
+          </details>
+          <details class="accordion styled-collapsible">
+            <summary>Delete account</summary>
+            <div class="content">
+              <form method="POST" action="/delete_account" id="account-delete-form" class="iform form-with-loading">
+                {{ macros_inputs::styled_input(name = "email", placeholder = "Email", required = true, type = "email", class = "reduce-margin", autocomplete = "email") }}
+                {{ macros_inputs::styled_input(name = "password", placeholder = "Password", required = true, type = "password", class = "reduce-margin", autocomplete = "current-password") }}
+                {{ macros_inputs::styled_input(name = "confirmation", placeholder = '"Yes, delete my account"', required = true, autocomplete = "off") }}
+                <div id="del-checkbox-wrapper">
+                  <input type="checkbox" name="delete_posts" id="delete-posts-cb">
+                  <label for="delete-posts-cb">Delete my posts</label>
+                  <div id="anon-com">
+                    <i class="fa-solid fa-square-info"></i>
+                    Your posts will become anonymous
+                  </div>
                 </div>
-              </div>
-              <p id="del-warning">
-                <b>WARNING!</b>
-                Once you click the "Delete" button there's no going back!
-              </p>
-              {{ macros_inputs::styled_submit_button(value = "Delete", is_destructive = true) }}
-            </form>
-          </div>
-        </details>
+                <p id="del-warning">
+                  <b>WARNING!</b>
+                  Once you click the "Delete" button there's no going back!
+                </p>
+                {{ macros_inputs::styled_submit_button(value = "Delete", is_destructive = true) }}
+              </form>
+            </div>
+          </details>
+        </div>
       {% endif %}
       <h1>Recent posts</h1>
       {{ macros_posts::post_view(posts = posts, current_page = page, page_count = page_count) }}
