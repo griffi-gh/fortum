@@ -1,0 +1,13 @@
+{% extends "stuff/base" %}
+
+{% block title %}
+  Chat
+{% endblock title %}
+
+{% block head %}
+  {{ super() }}
+{% endblock head %}
+
+{% block content %}
+  Chat
+{% endblock content %}

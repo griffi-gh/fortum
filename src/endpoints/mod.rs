@@ -14,4 +14,5 @@ pub mod delete_account;
 pub mod update_username;
 pub mod topics;
 pub mod topics_create;
+pub mod chat;
 pub mod misc;
