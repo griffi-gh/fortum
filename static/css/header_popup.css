@@ -15,14 +15,15 @@
   border-bottom: 1px solid rgba(128,128,128,.33);
   box-shadow: 0 0 .33rem rgba(0,0,0,.25);
   transition: opacity .33s, transform .5s, clip-path ease .75s;
-  /* clip-path: inset(0px -.33rem -.33rem -.33rem); */
+  /* clip-path: inset(0px -.33rem -.33rem -.33rem); */ /* to disable shadow on top */
   clip-path: circle(0.001%);
   transform-origin: top center;
 }
 @-moz-document url-prefix() {
   /*
     Nested backdrop-filter is broken in chrome
-    So only make add transparency in firefox
+    but works in firefox, so we can safely add
+    more transparency
   */
   #header-popup {
     background: rgba(240,240,240,.825);
