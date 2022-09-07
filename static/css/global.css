@@ -71,6 +71,9 @@ body {
 ::-webkit-scrollbar,:root::-webkit-scrollbar-thumb {
   width: 9px;
 }
+html.hide-scrollbar {
+  overflow: hidden;
+}
 
 #content > :is(#content-padding, .content-padding), #content.content-padding {
   padding: 1rem;

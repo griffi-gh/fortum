@@ -11,11 +11,6 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       
-      {# import js #}
-      {{ macros_misc::js(static="global") }}
-      {{ macros_misc::js(static="buttons") }}
-      {{ macros_misc::js(static="share") }}
-
       {# import stylesheets #}
       {{ macros_misc::css(static="global") }}
       <noscript>
@@ -31,7 +26,12 @@
       {{ macros_misc::css(file="/static/fonts/FontAwesome/v6.2.0/css/sharp-solid.css", ver=false) }}
       {{ macros_misc::css(file="/static/fonts/Fontello/css/fontello.min.css", ver=false) }}
       {{ macros_misc::css(file="/static/fonts/GoogleSans/style.css", ver=false) }}
-      
+
+      {# import js #}
+      {{ macros_misc::js(static="global") }}
+      {{ macros_misc::js(static="buttons") }}
+      {{ macros_misc::js(static="share") }}
+
       {# favicon #}
       <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
       <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
@@ -52,5 +52,6 @@
     {% include "stuff/footer" %}
     {% include "stuff/share_modal" %}
     <a id="bottom"></a>
+    <script> </script>
   </body>
 </html>

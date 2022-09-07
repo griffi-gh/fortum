@@ -1,6 +1,5 @@
 #share-modal {
-  --modal-trans: 1s;
-  transition: opacity var(--modal-trans);
+  --modal-trans: .5s;
   position: fixed;
   inset: 0;
   z-index: 2000;
@@ -10,37 +9,79 @@
   align-items: center;
   background: rgba(10, 10, 10, .7);
   backdrop-filter: blur(2px) grayscale(50%);
+  transition: opacity var(--modal-trans);
+}
+#share-modal.display-none {
+  display: none;
 }
 #share-modal:not(.show) {
   opacity: 0;
   pointer-events: none;
-  display: none;
-  transition: opacity var(--modal-trans), display 0.01s var(--modal-trans);
 }
+
 #share-modal-inner {
   --padding: .5rem;
   background: rgb(255, 255, 255, 0.7);
   padding: var(--padding);
-  border-radius: .33rem;
+  border-radius: .75rem;
   overflow: hidden;
   transition: transform var(--modal-trans);
   min-width: 33vw;
+  border: 1px solid gray;
 }
 #share-modal:not(.show) #share-modal-inner {
-  transform: translateY(100%);
+  transform: translateY(-25vw);
 }
 #share-modal.show #share-modal-inner {
   transform: translateY(50%) translateY(-50vh);
 }
+@media only screen and (max-width: 1400px) {
+  #share-modal-inner {
+    min-width: 50vw;
+  }
+}
+@media only screen and (max-width: 750px) {
+  #share-modal-inner {
+    min-width: 95vw;
+    min-width: calc(100vw - 2rem);
+    border-radius: .75rem .75rem 0 0;
+    border-bottom: none;
+  }
+  #share-modal:not(.show) #share-modal-inner#share-modal-inner#share-modal-inner  {
+    transform: translateY(100%);
+  }
+  #share-modal.show #share-modal-inner#share-modal-inner#share-modal-inner {
+    transform: translateY(0px);
+  }
+}
+
 #share-modal-header {
+  --header-v-padding: 5px;
   margin: calc(-1 * var(--padding));
   margin-bottom: 5px;
-  padding: 7.5px var(--padding);
+  padding: var(--header-v-padding) var(--padding);
   background-color: var(--color-primary-light-slight);
   display: flex;
   justify-content: space-between;
   align-items: stretch;
   text-align: center;
+  overflow: hidden;
+}
+#share-modal-header-close {
+  margin: calc(-1 * var(--header-v-padding)) calc(-1 * var(--padding));
+  padding: 0 var(--padding);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .15s;
+}
+#share-modal-header-close:is(:hover, :focus) {
+  background: var(--color-error);
+  color: white;
+  filter: drop-shadow(0 0 3px rgba(60, 0, 0, .5));
+}
+#share-modal-header-close:active {
+  filter: drop-shadow(0 0 3px rgba(60, 0, 0, .5)) brightness(80%);
 }
 #share-modal-content {
   text-align: center;

@@ -1,5 +1,6 @@
 "use strict";
 
+// .form-with-loading
 Array.from(document.getElementsByClassName("form-with-loading")).forEach(form => {
   form.addEventListener('submit', event => {
     const subm = event.submitter || form.querySelector('button[type="submit"], input[type="submit"]');
@@ -13,9 +14,20 @@ Array.from(document.getElementsByClassName("form-with-loading")).forEach(form =>
     subm.disabled = true;
   });
 });
+
+// body.no-scrollbar
 const hasScrollbar = e => e.scrollHeight > e.clientHeight;
 const recalcHasScrollbar = () => {
   document.body.classList.toggle('no-scrollbar', !hasScrollbar(document.body.parentNode));
 };
 recalcHasScrollbar();
 document.addEventListener('load', recalcHasScrollbar);
+
+// utils
+window.wait = (time = 0) => (new Promise((resolve, _reject) => {
+  if (time > 0) {
+    setTimeout(() => resolve(), time);
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+  }
+}));

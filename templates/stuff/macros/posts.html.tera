@@ -33,13 +33,16 @@
           {{ post.content }}
         </p>
       {% endif %}
-      {% if not post_page %}
-        <div class="post-action-row">
-          <a href="/post/{{ post.post_id }}" class="nocolor styled-button inline-button style-outline">
+      <div class="post-action-row">
+        {% if not post_page %}
+          <a href="/post/{{ post.post_id }}" class="styled-button inline-button style-outline">
             <i class="fa-solid fa-arrow-up-right-from-square margin-icon"></i>View post
           </a>
-        </div>
-      {% endif %}
+        {% endif %}
+        <button class="styled-button inline-button style-outline post-share-button script-only">
+          <i class="fa-solid fa-share margin-icon"></i>Share
+        </button>
+      </div>
     </div>
   </div>
 {% endmacro post %}

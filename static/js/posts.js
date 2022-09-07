@@ -27,3 +27,10 @@ Array.from(document.getElementsByClassName('post-vote-icon')).forEach(button => 
     counter.getElementsByClassName('upvctr-value')[0].textContent = (parseInt(upvoteCount) | 0).toString();
   });
 });
+
+
+Array.from(document.getElementsByClassName('post-share-button')).forEach(button => {
+  button.addEventListener('click', async () => {
+    await shareModal();
+  });
+})
