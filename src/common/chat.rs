@@ -2,12 +2,16 @@ use chrono::{DateTime, Utc};
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct Conversation {
-  
+pub struct Conversation<'a> {
+  pub conversation_id: i32,
+  pub user_a: Option<i32>,
+  pub user_b: Option<i32>,
+  pub user_a_username: Option<&'a str>,
+  pub user_b_username: Option<&'a str>
 }
 
 #[derive(Serialize, Deserialize, sqlx::Type)]
-#[sqlx(type_name = "role_type")]
+#[sqlx(type_name = "message_direction_type")]
 pub enum MessageDirection {
   #[sqlx(rename="a_to_b")]
   #[serde(rename="a_to_b")]

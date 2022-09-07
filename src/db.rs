@@ -35,7 +35,7 @@ impl MainDatabase {
     }
     //Check if email was used before
     let email_used: bool = sqlx::query("SELECT not COUNT(*) = 0 FROM users WHERE email = $1 LIMIT 1")
-      .bind(&email)
+      .bind(email)
       .fetch_one(executor(db)).await
       .unwrap().get(0);
     if email_used {
@@ -48,8 +48,8 @@ impl MainDatabase {
     let token = generate_token();
     debug_assert!(token.len() == 24, "Invalid token length");
     sqlx::query("INSERT INTO users (username, email, password_hash, token) VALUES($1, $2, $3, $4);")
-      .bind(&username)
-      .bind(&email)
+      .bind(username)
+      .bind(email)
       .bind(&password_hash)
       .bind(&token)
       .execute(executor(db)).await
@@ -265,7 +265,17 @@ impl MainDatabase {
   }
 
   //conversations and chat
-  pub async fn get_conversations(_db: &mut Connection<Self>, user_id: i32) {
-    todo!()
+  pub async fn get_conversations(db: &mut Connection<Self>, user_id: i32) -> Vec<Conversation> {
+    todo!() // ! //TODO Write query
+    // sqlx::query_as!(Conversation, r#"
+    //   SELECT 
+    //     conversations.conversation_id,
+    //     conversations.user_a,
+    //     conversations.user_b,
+    //     conversations.user_a_username,
+    //     conversations.user_b_username
+
+
+    // "#);
   }
 }

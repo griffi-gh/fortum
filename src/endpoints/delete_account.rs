@@ -23,7 +23,7 @@ pub async fn delete_account<'a>(cookies: &CookieJar<'_>, mut db: Connection<Main
   if MainDatabase::login(&mut db, data.email, data.password).await.is_err() {
     return Err(Flash::error(Redirect::to(uri!("/user")), "Invalid email or password")); 
   }
-  if data.confirmation.replace('\"', "").replace(',', "").trim().to_lowercase() != "yes delete my account" {
+  if data.confirmation.replace(['\"', ','], "").trim().to_lowercase() != "yes delete my account" {
     return Err(Flash::error(Redirect::to(uri!("/user")), "Invalid confirmation string")); 
   }
   if data.delete_posts {
