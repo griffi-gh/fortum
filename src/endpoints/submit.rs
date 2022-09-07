@@ -16,7 +16,7 @@ pub struct PostSubmitData<'a> {
 }
 
 #[get("/submit?<topic>")]
-pub async fn submit<'a>(vars: TemplateVars, error: Option<FlashMessage<'a>>, topic: Option<i32>) -> Template {
+pub async fn submit(vars: TemplateVars, error: Option<FlashMessage<'_>>, topic: Option<i32>) -> Template {
   Template::render("submit", context! { vars, error, topic } )
 }
 

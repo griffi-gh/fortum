@@ -1,3 +1,5 @@
+#![allow(clippy::unnecessary_lazy_evaluations)] // `FromForm` warnings fix :p 
+
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate lazy_static;
 use figment::{providers::Env, util::map};

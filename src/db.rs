@@ -8,6 +8,7 @@ use crate::common::utils::{executor, div_up, generate_token};
 use crate::common::stats::Stats;
 use crate::common::post::{Post, PostFilter, PostSort, SortDirection};
 use crate::common::user::User;
+use crate::common::chat::Conversation;
 
 pub async fn run_migrations(rocket: Rocket<Build>) -> fairing::Result {
   let db = MainDatabase::fetch(&rocket).unwrap();
@@ -263,4 +264,8 @@ impl MainDatabase {
       .execute(executor(db)).await.unwrap();
   }
 
+  //conversations and chat
+  pub async fn get_conversations(_db: &mut Connection<Self>, user_id: i32) {
+    todo!()
+  }
 }

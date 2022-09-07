@@ -6,6 +6,7 @@ use rocket::route::{Handler, Outcome};
 use rocket::response::{self, Responder};
 use rocket::fs::NamedFile;
 
+#[allow(unused)]
 pub struct CachedFile {
   file: NamedFile,
   age: usize
@@ -32,25 +33,15 @@ impl<'r, 'o: 'r> Responder<'r, 'o> for CachedFile {
     #[cfg(not(debug_assertions))]{ 
       builder.raw_header("Cache-control", format!("max-age={}", self.age)); //Allocates, potential perf issue 
     }
-    //Fix warnings
-    #[cfg(debug_assertions)] self.age; 
     builder.ok()
   }
 }
 
 // Some code stolen from 
 // https://github.com/SergioBenitez/Rocket/blob/42a0fb8afe0ad94024cbb2a131390b53b99937c1/core/lib/src/fs/server.rs
-#[derive(Clone, Copy)]
+#[derive(Default, Clone, Copy)]
 pub struct CacheFileServerOptions {
   pub allow_dotfiles: bool
-}
-impl Default for CacheFileServerOptions {
-  #[inline]
-  fn default() -> Self {
-    Self {
-      allow_dotfiles: false
-    }
-  }
 }
 
 const DEFAULT_RANK: isize = 10;

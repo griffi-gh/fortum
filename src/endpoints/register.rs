@@ -24,7 +24,7 @@ pub async fn post_register(data: Form<RegisterData<'_>>, mut db: Connection<Main
       return Flash::error(Redirect::to(uri!(register)), "Passwords don't match");
     }
   }
-  match MainDatabase::register(&mut db, &data.email, &data.username, &data.password).await {
+  match MainDatabase::register(&mut db, data.email, data.username, data.password).await {
     Ok(token) => {
       cookies.add_private(token_cookie(token));
       Flash::success(Redirect::to(uri!(success)), "Sign up ;;; Your account was created successfully")

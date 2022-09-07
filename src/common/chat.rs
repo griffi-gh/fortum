@@ -1,6 +1,11 @@
 use chrono::{DateTime, Utc};
 use serde::{Serialize, Deserialize};
 
+#[derive(Serialize, Deserialize)]
+pub struct Conversation {
+  
+}
+
 #[derive(Serialize, Deserialize, sqlx::Type)]
 #[sqlx(type_name = "role_type")]
 pub enum MessageDirection {

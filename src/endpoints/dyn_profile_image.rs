@@ -4,7 +4,7 @@ use rocket_dyn_templates::{Template, context};
 
 #[get("/dyn/profile_image.svg?<usr>&<id>")]
 pub async fn profile_image(usr: &str, id: Option<i32>) -> Template {
-  let user_color = if usr.trim().len() == 0 {
+  let user_color = if usr.trim().is_empty() {
     0x708090 //SlateGray
   } else {
     let mut hasher = DefaultHasher::new();

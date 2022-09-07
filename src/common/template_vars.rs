@@ -29,7 +29,7 @@ impl<'r> FromRequest<'r> for TemplateVars {
     } else { None };
     let config = req.guard::<&State<Config>>().await.succeeded().unwrap();
     Outcome::Success(Self {
-      user: user,
+      user,
       username_regex: USERNAME_REGEX_STR,
       password_regex: PASSWORD_REGEX_STR,
       email_regex: EMAIL_REGEX_STR,

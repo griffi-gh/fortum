@@ -11,7 +11,8 @@ pub fn div_up(a: usize, b: usize) -> usize {
 }
 
 //TODO allow passing any db as input
-pub fn executor<'a>(db: &'a mut Connection<MainDatabase>) -> &'a mut PoolConnection<Postgres> {
+pub fn executor(db: &'_ mut Connection<MainDatabase>) -> &'_ mut PoolConnection<Postgres> {
+  #[allow(clippy::explicit_auto_deref)]
   &mut *(*db)
 }
 
@@ -26,10 +27,7 @@ pub fn token_cookie<'a>(token: String) -> Cookie<'a> {
 }
 
 pub fn get_token(cookies: &CookieJar<'_>) -> Option<String> {
-  match cookies.get_private(AUTH_COOKIE_NAME) {
-    Some(x) => Some(x.value().to_owned()),
-    None => None
-  }
+  cookies.get_private(AUTH_COOKIE_NAME).map(|x| x.value().to_owned())
 }
 
 pub fn generate_token() -> String {
