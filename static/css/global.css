@@ -5,6 +5,7 @@
 @import url("./inputs/styled-collapsible.css");
 @import url("./footer.css");
 @import url("./header.css");
+@import url("./share.css");
 
 :where(*, *::after, *::before) {
   box-sizing: border-box;

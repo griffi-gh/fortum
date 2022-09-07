@@ -17,10 +17,9 @@ pub enum MessageDirection {
 pub struct Message<'a> {
   pub message_id: i32,
   pub messsage_direction: MessageDirection,
-  pub conversation_id: i32,
   pub content: &'a str,
   pub created_on: DateTime<Utc>,
   pub reply_to: Option<i32>,
-  pub reply_to_message: Option<&'a str>,
+  pub reply_to_content: Option<&'a str>,
   pub edited: bool
 }

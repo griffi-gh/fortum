@@ -6,7 +6,6 @@
 
 {% block head %}
   {{ super() }}
-  {{ macros_misc::js(static="login") }}
   {{ macros_misc::css(static="login") }}
 {% endblock head %}
 

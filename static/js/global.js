@@ -1,3 +1,5 @@
+"use strict";
+
 Array.from(document.getElementsByClassName("form-with-loading")).forEach(form => {
   form.addEventListener('submit', event => {
     const subm = event.submitter || form.querySelector('button[type="submit"], input[type="submit"]');

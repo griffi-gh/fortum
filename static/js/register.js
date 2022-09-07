@@ -1,3 +1,5 @@
+"use strict";
+
 const form = document.getElementById('reg-form');
 if (form) {
   const passwd = document.getElementById('password-input-inner-main');

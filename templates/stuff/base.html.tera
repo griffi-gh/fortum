@@ -1,6 +1,7 @@
 {% import "stuff/macros/misc" as macros_misc %}
 {% import "stuff/macros/inputs" as macros_inputs %}
 {% import "stuff/macros/posts" as macros_posts %}
+{% import "stuff/macros/chat" as macros_chat %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,10 +14,13 @@
       {# import js #}
       {{ macros_misc::js(static="global") }}
       {{ macros_misc::js(static="buttons") }}
-      {{ macros_misc::js(static="header") }}
+      {{ macros_misc::js(static="share") }}
 
       {# import stylesheets #}
       {{ macros_misc::css(static="global") }}
+      <noscript>
+        {{ macros_misc::css(static="noscript") }}
+      </noscript>
       {% if vars.user %}
         {{ macros_misc::css(static="header_user") }}
         {{ macros_misc::css(static="header_popup") }}
@@ -46,6 +50,7 @@
       {% block content %}{% endblock content %}
     </main>
     {% include "stuff/footer" %}
+    {% include "stuff/share_modal" %}
     <a id="bottom"></a>
   </body>
 </html>

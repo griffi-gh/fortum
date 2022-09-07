@@ -1,3 +1,5 @@
+"use strict";
+
 Array.from(document.getElementsByClassName('post-vote-icon')).forEach(button => {
   button.addEventListener('click', async event => {
     event.preventDefault();

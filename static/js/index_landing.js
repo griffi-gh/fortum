@@ -1,3 +1,5 @@
+"use strict";
+
 const landing = document.getElementById('landing');
 const background = document.getElementById('landing-bg');
 const content = document.getElementById('landing-content');

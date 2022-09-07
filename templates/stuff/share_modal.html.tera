@@ -1,0 +1,15 @@
+<div id="share-modal" class="show">
+  <div id="share-modal-inner">
+    <div id="share-modal-header">
+      <div class="filler" aria-hidden="true"></div>
+      <div id="share-modal-header-title">
+        Share
+        <span id="share-what">SHARE-WHAT</span>
+      </div>
+      <i id="share-modal-header-close" class="fa-solid fa-xmark-large"></i>
+    </div>
+    <div id="share-modal-content">
+      Content
+    </div>
+  </div>
+</div>

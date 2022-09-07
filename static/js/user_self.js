@@ -1,3 +1,5 @@
+"use strict";
+
 //! //TODO Throw this piece of garbage code away!
 //!        It's possible to do this with PURE CSS AND HTML!
 

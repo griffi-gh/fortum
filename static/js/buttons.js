@@ -1,3 +1,5 @@
+"use strict";
+
 //Caps lock indicator
 {
   let prevCapsState = false;

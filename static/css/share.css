@@ -1,0 +1,47 @@
+#share-modal {
+  --modal-trans: 1s;
+  transition: opacity var(--modal-trans);
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background: rgba(10, 10, 10, .7);
+  backdrop-filter: blur(2px) grayscale(50%);
+}
+#share-modal:not(.show) {
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+  transition: opacity var(--modal-trans), display 0.01s var(--modal-trans);
+}
+#share-modal-inner {
+  --padding: .5rem;
+  background: rgb(255, 255, 255, 0.7);
+  padding: var(--padding);
+  border-radius: .33rem;
+  overflow: hidden;
+  transition: transform var(--modal-trans);
+  min-width: 33vw;
+}
+#share-modal:not(.show) #share-modal-inner {
+  transform: translateY(100%);
+}
+#share-modal.show #share-modal-inner {
+  transform: translateY(50%) translateY(-50vh);
+}
+#share-modal-header {
+  margin: calc(-1 * var(--padding));
+  margin-bottom: 5px;
+  padding: 7.5px var(--padding);
+  background-color: var(--color-primary-light-slight);
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  text-align: center;
+}
+#share-modal-content {
+  text-align: center;
+}
