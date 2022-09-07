@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS messages (
   conversation_id INTEGER NOT NULL REFERENCES conversations ON DELETE CASCADE,
   content VARCHAR(512) NOT NULL,
   created_on TIMESTAMPTZ NOT NULL DEFAULT now(),
-  reply_to INTEGER REFERENCES messages,
+  reply_to INTEGER REFERENCES messages ON DELETE SET NULL,
   edited BOOLEAN NOT NULL DEFAULT false
 );
