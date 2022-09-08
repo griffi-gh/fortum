@@ -7,8 +7,14 @@
 {% block head %}
   {{ super() }}
   {{ macros_misc::css(static="chat_list") }}
+  {{ macros_misc::css(static="chat_page") }}
 {% endblock head %}
 
 {% block content %}
-  {{ macros_chat::conversations_view(items = conversations, class = "scale sidebar-bg") }}
+  <div id="layout"> 
+    {{ macros_chat::conversations_view(items = conversations, class = "scale sidebar-bg layout-left") }}
+    <div class="layout-right">
+      Pick a chat to continue
+    </div>
+  </div>
 {% endblock content %}

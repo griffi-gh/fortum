@@ -1,0 +1,19 @@
+.layout-right {
+  display: none;
+}
+@media only screen and (min-width: 700px) {
+  #layout {
+    display: flex;
+    flex-direction: row;
+  }
+  .layout-left, .layout-right {
+    flex: 1;
+  }
+  .layout-right {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    padding-top: 1rem;
+  }
+}

@@ -3,9 +3,9 @@
   padding: .66rem;
 }
 .conversation-view.scale, .scale-as-conversation-view {
-  min-width: 20rem;
+  min-width: 10rem;
 }
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 700px) {
   .conversation-view.scale, .scale-as-conversation-view {
     max-width: 33vw;
   }
