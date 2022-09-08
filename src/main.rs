@@ -34,7 +34,7 @@ use endpoints::{
   topics_create::{topics_create, topics_create_get},
   misc::{sad, success},
   error::{default_catcher, display_error},
-  chat::chat
+  chat::{chat, conversation, new_conversation}
 };
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -73,7 +73,7 @@ fn rocket() -> _ {
       update_username,
       topic, /* topics, */
       topics_create, topics_create_get,
-      chat,
+      chat, conversation, new_conversation,
       sad, success,
     ])
     .register("/", catchers![default_catcher])

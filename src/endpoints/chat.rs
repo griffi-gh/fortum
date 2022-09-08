@@ -13,17 +13,16 @@ pub async fn chat(mut db: Connection<MainDatabase>, auth: Authentication, vars: 
   Template::render("chat", context!{ vars, message, conversations })
 }
 
-#[get("/conversation/<id>")]
+#[get("/chat/<id>")]
 pub async fn conversation(mut db: Connection<MainDatabase>, auth: Authentication, id: i32) -> Template {
   todo!()
 }
 
 #[derive(FromForm)]
-pub struct NewConversationData {
-  with_user_id: i32
-}
+pub struct NewConversationData { user_id: i32 }
 
 #[post("/new_conversation", data = "<data>")]
 pub async fn new_conversation(mut db: Connection<MainDatabase>, auth: Authentication, data: Form<NewConversationData>) -> Result<Redirect, Flash<Redirect>> {
-  Ok(Redirect::to(uri!(conversation(id = 1))))
+  let id = MainDatabase::create_or_get_existing_conversation(&mut db, auth.user_id, data.user_id).await;
+  Ok(Redirect::to(uri!(conversation(id))))
 }

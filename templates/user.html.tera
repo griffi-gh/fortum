@@ -46,6 +46,9 @@
       <p id="user-username" {% if self_page %} tabindex="0" {% endif %}>{{ user.username }}</p>
       {% if vars.user and not self_page %}
         <div id="oth-user-actions">
+          <form action="/new_conversation" method="POST" class="display-none" aria-hidden="true">
+            <input type="hidden" name="user_id" value="{{ user.user_id }}">
+          </form>
           <button type="submit" class="styled-button style-outline">
             <span class="fa-solid fa-envelope margin-icon"></span>
             Message

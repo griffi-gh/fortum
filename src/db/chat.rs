@@ -30,4 +30,23 @@ impl MainDatabase {
       WHERE (user_a = $1 OR user_b = $1)
     "#, user_id).fetch_all(executor(db)).await.unwrap()
   }
+
+  pub async fn create_or_get_existing_conversation(db: &mut Connection<Self>, user_a_id: i32, user_b_id: i32) -> i32 {
+    let existing = sqlx::query(r#"
+        SELECT conversation_id FROM conversations WHERE (user_a = $1 AND user_b = $2) OR (user_a = $2 AND user_b = $1)
+      "#)
+      .bind(user_a_id)
+      .bind(user_b_id)
+      .fetch_optional(executor(db)).await.unwrap();
+    if let Some(existing) = existing {
+      return existing.get(0);
+    }
+    sqlx::query(r#"
+        INSERT INTO conversations (user_a, user_b) VALUES($1, $2) RETURNING conversation_id
+      "#)
+      .bind(user_a_id)
+      .bind(user_b_id)
+      .fetch_one(executor(db)).await.unwrap()
+      .get(0)
+  }
 }
