@@ -47,7 +47,7 @@ body {
     scrollbar-color: var(--color-primary) white;
   }
   /* Scrollbar separator on Firefox */
-  body:not(.no-scrollbar)::after {
+  :root:not(.no-scrollbar)::after {
     content: '';
     display: block;
     position: fixed;

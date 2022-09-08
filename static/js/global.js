@@ -18,7 +18,7 @@ Array.from(document.getElementsByClassName("form-with-loading")).forEach(form =>
 // body.no-scrollbar
 const hasScrollbar = e => e.scrollHeight > e.clientHeight;
 const recalcHasScrollbar = () => {
-  document.body.classList.toggle('no-scrollbar', !hasScrollbar(document.body.parentNode));
+  document.body.parentElement.classList.toggle('no-scrollbar', !hasScrollbar(document.body.parentNode));
 };
 recalcHasScrollbar();
 document.addEventListener('load', recalcHasScrollbar);

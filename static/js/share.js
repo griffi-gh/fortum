@@ -41,4 +41,4 @@ closeEl.addEventListener('click', async (event) => {
   await closeShareModal();
 });
 
-body.classList.toggle('js-navigator-share', !!navigator.share)
+document.body.parentElement.classList.toggle('js-navigator-share', !!navigator.share)

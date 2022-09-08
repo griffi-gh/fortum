@@ -24,6 +24,15 @@
   border: 1px solid gray;
   border-radius: .25rem;
   overflow: hidden;
+  text-decoration: none;
+  color: black;
+  transition: background .2s;
+}
+.conversation-item:is(:hover, :focus-visible) {
+  background: var(--color-primary-light-slight);
+}
+.conversation-item:active {
+  background: var(--color-primary-light);
 }
 .conv-pfp-area {
   display: flex;

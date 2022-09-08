@@ -1,5 +1,5 @@
 {% macro conversation_item(item) %}
-  <a href="todo" class="conversation-item" tabindex="0">
+  <a href="/chat/{{ item.conversation_id }}" class="conversation-item" tabindex="0">
     <div class="conv-pfp-area">
       <img 
         class="conv-pfp"
