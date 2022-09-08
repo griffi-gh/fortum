@@ -5,13 +5,15 @@ FROM rust:slim-bullseye as build
   # copy manifests
   COPY ./Cargo.lock ./Cargo.lock
   COPY ./Cargo.toml ./Cargo.toml
-  # copy sqlx offline data
-  COPY ./sqlx-data.json ./sqlx-data.json
   # this build step will cache your dependencies
   RUN cargo build --release
   RUN rm src/*.rs
   # copy source tree
   COPY ./src ./src
+  # copy sqlx offline data
+  COPY ./sqlx-data.json ./sqlx-data.json
+  # copy db migrations
+  COPY ./migrations ./migrations
   # build for release
   RUN rm ./target/release/deps/forum*
   RUN cargo build --release
