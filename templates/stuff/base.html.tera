@@ -29,6 +29,7 @@
 
       {# import js #}
       {{ macros_misc::js(static="global") }}
+      {{ macros_misc::js(static="header") }}
       {{ macros_misc::js(static="buttons") }}
       {{ macros_misc::js(static="share") }}
 
@@ -46,6 +47,7 @@
     <a id="top"></a>
     {% block body_top %}{% endblock body_top %}
     {% include "stuff/header" %}
+    <a id="skip-to-content"></a>
     <main id="content" class="content main">
       {% block content %}{% endblock content %}
     </main>

@@ -31,3 +31,4 @@ window.wait = (time = 0) => (new Promise((resolve, _reject) => {
     requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
   }
 }));
+window.car = fn => { fn(); return fn };

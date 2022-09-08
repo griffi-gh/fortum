@@ -10,5 +10,5 @@
 {% endblock head %}
 
 {% block content %}
-  {{ macros_chat::conversations_view(items = conversations, class = "scale") }}
+  {{ macros_chat::conversations_view(items = conversations, class = "scale sidebar-bg") }}
 {% endblock content %}
