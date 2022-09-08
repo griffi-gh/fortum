@@ -54,6 +54,16 @@
         <button class="styled-button inline-button style-outline post-share-button script-only">
           <i class="fa-solid fa-share margin-icon"></i>Share
         </button>
+        {% if vars.user %}
+          {% if vars.user.user_id == post.user_id %}
+            <form action="/delete_post" method="POST" class="display-none" aria-hidden="true" id="form-del-post-{{ post.post_id }}">
+              <input type="hidden" name="post_id" value="{{ post.post_id }}">
+            </form>
+            <button type="submit" form="form-del-post-{{ post.post_id }}" class="styled-button inline-button style-outline destructive">
+              <i class="fa-solid fa-trash margin-icon"></i>Delete
+            </button>
+          {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>

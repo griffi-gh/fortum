@@ -26,7 +26,8 @@
   font-family: inherit;
 }
 .styled-button.as-input {
-  font-size: .95em;
+  --DEPRECATED: 'as-input';
+  /* font-size: .95em; */
 }
 .styled-button:is(.inline, .inline-button) {
   display: inline-flex;
