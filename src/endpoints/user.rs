@@ -21,7 +21,7 @@ pub async fn user(
   mut db: Connection<MainDatabase>, 
   page: Option<u32>,
   auth: Option<Authentication>,
-  error: Option<FlashMessage<'_>>,
+  message: Option<FlashMessage<'_>>,
   config: &State<Config>
 ) -> Template {
   let is_self_page = auth.is_some() && (auth.unwrap().user_id == id);
@@ -43,6 +43,6 @@ pub async fn user(
     page: page.unwrap_or_default(), 
     page_count, 
     self_page: is_self_page, 
-    error
+    message
   })
 }
