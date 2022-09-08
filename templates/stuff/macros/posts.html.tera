@@ -1,12 +1,24 @@
 {% macro post(post, post_page=false) %}
   <div class="post">
     <div class="post-votes-section">
-      <button data-post-id="{{ post.post_id }}" data-counter-id="upvote-counter-{{ post.post_id }}" class="post-upvote post-vote-icon"><i class="fa-solid fa-angle-up"></i></button>
-      <div id="upvote-counter-{{ post.post_id }}" class="post-vote-counter">
+      <button 
+        data-post-id="{{ post.post_id }}"
+        data-counter-id="upvote-counter-{{ post.post_id }}"
+        class="post-upvote post-vote-icon"
+        aria-label="Upvote button">
+          <i class="fa-solid fa-angle-up"></i>
+      </button>
+      <div id="upvote-counter-{{ post.post_id }}" class="post-vote-counter" aria-label="Upvote counter">
         <span class="upvctr-value">{{ post.votes }}</span>
-        <i class="upvctr-loading animate-spin fa-solid fa-spinner-third"></i>
+        <i class="upvctr-loading animate-spin fa-solid fa-spinner-third" aria-hidden="false"></i>
       </div>
-      <button data-post-id="{{ post.post_id }}" data-counter-id="upvote-counter-{{ post.post_id }}" class="post-downvote post-vote-icon"><i class="fa-solid fa-angle-down"></i></button>
+      <button 
+        data-post-id="{{ post.post_id }}"
+        data-counter-id="upvote-counter-{{ post.post_id }}"
+        class="post-downvote post-vote-icon"
+        aria-label="Downvote button">
+          <i class="fa-solid fa-angle-down"></i>
+      </button>
     </div>
     <div class="post-main-section">
       <div class="post-author">

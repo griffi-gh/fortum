@@ -7,7 +7,7 @@
     <img src="/static/images/branding/t192.png" id="new-logo-mob" alt="" height="24" width="24">
   </a>
   <div id="header-left">
-    <form action="/search" method="GET" autocomplete="off" class="form-with-loading" id="header-search-form">
+    <form action="/search" method="GET" autocomplete="off" class="form-with-loading" id="header-search-form" aria-label="Search">
       {{ macros_inputs::styled_input(
         name = "q", 
         id = "header-search-bar", 
@@ -25,7 +25,7 @@
   <div id="header-right">
     {% if vars.user %}
       <div id="user-profile-section-wrapper">
-        <div id="user-profile-section" tabindex="0">
+        <div id="user-profile-section" tabindex="0" aria-haspopup="menu">
           {# Normal items #}
             <div id="user-profile-arrow">
               <i class="fa-solid fa-caret-down"></i>
@@ -41,8 +41,8 @@
             </div>
           {# Normal items end #}
           {# Popup #}
-            <div id="header-popup">
-              <div style="display: none;">
+            <div id="header-popup" role="menu">
+              <div style="display: none;" aria-hidden="true">
                 <form action="/logout" method="post" id="logout-form"></form>
               </div>
               <a href="/user" class="header-popup-item" tabindex="0">

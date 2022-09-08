@@ -6,7 +6,12 @@
         Share
         <span id="share-what">SHARE-WHAT</span>
       </div>
-      <a href="#" id="share-modal-header-close" class="fa-solid fa-xmark-large" tabindex="0"></a>
+      <a href="javascript:void(0);" 
+         id="share-modal-header-close" 
+         class="fa-solid fa-xmark-large" 
+         tabindex="0" aria-label="Close" 
+         role="button"
+      ></a>
     </div>
     <div id="share-modal-content">
       SHARE-CONTENT

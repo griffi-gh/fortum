@@ -36,7 +36,8 @@ modal.addEventListener('click', async (event) => {
     await closeShareModal();
   }
 });
-closeEl.addEventListener('click', async () => {
+closeEl.addEventListener('click', async (event) => {
+  event.preventDefault();
   await closeShareModal();
 });
 

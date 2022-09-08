@@ -39,7 +39,7 @@
 
 {% macro flash_message() %}
   {% if message %}
-    <p class="{{message.kind}}">{{message.message}}</p>
+    <p class="{{message.kind}}" aria-label="{{message.kind | title}}">{{message.message}}</p>
   {% endif %}
 {% endmacro flash_message %}
 

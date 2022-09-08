@@ -42,6 +42,14 @@
   color: var(--color-downvote);
   --color: var(--color-downvote);
 }
+.post-vote-icon:focus-visible {
+  filter: brightness(125%) contrast(125%);
+  text-shadow: 0 0 .2rem var(--color);
+  transform: translateY(5%) scale(1.2);
+}
+.post-vote-icon.post-upvote:focus-visible {
+  transform: translateY(-5%) scale(1.2);
+}
 .post-vote-icon:hover {
   filter: brightness(150%) contrast(150%);
   text-shadow: 0 0 .3rem var(--color);
