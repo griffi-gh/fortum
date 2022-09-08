@@ -30,10 +30,11 @@ use endpoints::{
   dyn_profile_image::profile_image,
   delete_account::delete_account,
   update_username::update_username,
-  topics::{topic, topics},
+  topics::{topic, /* topics */},
   topics_create::{topics_create, topics_create_get},
   misc::{sad, success},
   error::{default_catcher, display_error},
+  chat::chat
 };
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -70,8 +71,9 @@ fn rocket() -> _ {
       display_error,
       delete_account,
       update_username,
-      topic, topics,
+      topic, /* topics, */
       topics_create, topics_create_get,
+      chat,
       sad, success,
     ])
     .register("/", catchers![default_catcher])

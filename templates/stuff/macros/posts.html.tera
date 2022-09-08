@@ -26,11 +26,7 @@
           <img class="post-pfp" src='{{ macros_misc::profile_image(url = post.profile_image | default(value=""), usr = post.username, id = post.user_id) }}' width="40" height="40" alt="Profile image" loading="lazy">
           <div class="post-username">
             <span class="post-username-lol">
-              {% if post.username %} 
-                {{ post.username }} 
-              {% else %} 
-                [anonymous] 
-              {% endif %}
+              {{ post.username | default(value = "(deleted)") }}
             </span>
             <span class="post-postedin">posted in</span>
             <a href="/topic/{{ post.topic_name }}" class="nocolor post-topic">{{ post.topic_name }}</a>

@@ -1,0 +1,46 @@
+.conversation-view {
+  padding: .66rem;
+}
+.conversation-view.scale, .scale-as-conversation-view {
+  min-width: 20rem;
+}
+@media only screen and (min-width: 1000px) {
+  .conversation-view.scale, .scale-as-conversation-view {
+    max-width: 33vw;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .conversation-view.scale, .scale-as-conversation-view {
+    max-width: 25vw;
+  }
+}
+.conversation-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  padding: .25rem;
+  background: white;
+  border: 1px solid gray;
+  border-radius: .25rem;
+  overflow: hidden;
+}
+.conv-pfp-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: .33rem;
+}
+.conv-pfp {
+  border-radius: 50%;
+  box-shadow: 0 0 .3rem rgba(0, 0, 0, .5);
+}
+.conv-main-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.conv-last-msg {
+  color: gray;
+}

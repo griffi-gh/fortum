@@ -6,8 +6,9 @@
 
 {% block head %}
   {{ super() }}
+  {{ macros_misc::css(static="chat_list") }}
 {% endblock head %}
 
 {% block content %}
-  Chat
+  {{ macros_chat::conversations_view(items = conversations, class = "scale") }}
 {% endblock content %}

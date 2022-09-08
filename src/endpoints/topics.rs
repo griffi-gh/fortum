@@ -7,10 +7,10 @@ use crate::db::MainDatabase;
 use crate::common::template_vars::TemplateVars;
 use crate::common::post::{PostFilter, PostSort, SortDirection};
 
-#[get("/topics")]
-pub async fn topics() {
-  todo!()
-}
+// #[get("/topics")]
+// pub async fn topics() {
+//   TODO
+// }
 
 #[get("/topic/<name>?<page>")]
 pub async fn topic(

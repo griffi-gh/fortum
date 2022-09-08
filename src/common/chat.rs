@@ -2,12 +2,15 @@ use chrono::{DateTime, Utc};
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct Conversation<'a> {
+pub struct ConversationListItem {
+  //id
   pub conversation_id: i32,
-  pub user_a: Option<i32>,
-  pub user_b: Option<i32>,
-  pub user_a_username: Option<&'a str>,
-  pub user_b_username: Option<&'a str>
+  //receiver user
+  pub user_id: Option<i32>,
+  pub user_profile_image: Option<String>,
+  pub user_username: Option<String>,
+  //lasat msg
+  pub last_message: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, sqlx::Type)]

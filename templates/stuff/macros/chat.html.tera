@@ -1,0 +1,31 @@
+{% macro conversation_item(item) %}
+  <a href="todo" class="conversation-item" tabindex="0">
+    <div class="conv-pfp-area">
+      <img 
+        class="conv-pfp"
+        src='{{ macros_misc::profile_image(url = item.user_profile_image | default(value=""), usr = item.user_username, id = item.user_id) }}' 
+        alt="Profile image"
+        width="40"
+        height="40"
+      >
+    </div>
+    <div class="conv-main-area">
+      <div class="conv-username">
+        {{ item.user_username | default(value = "(deleted)") }}
+      </div>
+      {% if item.last_message %}
+        <div class="conv-last-msg">
+          {{ item.last_message }}
+        </div>
+      {% endif %}
+    </div>
+  </a>
+{% endmacro conversation_item %}
+
+{% macro conversations_view(items, class="") %}
+  <div class="conversation-view {{ class }}">
+    {% for item in items %}
+      {{ macros_chat::conversation_item(item = item) }}
+    {% endfor %}
+  </div>
+{% endmacro conversations_view %}

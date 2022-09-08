@@ -8,7 +8,7 @@ use crate::common::utils::{executor, div_up, generate_token};
 use crate::common::stats::Stats;
 use crate::common::post::{Post, PostFilter, PostSort, SortDirection};
 use crate::common::user::User;
-use crate::common::chat::Conversation;
+use crate::common::chat::ConversationListItem;
 
 pub async fn run_migrations(rocket: Rocket<Build>) -> fairing::Result {
   let db = MainDatabase::fetch(&rocket).unwrap();
@@ -161,7 +161,7 @@ impl MainDatabase {
 
   pub async fn fetch_posts(db: &mut Connection<Self>, sort: PostSort, filter: PostFilter<'_>, page: u32, max_results_on_page: u32) -> Vec<Post> {
     //This is pretty inefficient but hey it works!
-    //OFFSET is slow btw, https://use-the-index-luke.com/no-offset
+    //OFFSET is slow: https://use-the-index-luke.com/no-offset
     assert!(max_results_on_page > 0);
     let filter_options = match filter {
       PostFilter::None => (0, None, None, None),
@@ -248,7 +248,7 @@ impl MainDatabase {
       LEFT JOIN users ON users.user_id = posts.author
       INNER JOIN topics ON topics.topic_id = posts.topic
       WHERE posts.post_id = $1
-      ORDER BY votes DESC;
+      ORDER BY votes DESC
     "#, id).fetch_optional(executor(db)).await.unwrap()
   }
 
@@ -265,17 +265,32 @@ impl MainDatabase {
   }
 
   //conversations and chat
-  pub async fn get_conversations(db: &mut Connection<Self>, user_id: i32) -> Vec<Conversation> {
-    todo!() // ! //TODO Write query
-    // sqlx::query_as!(Conversation, r#"
-    //   SELECT 
-    //     conversations.conversation_id,
-    //     conversations.user_a,
-    //     conversations.user_b,
-    //     conversations.user_a_username,
-    //     conversations.user_b_username
-
-
-    // "#);
+  pub async fn get_conversation_list(db: &mut Connection<Self>, user_id: i32) -> Vec<ConversationListItem> {
+    sqlx::query_as!(ConversationListItem, r#"
+      SELECT 
+        conversations.conversation_id,
+        users.user_id AS "user_id?",
+        users.username AS "user_username?",
+        users.profile_image AS "user_profile_image?",
+        (
+          SELECT content
+          FROM messages AS msg
+          WHERE msg.conversation_id = conversations.conversation_id
+          ORDER BY msg.created_on DESC
+          LIMIT 1
+        ) as "last_message?"
+      FROM conversations
+      LEFT JOIN users 
+        ON users.user_id = (
+          CASE WHEN 
+            conversations.user_a = $1 
+          THEN 
+            conversations.user_b
+          ELSE 
+            conversations.user_a 
+          END
+        )
+      WHERE (user_a = $1 OR user_b = $1)
+    "#, user_id).fetch_all(executor(db)).await.unwrap()
   }
 }
