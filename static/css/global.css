@@ -156,3 +156,10 @@ html.hide-scrollbar {
     scroll-behavior: unset !important;
   }
 }
+
+/* No X loaded beer emote */
+.npl-emote {
+  color: var(--color-warn);
+  font-size: 5rem;
+  transform: translateX(-25%);
+}

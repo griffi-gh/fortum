@@ -11,12 +11,19 @@ use crate::common::authentication::Authentication;
 
 #[get("/chat?<conversation>")]
 pub async fn conversation(mut db: Connection<MainDatabase>, auth: Authentication, vars: TemplateVars, conversation: i32) -> Option<Template> {
-  if !MainDatabase::check_access(&mut db, auth.user_id, conversation).await {
-    return None;
-  }
+  // if !MainDatabase::check_access(&mut db, auth.user_id, conversation).await {
+  //   return None;
+  // }
+  let conversation_obj = MainDatabase::get_conversation(&mut db, auth.user_id, conversation).await?;
   let conversations = MainDatabase::get_conversation_list(&mut db, auth.user_id).await;
   let messages = MainDatabase::get_messages(&mut db, conversation).await;
-  Some(Template::render("chat", context!{ conversation_id: conversation, conversations, messages, vars }))
+  Some(Template::render("chat", context!{
+    conversation_id: conversation,
+    conversation: conversation_obj,
+    conversations,  
+    messages, 
+    vars 
+  }))
 }
 
 #[get("/chat")]

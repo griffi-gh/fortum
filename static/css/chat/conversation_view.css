@@ -36,16 +36,16 @@
 .conversation-item:not(:last-child) {
   margin-bottom: .25rem;
 }
-.conversation-item:is(:hover, :focus-visible) {
+.conversation-item:is(:hover, :focus-visible, .active, :active) {
   background: var(--color-primary-light-slight);
 }
-.conversation-item:is(:hover, :focus-visible) .conv-last-msg {
+.conversation-item:is(:hover, :focus-visible, .active, :active) .conv-last-msg {
   color: var(--color-gray-dark);
 }
-.conversation-item:is(:hover, :focus-visible) .conv-pfp {
+.conversation-item:is(:hover, :focus-visible, .active, :active) .conv-pfp {
   box-shadow: 0 0 .5rem rgba(0, 0, 0, .25);
 }
-.conversation-item:active {
+.conversation-item:is(.active, :active) {
   background: var(--color-primary-light);
 }
 .conv-pfp-area {

@@ -142,12 +142,6 @@
   margin-top: .33rem;
 }
 
-.npl-emote {
-  color: var(--color-warn);
-  font-size: 5rem;
-  transform: translateX(-25%);
-}
-
 .post-page-selector {
   display: flex;
   align-items: center;

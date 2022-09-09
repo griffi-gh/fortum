@@ -1,9 +1,33 @@
 use super::inner_prelude::*;
-use crate::common::chat::{ConversationListItem, Message};
+use crate::common::chat::{Conversation, Message};
 
 impl MainDatabase {
-  pub async fn get_conversation_list(db: &mut Connection<Self>, user_id: i32) -> Vec<ConversationListItem> {
-    sqlx::query_as!(ConversationListItem, r#"
+  /// DOESN'T SET `last_message`!!!
+  pub async fn get_conversation(db: &mut Connection<Self>, user_id: i32, conversation_id: i32) -> Option<Conversation> {
+    sqlx::query_as!(Conversation, r#"
+      SELECT
+        conversations.conversation_id,
+        users.user_id AS "user_id?",
+        users.username AS "user_username?",
+        users.profile_image AS "user_profile_image?",
+        null AS "last_message?"
+      FROM conversations
+      LEFT JOIN users 
+        ON users.user_id = (
+          CASE WHEN 
+            conversations.user_a = $1 
+          THEN 
+            conversations.user_b
+          ELSE 
+            conversations.user_a 
+          END
+        )
+      WHERE (user_a = $1 OR user_b = $1) AND (conversation_id = $2)
+    "#, user_id, conversation_id).fetch_optional(executor(db)).await.unwrap()
+  }
+  
+  pub async fn get_conversation_list(db: &mut Connection<Self>, user_id: i32) -> Vec<Conversation> {
+    sqlx::query_as!(Conversation, r#"
       SELECT 
         conversations.conversation_id,
         users.user_id AS "user_id?",
@@ -29,6 +53,19 @@ impl MainDatabase {
         )
       WHERE (user_a = $1 OR user_b = $1)
     "#, user_id).fetch_all(executor(db)).await.unwrap()
+  }
+
+  pub async fn check_access(db: &mut Connection<Self>, user_id: i32, conversation_id: i32) -> bool {
+    sqlx::query(r#"
+        SELECT 1 
+        FROM conversations 
+        WHERE (
+          ((user_a = $1) OR (user_b = $1)) AND 
+          (conversation_id = $2)
+        ) LIMIT 1;
+      "#)
+      .bind(user_id).bind(conversation_id)
+      .fetch_optional(executor(db)).await.unwrap().is_some()
   }
 
   pub async fn create_or_get_existing_conversation(db: &mut Connection<Self>, user_a_id: i32, user_b_id: i32) -> i32 {
@@ -71,16 +108,4 @@ impl MainDatabase {
     "#, conversation_id).fetch_all(executor(db)).await.unwrap()
   }
 
-  pub async fn check_access(db: &mut Connection<Self>, user_id: i32, conversation_id: i32) -> bool {
-    sqlx::query(r#"
-        SELECT 1 
-        FROM conversations 
-        WHERE (
-          ((user_a = $1) OR (user_b = $1)) AND 
-          (conversation_id = $2)
-        ) LIMIT 1;
-      "#)
-      .bind(user_id).bind(conversation_id)
-      .fetch_optional(executor(db)).await.unwrap().is_some()
-  }
 }

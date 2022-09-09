@@ -1,3 +1,5 @@
+{# CONVERSATIONS #}
+
 {% macro conversation_item(item) %}
   <a {#########################}
     href="/chat?conversation={{ item.conversation_id }}" 
@@ -36,6 +38,26 @@
   <div class="conversation-view {{ class }}">
     {% for item in items %}
       {{ macros_chat::conversation_item(item = item) }}
+    {% else %}
+      {{ macros_misc::something_gone(text = "No conversations") }}
+    {% endfor %}
+  </div>
+{% endmacro conversations_view %}
+
+{# MESSAGES #}
+
+{% macro message_item(item) %}
+  <div>
+    {{ item.content }}
+  </div>
+{% endmacro message_item %}
+
+{% macro messages_view(items, class="") %}
+  <div class="messages-view {{ class }}">
+    {% for item in items %}
+      {{ macros_chat::message_item(item = item) }}
+    {% else %}
+      {{ macros_misc::something_gone(text = "No messages") }}
     {% endfor %}
   </div>
 {% endmacro conversations_view %}

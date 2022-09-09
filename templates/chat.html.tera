@@ -8,7 +8,7 @@
   {{ super() }}
   {{ macros_misc::css(static="chat/conversation_view") }}
   {{ macros_misc::css(static="chat/layout") }}
-  {% if messages %}
+  {% if conversation_id %}
     {{ macros_misc::css(static="chat/page_chat") }}
   {% else %}
     {{ macros_misc::css(static="chat/page_list") }}
@@ -18,8 +18,12 @@
 {% block content %}
   <div id="layout"> 
     {{ macros_chat::conversations_view(items = conversations, class = "scale layout-left bg") }}
-    <div class="layout-right">
-      Pick a chat to continue
-    </div>
+    {% if conversation_id %}
+      {{ macros_chat::messages_view(items = messages, class = "layout-right") }}
+    {% else %}
+      <div class="layout-right">
+        Pick a chat to continue
+      </div>
+    {% endif %}
   </div>
 {% endblock content %}

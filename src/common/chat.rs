@@ -10,14 +10,14 @@ use serde::{Serialize, Deserialize};
 
 // Conversation
 #[derive(Serialize, Deserialize)]
-pub struct ConversationListItem {
+pub struct Conversation {
   //id
   pub conversation_id: i32,
   //receiver user
   pub user_id: Option<i32>,
   pub user_profile_image: Option<String>,
   pub user_username: Option<String>,
-  //lasat msg
+  //last msg
   pub last_message: Option<String>,
 }
 
