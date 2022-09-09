@@ -1,0 +1,8 @@
+.layout-left {
+  display: none;
+}
+@media only screen and (min-width: 700px) {
+  .layout-left {
+    display: block;
+  }
+}
