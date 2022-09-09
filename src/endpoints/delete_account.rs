@@ -27,16 +27,9 @@ pub async fn delete_account<'a>(cookies: &CookieJar<'_>, mut db: Connection<Main
     return Err(Flash::error(Redirect::to(uri!("/user")), "Invalid confirmation string")); 
   }
   if data.delete_posts {
-    sqlx::query("DELETE FROM posts WHERE author = $1")
-      .bind(auth.user_id)
-      .execute(&mut *db).await.unwrap();
-    sqlx::query("DELETE FROM comments WHERE author = $1")
-      .bind(auth.user_id)
-      .execute(&mut *db).await.unwrap();
+    MainDatabase::delete_account_data(&mut db, auth.user_id).await;
   }
-  sqlx::query("DELETE FROM users WHERE user_id = $1")
-    .bind(auth.user_id)
-    .execute(&mut *db).await.unwrap();
+  MainDatabase::delete_account(&mut db, auth.user_id).await;
   cookies.remove_private(Cookie::named(AUTH_COOKIE_NAME));
   Ok(Redirect::to(uri!(sad)))
 }

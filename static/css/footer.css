@@ -1,4 +1,5 @@
 #footer {
+  z-index: 1000;
   margin-top: auto;
   text-align: center;
   background: white;

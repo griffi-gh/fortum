@@ -1,5 +1,15 @@
 {% macro conversation_item(item) %}
-  <a href="/chat/{{ item.conversation_id }}" class="conversation-item" tabindex="0">
+  <a {#########################}
+    href="/chat?conversation={{ item.conversation_id }}" 
+    tabindex="0"
+    class="
+      conversation-item 
+      {% if conversation_id %}
+        {% if item.conversation_id == conversation_id %} 
+          active 
+        {% endif %}
+      {% endif %}"
+  {#########################}>
     <div class="conv-pfp-area">
       <img 
         class="conv-pfp"

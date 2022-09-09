@@ -3,7 +3,7 @@
 {% import "stuff/macros/posts" as macros_posts %}
 {% import "stuff/macros/chat" as macros_chat %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html">
   <head>
     {% block head %}
       {# generic html head tags #}
@@ -43,7 +43,7 @@
       <title>Fortum: {% block title %}{% endblock title %}</title>
     {% endblock head %}
   </head>
-  <body class="{% block body_class %}{% endblock body_class %}">
+  <body class="{% block body_class %}{% endblock body_class %}" id="body">
     <a id="top"></a>
     {% block body_top %}{% endblock body_top %}
     {% include "stuff/header" %}

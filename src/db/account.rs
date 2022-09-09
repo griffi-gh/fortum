@@ -63,6 +63,15 @@ impl MainDatabase {
     }
   }
 
+  pub async fn delete_account_data(db: &mut Connection<Self>, user_id: i32) {
+    sqlx::query!("DELETE FROM posts WHERE author = $1", user_id)
+      .execute(executor(db)).await.unwrap();
+    sqlx::query!("DELETE FROM comments WHERE author = $1", user_id)
+      .execute(executor(db)).await.unwrap();
+    sqlx::query!("DELETE FROM conversations WHERE (user_a = $1) OR (user_b = $1)", user_id)
+      .execute(executor(db)).await.unwrap();
+  }
+
   pub async fn delete_account(db: &mut Connection<Self>, user_id: i32) {
     sqlx::query("DELETE FROM users WHERE user_id = $1")
       .bind(user_id)

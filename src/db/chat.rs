@@ -1,5 +1,5 @@
 use super::inner_prelude::*;
-use crate::common::chat::ConversationListItem;
+use crate::common::chat::{ConversationListItem, Message};
 
 impl MainDatabase {
   pub async fn get_conversation_list(db: &mut Connection<Self>, user_id: i32) -> Vec<ConversationListItem> {
@@ -48,5 +48,39 @@ impl MainDatabase {
       .bind(user_b_id)
       .fetch_one(executor(db)).await.unwrap()
       .get(0)
+  }
+
+  pub async fn get_messages(db: &mut Connection<Self>, conversation_id: i32) -> Vec<Message> {
+    sqlx::query_as!(Message, r#"
+      SELECT 
+        message_id,
+        message_direction AS "message_direction: _",
+        content,
+        created_on,
+        edited,
+        reply_to,
+        (
+          SELECT content
+          FROM messages AS msg
+          WHERE msg.message_id = msg.reply_to
+          LIMIT 1
+        ) as "reply_to_content?"
+        
+      FROM messages
+      WHERE conversation_id = $1
+    "#, conversation_id).fetch_all(executor(db)).await.unwrap()
+  }
+
+  pub async fn check_access(db: &mut Connection<Self>, user_id: i32, conversation_id: i32) -> bool {
+    sqlx::query(r#"
+        SELECT 1 
+        FROM conversations 
+        WHERE (
+          ((user_a = $1) OR (user_b = $1)) AND 
+          (conversation_id = $2)
+        ) LIMIT 1;
+      "#)
+      .bind(user_id).bind(conversation_id)
+      .fetch_optional(executor(db)).await.unwrap().is_some()
   }
 }

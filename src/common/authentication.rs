@@ -1,8 +1,8 @@
 use rocket::Request;
 use rocket::request::{FromRequest, Outcome};
 use rocket_db_pools::Connection;
-use super::utils::get_token;
 use crate::db::MainDatabase;
+use super::utils::get_token;
 
 pub struct Authentication {
   pub token: String,
