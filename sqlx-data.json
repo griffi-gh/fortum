@@ -193,6 +193,117 @@
     },
     "query": "\n      SELECT \n        users.username AS \"username?\", \n        users.profile_image AS profile_image,\n        posts.title AS title, \n        posts.content AS content, \n        posts.created_on AS created_on, \n        topics.topic_name AS topic_name, \n        posts.votes AS votes,\n        users.user_id AS \"user_id?\",\n        posts.post_id as post_id\n      FROM posts\n      LEFT JOIN users ON users.user_id = posts.author\n      INNER JOIN topics ON topics.topic_id = posts.topic\n      WHERE posts.post_id = $1\n      ORDER BY votes DESC\n    "
   },
+  "90b46cb4dd31176246f3d3fbf9b43e4c459d13ffa10c6b510891cf8730443d51": {
+    "describe": {
+      "columns": [
+        {
+          "name": "message_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "message_direction: _",
+          "ordinal": 1,
+          "type_info": {
+            "Custom": {
+              "kind": {
+                "Enum": [
+                  "a_to_b",
+                  "b_to_a"
+                ]
+              },
+              "name": "message_direction_type"
+            }
+          }
+        },
+        {
+          "name": "content",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "created_on",
+          "ordinal": 3,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "edited",
+          "ordinal": 4,
+          "type_info": "Bool"
+        },
+        {
+          "name": "reply_to",
+          "ordinal": 5,
+          "type_info": "Int4"
+        },
+        {
+          "name": "reply_to_content?",
+          "ordinal": 6,
+          "type_info": "Varchar"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        null
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n      SELECT \n        message_id,\n        message_direction AS \"message_direction: _\",\n        content,\n        created_on,\n        edited,\n        reply_to,\n        (\n          SELECT content\n          FROM messages AS msg\n          WHERE msg.message_id = msg.reply_to\n          LIMIT 1\n        ) as \"reply_to_content?\"\n        \n      FROM messages\n      WHERE conversation_id = $1\n    "
+  },
+  "97331f63e801137f63195bbca24b41c197c4ee90e6f0b7cc310df62f71b50881": {
+    "describe": {
+      "columns": [
+        {
+          "name": "conversation_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "user_id?",
+          "ordinal": 1,
+          "type_info": "Int4"
+        },
+        {
+          "name": "user_username?",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "user_profile_image?",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "last_message?",
+          "ordinal": 4,
+          "type_info": "Text"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        true,
+        null
+      ],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n      SELECT\n        conversations.conversation_id,\n        users.user_id AS \"user_id?\",\n        users.username AS \"user_username?\",\n        users.profile_image AS \"user_profile_image?\",\n        null AS \"last_message?\"\n      FROM conversations\n      LEFT JOIN users \n        ON users.user_id = (\n          CASE WHEN \n            conversations.user_a = $1 \n          THEN \n            conversations.user_b\n          ELSE \n            conversations.user_a \n          END\n        )\n      WHERE (user_a = $1 OR user_b = $1) AND (conversation_id = $2)\n    "
+  },
   "a2c1a5d5c06ebd672b6d5010f0483eecc1ac8ff7e01fb4363c5ec538788a1932": {
     "describe": {
       "columns": [],
