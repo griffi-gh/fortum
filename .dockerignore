@@ -5,3 +5,5 @@
 .gitattributes
 .gitignore
 /target
+LICENSE
+README.md
