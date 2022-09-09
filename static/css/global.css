@@ -7,6 +7,9 @@
 @import url("./header.css");
 @import url("./share.css");
 
+:root {
+  touch-action: pan-x pan-y;
+}
 :where(*, *::after, *::before) {
   box-sizing: border-box;
 }
