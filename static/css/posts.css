@@ -119,7 +119,7 @@
   transform: scale(1.1);
   padding-right: .3rem;
 }
-.post-topic:hover {
+.post-topic:is(:hover, :focus-visible) {
   transform: scale(1.05) rotate(-4deg);
   box-shadow: 0 0 .1rem rgba(0, 0, 0, .5);
 }
