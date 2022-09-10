@@ -4,6 +4,7 @@
 #[macro_use] extern crate lazy_static;
 use figment::{providers::Env, util::map};
 use serde::{Serialize, Deserialize};
+use rocket::tokio::sync::broadcast::channel;
 use rocket::fairing::AdHoc;
 use rocket_dyn_templates::Template;
 use rocket_db_pools::Database;
@@ -16,6 +17,7 @@ pub mod endpoints;
 pub mod common;
 mod cache_file_server;
 
+use common::chat::MessageEventData;
 use db::{MainDatabase, run_migrations};
 use cache_file_server::CacheFileServer;
 use endpoints::{
@@ -58,6 +60,7 @@ fn rocket() -> _ {
     .attach(AdHoc::try_on_ignite("DB Migrations", run_migrations))
     .attach(AdHoc::config::<Config>())
     .attach(Template::fairing())
+    .manage(channel::<MessageEventData>(1024).0)
     .mount("/", routes![
       index, 
       register, post_register,

@@ -2,6 +2,8 @@ use rocket::form::Form;
 use rocket::http::Status;
 use rocket::request::FlashMessage;
 use rocket::response::{Flash, Redirect};
+use rocket::response::stream::{Event, EventStream};
+use rocket::serde::json::{Value, json};
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{Template, context};
 use crate::db::MainDatabase;
@@ -57,13 +59,6 @@ pub async fn new_conversation(mut db: Connection<MainDatabase>, auth: Authentica
   Ok(Redirect::to(uri!(conversation(conversation = id))))
 }
 
-#[derive(FromForm)]
-pub struct SendMessageData<'a> {
-  conversation_id: i32,
-  content: &'a str,
-  reply_to: Option<i32>
-}
-
 #[post("/chat/send_message_form", data = "<data>")]
 pub async fn send_message_form(mut db: Connection<MainDatabase>, auth: Authentication, data: Form<SendMessageData<'_>>) -> Result<Redirect, Flash<Redirect>> {
   let url = uri!(conversation(conversation = data.conversation_id));
@@ -73,10 +68,32 @@ pub async fn send_message_form(mut db: Connection<MainDatabase>, auth: Authentic
   Ok(Redirect::to(url))
 }
 
-#[post("/chat/send_message", data = "<data>")]
-pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication, data: Form<SendMessageData<'_>>) -> Result<String, (Status, &'static str)> {
+#[derive(FromForm)]
+pub struct SendMessageData<'a> {
+  conversation_id: i32,
+  content: &'a str,
+  reply_to: Option<i32>
+}
+
+#[post("/chat/send_message", format = "json", data = "<data>")]
+pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication, data: Form<SendMessageData<'_>>) -> Result<Value, (Status, Value)> {
   match MainDatabase::send_message(&mut db, auth.user_id, data.content, data.conversation_id, data.reply_to).await {
-    Ok(message_id) => Ok(message_id.to_string()),
-    Err(message)  => Err((Status::BadRequest, message))
+    Ok(message_id) => Ok(json!({
+      "code": 200,
+      "success": true,
+      "message_id": message_id
+    })),
+    Err(message)  => Err((Status::BadRequest, json!({
+      "code": 400,
+      "success": false,
+      "error": message
+    })))
+  }
+}
+
+#[get("/chat/events?<conversation>")]
+pub async fn events(conversation: i32) -> EventStream![] {
+  EventStream! {
+    yield Event::data("hello".to_string()).event("message");
   }
 }

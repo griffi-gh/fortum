@@ -69,6 +69,13 @@ pub struct Message {
   pub edited: bool
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MessageEventData {
+  pub conversation_id: i32,
+  
+  pub content: String,
+}
+
 // Authorization 
 
 // pub struct ChatAuthorization;

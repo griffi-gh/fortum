@@ -159,6 +159,10 @@ impl MainDatabase {
     )
   }
 
+  pub async fn get_message(db: &mut Connection<Self>, message_id: i32) -> Option<Message> {
+    todo!()
+  }
+
   pub async fn send_message(db: &mut Connection<Self>, user_id: i32, content: &str, conversation_id: i32, reply_to: Option<i32>) -> Result<i32, &'static str> {
     // Check conversation access
     if !Self::check_access(db, user_id, conversation_id).await {
