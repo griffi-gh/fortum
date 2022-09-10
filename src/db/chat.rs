@@ -165,7 +165,8 @@ impl MainDatabase {
       return Err("You dont have access to this conversation");
     }
     // Check reply id
-    let reply_check = sqlx::query(r#"
+    if let Some(reply_to) = reply_to {
+      let reply_check = sqlx::query(r#"
         SELECT 1 FROM messages WHERE (
           (message_id = $1) AND
           (conversation_id = $2)
@@ -173,8 +174,9 @@ impl MainDatabase {
       "#)
       .bind(reply_to).bind(conversation_id)
       .fetch_optional(executor(db)).await.unwrap().is_some();
-    if !reply_check {
-      return Err("Can't reply to a message that doesn't exist/from another chat")
+      if !reply_check {
+        return Err("Can't reply to a message that doesn't exist/from another chat")
+      }
     }
     // Create message
     Ok(
