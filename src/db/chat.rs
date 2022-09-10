@@ -1,5 +1,6 @@
 use super::inner_prelude::*;
 use crate::common::chat::{Conversation, Message, UserPair};
+use crate::consts::MAX_CHAT_MESSAGE_LEN;
 
 impl MainDatabase {
   /// DOESN'T SET `last_message`!!!
@@ -164,6 +165,14 @@ impl MainDatabase {
   }
 
   pub async fn send_message(db: &mut Connection<Self>, user_id: i32, content: &str, conversation_id: i32, reply_to: Option<i32>) -> Result<i32, &'static str> {
+    // Trim content
+    let content = content.trim();
+    // Check message length
+    if content.len() > MAX_CHAT_MESSAGE_LEN {
+      return Err("Message is too long");
+    } else if content.replace(['\n', '\r'], "").trim().is_empty() {
+      return Err("Empty messages are not allowed");
+    } 
     // Check conversation access
     if !Self::check_access(db, user_id, conversation_id).await {
       return Err("You dont have access to this conversation");

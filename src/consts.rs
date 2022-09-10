@@ -1,7 +1,8 @@
 use regex::Regex;
 
-//TODO move to config
 pub const AUTH_COOKIE_NAME: &str = "auth";
+
+pub const MAX_CHAT_MESSAGE_LEN: usize = 512;
 
 //REGEX
 pub const EMAIL_REGEX_STR: &str = r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})";
