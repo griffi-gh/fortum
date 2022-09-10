@@ -4,7 +4,8 @@
     name="content", 
     placeholder="Type your message", 
     no_padding = true, 
-    class="rectangular message-box-input"
+    class="rectangular message-box-input",
+    autocomplete = "off"
   ) }}
   <button type="submit" class="rectangular styled-button message-box-submit">
     <i class="fa-solid fa-paper-plane-top"></i>
