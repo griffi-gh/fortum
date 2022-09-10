@@ -37,11 +37,14 @@
   }
 }
 
-/* Scale down and eventually hide placeholder on very smol screens */
+/* HACK: Scale down and eventually hide placeholder on very smol screens */
 @media only screen and (max-width: 300px) {
   .message-box-input > label {
     font-size: 5vw;
     line-height: 1.5rem;
+  }
+  .message-box-input.styled-input > :is(input:focus, input:not(:placeholder-shown)) ~ label {
+    background: linear-gradient(to bottom, var(--color-background) 33%, var(--color-background) 50%, white 50%, white 66%);
   }
 }
 @media only screen and (max-width: 200px) {
@@ -52,7 +55,7 @@
 @media only screen and (max-width: 185px) {
   .message-box-input > label {
     translate: -6.75vw 0;
-    transition: opacity .4s;
+    transition: opacity .4s, color .33s 0s, border-color .33s, transform .33s;
   }
 }
 @media only screen and (max-width: 175px) {
