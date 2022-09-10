@@ -28,7 +28,10 @@ pub async fn conversation(
     Err(message) => return Err(Flash::error(Redirect::to(uri!(chat)), message))
   };
   let conversations = MainDatabase::get_conversation_list(&mut db, auth.user_id).await;
-  let messages = MainDatabase::get_messages(&mut db, conversation, Some(auth.user_id)).await;
+  let messages = match MainDatabase::get_messages(&mut db, conversation, Some(auth.user_id)).await{
+    Ok(messages) => messages,
+    Err(message) => return Err(Flash::error(Redirect::to(uri!(chat)), message))
+  };
   Ok(Template::render("chat", context!{
     conversation_id: conversation,
     conversation: conversation_obj,
