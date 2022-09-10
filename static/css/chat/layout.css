@@ -49,3 +49,8 @@
 .layout-left ,.layout-right {
   overflow: auto;
 }
+
+/* Disable header blur */
+#header#header {
+  backdrop-filter: unset;
+}

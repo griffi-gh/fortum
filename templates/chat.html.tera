@@ -21,6 +21,14 @@
   <div id="layout"> 
     {{ macros_chat::conversations_view(items = conversations, class = "scale layout-left bg") }}
     <div class="layout-right">
+      <div id="mobile-header">
+        <a href="/chat" id="mobile-header-back">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>BACK</span>
+        </a>
+        <div id="mobile-header-title">Conversation</div>
+        <div class="dummy"></div>
+      </div>
       <div class="flex-center">
         {{ macros_misc::flash_message() }}
       </div>
