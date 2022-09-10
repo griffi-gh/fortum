@@ -1,8 +1,8 @@
-{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='', value="", pattern="") %}
+{% macro styled_input(name, id="", class="", inner_id="AUTO", placeholder="", password=false, required=false, size=-1, autocomplete='', value="", pattern="", no_padding=false) %}
   {% if inner_id == "AUTO" %}
-    {% set inner_id = "id-" ~ name ~ "-" ~ placeholder ~ "-" ~ size %}
+    {% set inner_id = "id-" ~ name ~ "-" ~ get_random(end = 1000) %}
   {% endif %}
-  <div class="styled-input {% if password %}show-caps{% endif %} {{ class }}" id="{{id}}">
+  <div class="styled-input {% if password %}show-caps{% endif %} {% if no_padding %}nomargin{% endif %} {{ class }}" id="{{id}}">
     <input 
       type="{% if password %}password{% else %}text{% endif %}" 
       name="{{ name }}" 

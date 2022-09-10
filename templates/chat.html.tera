@@ -9,6 +9,8 @@
   {{ macros_misc::css(static="chat/conversation_view") }}
   {{ macros_misc::css(static="chat/layout") }}
   {% if conversation_id %}
+    {{ macros_misc::css(static="chat/message_view") }}
+    {{ macros_misc::css(static="chat/message_box") }}
     {{ macros_misc::css(static="chat/page_chat") }}
   {% else %}
     {{ macros_misc::css(static="chat/page_list") }}
@@ -19,9 +21,14 @@
   <div id="layout"> 
     {{ macros_chat::conversations_view(items = conversations, class = "scale layout-left bg") }}
     <div class="layout-right">
-      {{ macros_misc::flash_message() }}
+      <div class="flex-center">
+        {{ macros_misc::flash_message() }}
+      </div>
       {% if conversation_id %}
-        {{ macros_chat::messages_view(items = messages) }}
+        {{ macros_chat::messages_view(items = messages, class="main-msg-view") }}
+        <div class="main-msg-box-wrapper">
+          {% include "stuff/chat_message_box" %}
+        </div>
       {% else %}
         <p>Pick a chat to continue</p>
       {% endif %}

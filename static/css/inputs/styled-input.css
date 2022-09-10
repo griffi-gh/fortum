@@ -7,6 +7,9 @@
   display: flex;
   z-index: 0;
 }
+.styled-input.nomargin {
+  margin: calc(-1 * var(--margin));
+}
 .styled-input > input {
   flex: 2;
   display: block;

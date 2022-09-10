@@ -1,0 +1,56 @@
+/* Layout */
+.message-box {
+  display: flex;
+  padding: .5rem 1rem;
+}
+.message-box-input {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+/* Remove min width from input */
+.message-box-input, .message-box-input > input {
+  min-width: 0;
+  width: 0;
+}
+
+/* Remove margin from the submit button*/
+.message-box-submit {
+  margin: 0;
+}
+
+/* Join message box and submit button together */
+#html .message-box-input input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+#html .message-box-submit {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Add padding on huge-ass displays */
+@media only screen and (min-width: 1500px) {
+  .message-box {
+    padding-left: 12.5vw;
+    padding-right: 12.5vw;
+  }
+}
+
+/* Scale down and eventually hide placeholder on very smol screens */
+@media only screen and (max-width: 300px) {
+  .message-box-input > label {
+    font-size: 5vw;
+    line-height: 1.5rem;
+  }
+}
+@media only screen and (max-width: 200px) {
+  .message-box-input > label {
+    translate: -4.5vw 0;
+  }
+}
+@media only screen and (max-width: 175px) {
+  .message-box-input > label {
+    display: none;
+  }
+}

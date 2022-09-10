@@ -58,6 +58,7 @@
       {{ macros_chat::message_item(item = item) }}
     {% else %}
       {{ macros_misc::something_gone(text = "No messages") }}
+      {% include "stuff/chat_message_box" %}
     {% endfor %}
   </div>
 {% endmacro conversations_view %}

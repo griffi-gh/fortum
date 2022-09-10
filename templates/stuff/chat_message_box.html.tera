@@ -1,0 +1,12 @@
+<form action="/chat/send_message_form" method="POST" class="message-box">
+  <input type="hidden" name="conversation_id" value="{{ conversation_id }}">
+  {{ macros_inputs::styled_input(
+    name="content", 
+    placeholder="Type your message", 
+    no_padding = true, 
+    class="rectangular message-box-input"
+  ) }}
+  <button type="submit" class="rectangular styled-button message-box-submit">
+    <i class="fa-solid fa-paper-plane-top"></i>
+  </button>
+</form>
