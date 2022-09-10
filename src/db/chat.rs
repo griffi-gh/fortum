@@ -205,12 +205,12 @@ impl MainDatabase {
               (
                 SELECT user_a
                 FROM conversations 
-                WHERE conversation_id = $1
-              ) = $2 
+                WHERE conversation_id = $2
+              ) = $1 
             ) THEN 'a_to_b'::message_direction_type
             ELSE 'b_to_a'::message_direction_type
           END,
-          $1,
+          $2,
           $3,
           $4
         ) RETURNING message_id
