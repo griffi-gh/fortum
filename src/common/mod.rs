@@ -1,3 +1,4 @@
+//pub type Res = Result<(), Box<dyn std::error::Error>>;
 pub mod authentication;
 pub mod chat;
 pub mod get_handler_macros;

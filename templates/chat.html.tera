@@ -18,12 +18,13 @@
 {% block content %}
   <div id="layout"> 
     {{ macros_chat::conversations_view(items = conversations, class = "scale layout-left bg") }}
-    {% if conversation_id %}
-      {{ macros_chat::messages_view(items = messages, class = "layout-right") }}
-    {% else %}
-      <div class="layout-right">
-        Pick a chat to continue
-      </div>
-    {% endif %}
+    <div class="layout-right">
+      {{ macros_misc::flash_message() }}
+      {% if conversation_id %}
+        {{ macros_chat::messages_view(items = messages) }}
+      {% else %}
+        <p>Pick a chat to continue</p>
+      {% endif %}
+    </div>
   </div>
 {% endblock content %}
