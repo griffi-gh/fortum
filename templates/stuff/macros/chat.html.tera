@@ -46,20 +46,18 @@
 
 {# MESSAGES #}
 
-{% macro message_item(item, prev_dir='none') %}
+{% macro message_item(item) %}
   {% set is_out = item.relative_message_direction == 'outgoing' %}
-  {% set is_consecutive = prev_dir == item.relative_message_direction %}
-  <div class="chat-message {{ item.relative_message_direction }} {% if is_consecutive %} consecutive {% endif %}">
-    {% if not is_consecutive %}
-      {% if is_out %}
-        {% set pfp = macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) %}
-      {% else %}
-        {% set pfp = macros_misc::profile_image(url = conversation.user_profile_image | default(value=""), usr = conversation.user_username, id = conversation.user_id) %}
-      {% endif %}
-      <img class="chat-message-pfp" src="{{ pfp }}" width="40" height="40" alt="Profile image" loading="lazy">
+  <div class="chat-message {{ item.relative_message_direction }}">
+    {% if is_out %}
+      {% set pfp = macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) %}
+    {% else %}
+      {% set pfp = macros_misc::profile_image(url = conversation.user_profile_image | default(value=""), usr = conversation.user_username, id = conversation.user_id) %}
     {% endif %}
+    <img class="chat-message-pfp" src="{{ pfp }}" width="40" height="40" alt="Profile image" loading="lazy">
     <div class="message-content">
-      {{ item.content }} {{ prev_dir }}
+      <span class="message-content-username">{% if is_out %}{{ vars.user.username }}{% else %}{{conversation.user_username}}{% endif %}</span>
+      <span class="message-content-content">{{ item.content }}</span>
     </div>
   </div>
 {% endmacro message_item %}
@@ -67,10 +65,8 @@
 {% macro messages_view(items, class="") %}
   <div class="messages-view {{ class }}">
     <div class="message-view-inner">
-      {% set_global prev = 'none' %}
       {% for item in items %}
-        {{ macros_chat::message_item(item = item, prev_dir = prev) }}
-        {% set_global prev = item.relative_message_direction %}
+        {{ macros_chat::message_item(item = item) }}
       {% else %}
         {{ macros_misc::something_gone(text = "No messages") }}
       {% endfor %}

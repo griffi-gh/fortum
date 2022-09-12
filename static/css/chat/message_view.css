@@ -1,25 +1,42 @@
-/* .messages-view.scroll {
-  overflow: auto;
-  display: flex;
-  flex-direction: column-reverse;
-} */
 .chat-message {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
   gap: .5rem;
   padding: .25rem;
 }
-@media only screen and (max-width: 1500px) {
+.message-content {
+  display: flex;
+  flex-direction: column;
+}
+.message-content > * {
+  display: inline-block;
+}
+@media only screen and (max-width: 1200px) {
   .chat-message.incoming {
     flex-direction: row-reverse;
+  }
+  .chat-message.incoming .message-content {
+    align-items: flex-end;
   }
 }
 .chat-message-pfp {
   border-radius: 50%;
 }
-/* .chat-message.consecutive {
-  margin: -.0625rem 0;
-  padding: 0 calc(40px + .5rem);
-} */
+/* Selects the first message in chain */
+.chat-message.incoming + .chat-message.outgoing:not(:last-child),
+.chat-message.outgoing + .chat-message.incoming:not(:last-child),
+.chat-message:first-child:not(:last-child) {
+  
+}
+/* Selects the next messages in chain */
+.chat-message.outgoing + .chat-message.outgoing .chat-message-pfp,
+.chat-message.incoming + .chat-message.incoming .chat-message-pfp {
+  visibility: hidden;
+  height: 0px;
+}
+.chat-message.outgoing + .chat-message.outgoing .message-content-username,
+.chat-message.incoming + .chat-message.incoming .message-content-username {
+  display: none;
+}
