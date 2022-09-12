@@ -80,7 +80,7 @@ pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication
   match MainDatabase::send_message(&mut db, auth.user_id, data.content, data.conversation_id, data.reply_to).await {
     Ok(message_id) => {
       //two checks/db requests :p
-      if let Some(o_user_id) = MainDatabase::get_other_conv_user(&mut db, auth.user_id, data.conversation_id).await {
+      if let Some(o_user_id) = MainDatabase::get_receiver_user_id(&mut db, auth.user_id, data.conversation_id).await {
         if let Some(message) = MainDatabase::get_message(&mut db, message_id).await {
           //Only fails if no subscribers so we can safely ignore the error :p
           let _ = queue.send(MessageEventData {
