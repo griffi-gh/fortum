@@ -98,7 +98,7 @@ pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication
             conversation_id: data.conversation_id,
             message
           });
-        }
+        } 
       }
       Ok(json!({
         "code": 200,

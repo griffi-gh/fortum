@@ -16,7 +16,7 @@ impl MainDatabase {
           users.profile_image AS "user_profile_image?",
           null AS "last_message?"
         FROM conversations
-        LEFT JOIN users --wtf??? do I need this?
+        LEFT JOIN users
           ON users.user_id = (
             CASE WHEN 
               conversations.user_a = $1 
@@ -50,14 +50,14 @@ impl MainDatabase {
         None => (None, None)
       }
     };
-    if user_a.is_none() && user_b.is_none() {
+    if user_a.is_none() || user_b.is_none() {
       return None;
     }
-    let our = Some(user_id);
-    if our == user_a {
-      user_b
-    } else if our == user_b {
-      user_a
+    let (user_a, user_b) = (user_a.unwrap(), user_b.unwrap());
+    if user_b == user_id {
+      Some(user_a)
+    } else if user_a == user_id {
+      Some(user_b)
     } else {
       None
     }
