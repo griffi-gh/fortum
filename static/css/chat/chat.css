@@ -1,0 +1,105 @@
+/* Disable scrolling */
+#html#html {
+  overflow: hidden;
+}
+
+/* Since scrolling is gone, always hide the scroll separator line */
+@-moz-document url-prefix() {
+  #body::after {
+    content: unset;
+    display: none;
+  }
+}
+
+/* Hide footer when the screen is not tall enough */
+#footer {
+  transition: transform .5s, opacity .5s;
+}
+@media only screen and (max-height: 180px) {
+  #footer {
+    position: absolute;
+    inset: 0;
+    top: unset;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+/* Layout itself */
+#content {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-height: 0;
+}
+#layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  max-height: 100%;
+}
+.layout-left {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.layout-right {
+  flex-grow: 1;
+}
+.layout-left ,.layout-right {
+  overflow: auto;
+}
+
+/* Disable header blur */
+#header#header {
+  backdrop-filter: unset;
+}
+
+/* SSE warning */
+#sse-state {
+  position: relative;
+  overflow: visible;
+}
+#sse-state-inner {
+  display: block;
+  text-align: center;
+  padding: .33rem 0;
+  color: white;
+  transition: opacity linear .5s .5s, background .5s;
+}
+#sse-state-inner::before {
+  display: inline-block;
+  line-height: 1em;
+  margin-right: .25rem;
+}
+/* Connected */
+#sse-state.open {
+  height: 0;
+}
+#sse-state.open #sse-state-inner {
+  position: absolute;
+  inset: 0;
+  bottom: unset;
+  opacity: 0;
+  pointer-events: none;
+  width: 100%;
+  background: var(--color-success);
+}
+#sse-state.open #sse-state-inner::before {
+  content: '\f00c';
+}
+/* Disconnected */
+#sse-state.closed #sse-state-inner {
+  background: var(--color-error);
+}
+#sse-state.closed #sse-state-inner::before {
+  content: '\e491';
+}
+/* Connecting... */
+#sse-state.connecting #sse-state-inner {
+  background: var(--color-warn);
+}
+#sse-state.connecting #sse-state-inner::before {
+  content: '\f3f4';
+  animation: spin 2s infinite linear;
+}

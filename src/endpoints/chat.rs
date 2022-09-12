@@ -1,11 +1,15 @@
+use rocket::{Shutdown, State};
 use rocket::form::Form;
 use rocket::http::Status;
 use rocket::request::FlashMessage;
 use rocket::response::{Flash, Redirect};
 use rocket::response::stream::{Event, EventStream};
 use rocket::serde::json::{Value, json};
+use rocket::tokio::select;
+use rocket::tokio::sync::broadcast::{Sender, error::RecvError};
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{Template, context};
+use crate::common::chat::MessageEventData;
 use crate::db::MainDatabase;
 use crate::common::template_vars::TemplateVars;
 use crate::common::authentication::Authentication;
@@ -79,14 +83,30 @@ pub struct SendMessageData<'a> {
 }
 
 #[post("/chat/send_message", format = "json", data = "<data>")]
-pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication, data: Form<SendMessageData<'_>>) -> Result<Value, (Status, Value)> {
+pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication, mut data: Form<SendMessageData<'_>>, queue: &State<Sender<MessageEventData>>) -> Result<Value, (Status, Value)> {
+  //Trim message content
+  data.content = data.content.trim();
   match MainDatabase::send_message(&mut db, auth.user_id, data.content, data.conversation_id, data.reply_to).await {
-    Ok(message_id) => Ok(json!({
-      "code": 200,
-      "success": true,
-      "message_id": message_id
-    })),
-    Err(message)  => Err((Status::BadRequest, json!({
+    Ok(message_id) => {
+      //two checks/db requests :p
+      if let Some(o_user_id) = MainDatabase::get_other_conv_user(&mut db, auth.user_id, data.conversation_id).await {
+        if let Some(message) = MainDatabase::get_message(&mut db, message_id).await {
+          //Only fails if no subscribers so we can safely ignore the error :p
+          println!("=============== SENT ============");
+          let _ = queue.send(MessageEventData {
+            recv_user_id: o_user_id,
+            conversation_id: data.conversation_id,
+            message
+          });
+        }
+      }
+      Ok(json!({
+        "code": 200,
+        "success": true,
+        "message_id": message_id
+      }))
+    },
+    Err(message) => Err((Status::BadRequest, json!({
       "code": 400,
       "success": false,
       "error": message
@@ -94,9 +114,22 @@ pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication
   }
 }
 
-#[get("/chat/events?<conversation>")]
-pub async fn events(conversation: i32) -> EventStream![] {
+#[get("/chat/events")]
+pub async fn events(auth: Authentication, queue: &State<Sender<MessageEventData>>, mut end: Shutdown) -> EventStream![] {
+  let mut rx = queue.subscribe();
   EventStream! {
-    yield Event::data("hello".to_string()).event("message");
+    loop {
+      let msg = select! {
+        msg = rx.recv() => match msg {
+          Ok(msg) => msg,
+          Err(RecvError::Closed) => break,
+          Err(RecvError::Lagged(_)) => continue,
+        },
+        _ = &mut end => break,
+      };
+      if msg.recv_user_id == auth.user_id {
+        yield Event::json(&msg).event("new_message");
+      }
+    }
   }
 }

@@ -6,8 +6,9 @@
 
 {% block head %}
   {{ super() }}
+  {{ macros_misc::js(static="chat") }}
+  {{ macros_misc::css(static="chat/chat") }}
   {{ macros_misc::css(static="chat/conversation_view") }}
-  {{ macros_misc::css(static="chat/layout") }}
   {% if conversation_id %}
     {{ macros_misc::css(static="chat/message_view") }}
     {{ macros_misc::css(static="chat/message_box") }}
@@ -21,14 +22,19 @@
   <div id="layout"> 
     {{ macros_chat::conversations_view(items = conversations, class = "scale layout-left bg") }}
     <div class="layout-right">
-      <div id="mobile-header">
-        <a href="/chat" id="mobile-header-back">
-          <i class="fa-solid fa-arrow-left"></i>
-          <span>BACK</span>
-        </a>
-        <div id="mobile-header-title">Conversation</div>
-        <div class="dummy"></div>
-      </div>
+      {% if conversation_id %}
+        <div id="mobile-header">
+          <a href="/chat" id="mobile-header-back">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>BACK</span>
+          </a>
+          <div id="mobile-header-title">Conversation</div>
+          <div class="dummy"></div>
+        </div>
+        <div id="sse-state" class="script-only">
+          <div id="sse-state-inner" class="font-pseudo"></div>
+        </div>
+      {% endif %}
       <div class="flex-center">
         {{ macros_misc::flash_message() }}
       </div>

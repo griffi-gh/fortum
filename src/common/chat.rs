@@ -35,7 +35,7 @@ pub struct Conversation {
 
 // Message 
 
-#[derive(Serialize, Deserialize, sqlx::Type)]
+#[derive(Clone, Copy, Serialize, Deserialize, sqlx::Type)]
 #[sqlx(type_name = "message_direction_type")]
 pub enum AbsoluteMessageDirection {
   #[sqlx(rename="a_to_b")]
@@ -46,7 +46,7 @@ pub enum AbsoluteMessageDirection {
   BtoA
 }
 
-#[derive(Serialize, Deserialize, sqlx::Type)]
+#[derive(Clone, Copy, Serialize, Deserialize, sqlx::Type)]
 #[sqlx(type_name = "message_direction_type")]
 pub enum RelativeMessageDirection {
   #[sqlx(rename="a_to_b")]
@@ -57,7 +57,7 @@ pub enum RelativeMessageDirection {
   Incoming
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct Message {
   pub message_id: i32,
   pub message_direction: AbsoluteMessageDirection,
@@ -69,11 +69,11 @@ pub struct Message {
   pub edited: bool
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 pub struct MessageEventData {
+  pub recv_user_id: i32,
   pub conversation_id: i32,
-  
-  pub content: String,
+  pub message: Message,
 }
 
 // Authorization 

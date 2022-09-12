@@ -16,7 +16,7 @@ impl MainDatabase {
           users.profile_image AS "user_profile_image?",
           null AS "last_message?"
         FROM conversations
-        LEFT JOIN users 
+        LEFT JOIN users --wtf??? do I need this?
           ON users.user_id = (
             CASE WHEN 
               conversations.user_a = $1 
@@ -34,6 +34,35 @@ impl MainDatabase {
     }
   }
   
+  pub async fn get_other_conv_user(db: &mut Connection<Self>, user_id: i32, conversation_id: i32) -> Option<i32> {
+    let (user_a, user_b) = {
+      let result = sqlx::query!(
+        r#"
+          SELECT 
+            user_a AS "user_a?", 
+            user_b AS "user_b?"
+          FROM conversations 
+          WHERE (user_a = $1 OR user_b = $1) AND (conversation_id = $2)
+        "#, user_id, conversation_id
+      ).fetch_optional(executor(db)).await.unwrap();
+      match result {
+        Some(x) => (x.user_a, x.user_b),
+        None => (None, None)
+      }
+    };
+    if user_a.is_none() && user_b.is_none() {
+      return None;
+    }
+    let our = Some(user_id);
+    if our == user_a {
+      user_b
+    } else if our == user_b {
+      user_a
+    } else {
+      None
+    }
+  }
+
   pub async fn get_conversation_list(db: &mut Connection<Self>, user_id: i32) -> Vec<Conversation> {
     sqlx::query_as!(Conversation, r#"
       SELECT 
@@ -161,12 +190,28 @@ impl MainDatabase {
   }
 
   pub async fn get_message(db: &mut Connection<Self>, message_id: i32) -> Option<Message> {
-    todo!()
+      sqlx::query_as!(Message, r#"
+        SELECT 
+          message_id,
+          message_direction AS "message_direction!: _",
+          null AS "relative_message_direction?: _",
+          content,
+          created_on,
+          edited,
+          reply_to,
+          (
+            SELECT content
+            FROM messages AS msg
+            WHERE msg.message_id = msg.reply_to
+            LIMIT 1
+          ) as "reply_to_content?"
+        FROM messages
+        WHERE message_id = $1
+      "#, message_id
+    ).fetch_optional(executor(db)).await.unwrap()
   }
 
   pub async fn send_message(db: &mut Connection<Self>, user_id: i32, content: &str, conversation_id: i32, reply_to: Option<i32>) -> Result<i32, &'static str> {
-    // Trim content
-    let content = content.trim();
     // Check message length
     if content.len() > MAX_CHAT_MESSAGE_LEN {
       return Err("Message is too long");
@@ -192,30 +237,29 @@ impl MainDatabase {
       }
     }
     // Create message
-    Ok(
-      sqlx::query!(r#"
-        INSERT INTO messages (
-          message_direction,
-          conversation_id,
-          content,
-          reply_to
-        ) VALUES (
-          CASE 
-            WHEN (
-              (
-                SELECT user_a
-                FROM conversations 
-                WHERE conversation_id = $2
-              ) = $1 
-            ) THEN 'a_to_b'::message_direction_type
-            ELSE 'b_to_a'::message_direction_type
-          END,
-          $2,
-          $3,
-          $4
-        ) RETURNING message_id
-      "#, user_id, conversation_id, content, reply_to)
-        .fetch_one(executor(db)).await.unwrap().message_id
-    )
+    let message_id = sqlx::query!(r#"
+      INSERT INTO messages (
+        message_direction,
+        conversation_id,
+        content,
+        reply_to
+      ) VALUES (
+        CASE 
+          WHEN (
+            (
+              SELECT user_a
+              FROM conversations 
+              WHERE conversation_id = $2
+            ) = $1 
+          ) THEN 'a_to_b'::message_direction_type
+          ELSE 'b_to_a'::message_direction_type
+        END,
+        $2,
+        $3,
+        $4
+      ) RETURNING message_id
+    "#, user_id, conversation_id, content, reply_to)
+      .fetch_one(executor(db)).await.unwrap().message_id;
+    Ok(message_id)
   }
 }
