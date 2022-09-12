@@ -4,7 +4,8 @@ use rocket::http::Status;
 use rocket::request::FlashMessage;
 use rocket::response::{Flash, Redirect};
 use rocket::response::stream::{Event, EventStream};
-use rocket::serde::json::{Value, json};
+use rocket::serde::{Serialize, Deserialize};
+use rocket::serde::json::{Json, Value, json};
 use rocket::tokio::select;
 use rocket::tokio::sync::broadcast::{Sender, error::RecvError};
 use rocket_db_pools::Connection;
@@ -66,24 +67,14 @@ pub async fn new_conversation(mut db: Connection<MainDatabase>, auth: Authentica
   Ok(Redirect::to(uri!(conversation(conversation = id))))
 }
 
-#[post("/chat/send_message_form", data = "<data>")]
-pub async fn send_message_form(mut db: Connection<MainDatabase>, auth: Authentication, data: Form<SendMessageData<'_>>) -> Result<Redirect, Flash<Redirect>> {
-  let url = uri!(conversation(conversation = data.conversation_id));
-  if let Err(message) = MainDatabase::send_message(&mut db, auth.user_id, data.content, data.conversation_id, data.reply_to).await {
-    return Err(Flash::error(Redirect::to(url), message));
-  }
-  Ok(Redirect::to(url))
-}
-
-#[derive(FromForm)]
+#[derive(FromForm, Serialize, Deserialize)]
 pub struct SendMessageData<'a> {
   conversation_id: i32,
   content: &'a str,
   reply_to: Option<i32>
 }
 
-#[post("/chat/send_message", format = "json", data = "<data>")]
-pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication, mut data: Form<SendMessageData<'_>>, queue: &State<Sender<MessageEventData>>) -> Result<Value, (Status, Value)> {
+pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication, mut data: SendMessageData<'_>, queue: &State<Sender<MessageEventData>>) -> Result<i32, &'static str> {
   //Trim message content
   data.content = data.content.trim();
   match MainDatabase::send_message(&mut db, auth.user_id, data.content, data.conversation_id, data.reply_to).await {
@@ -99,12 +90,29 @@ pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication
           });
         } 
       }
-      Ok(json!({
-        "code": 200,
-        "success": true,
-        "message_id": message_id
-      }))
+      Ok(message_id)
     },
+    Err(message) => Err(message)
+  }
+}
+
+#[post("/chat/send_message_form", data = "<data>")]
+pub async fn send_message_form(db: Connection<MainDatabase>, auth: Authentication, data: Form<SendMessageData<'_>>, queue: &State<Sender<MessageEventData>>) -> Result<Redirect, Flash<Redirect>> {
+  let url = uri!(conversation(conversation = data.conversation_id));
+  match send_message(db, auth, data.into_inner(), queue).await {
+    Ok(_) => Ok(Redirect::to(url)),
+    Err(message) => Err(Flash::error(Redirect::to(url), message))
+  }
+}
+
+#[post("/chat/send_message", format = "json", data = "<data>")]
+pub async fn send_message_json(db: Connection<MainDatabase>, auth: Authentication, data: Json<SendMessageData<'_>>, queue: &State<Sender<MessageEventData>>) -> Result<Value, (Status, Value)> {
+  match send_message(db, auth, data.into_inner(), queue).await {
+    Ok(message_id) => Ok(json!({
+      "code": 200,
+      "success": true,
+      "message_id": message_id
+    })),
     Err(message) => Err((Status::BadRequest, json!({
       "code": 400,
       "success": false,

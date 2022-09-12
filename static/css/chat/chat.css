@@ -47,6 +47,7 @@
   flex-grow: 1;
 }
 .layout-left ,.layout-right {
+  position: relative;
   overflow: auto;
 }
 
@@ -58,6 +59,7 @@
 /* SSE warning */
 #sse-state {
   position: relative;
+  bottom: unset;
   overflow: visible;
 }
 #sse-state-inner {

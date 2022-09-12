@@ -29,3 +29,19 @@ evtSource.addEventListener('message', event => {
   console.log(event.data);
 });
 onSseStateChange(evtSource.readyState);
+
+const msgBoxEl = document.getElementsByClassName('message-box')[0];
+const sendButtonEl = document.getElementsByClassName('message-box-submit')[0];
+
+sendButtonEl.addEventListener('click', async event => {
+  event.preventDefault();
+  const formData = new FormData(msgBoxEl);
+  await fetch('/chat/send_message', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      conversation_id: parseInt(formData.get('conversation_id')),
+      content: formData.get('content'),
+    })
+  })
+});

@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  overflow: hidden;
 }
 .main-msg-view {
   flex-grow: 1;
@@ -50,7 +51,7 @@
   }
 }
 @media only screen and (max-width: 190px) {
-  /* #mobile-header-title, */ #mobile-header > .dummy {
+  #mobile-header > .dummy {
     display: none;
   }
   #mobile-header {
@@ -63,4 +64,22 @@
     margin-right: 0;
     margin-top: 0;
   }
+}
+
+.layout-right .main-msg-box-wrapper {
+  position: sticky;
+  inset: 0;
+  top: unset;
+}
+
+#message-scrollable, #message-scrollable-innner {
+  flex-grow: 1;
+  display: flex;
+}
+#message-scrollable {
+  overflow: auto;
+  flex-direction: column-reverse;
+}
+#message-scrollable-innner, .main-msg-view {
+  flex-grow: 1;
 }

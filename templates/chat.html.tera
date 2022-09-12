@@ -39,9 +39,13 @@
         {{ macros_misc::flash_message() }}
       </div>
       {% if conversation_id %}
-        {{ macros_chat::messages_view(items = messages, class="main-msg-view") }}
-        <div class="main-msg-box-wrapper">
-          {% include "stuff/chat_message_box" %}
+        <div id="message-scrollable">
+          <div id="message-scrollable-inner">
+            {{ macros_chat::messages_view(items = messages, class="main-msg-view") }}
+            <div class="main-msg-box-wrapper">
+              {% include "stuff/chat_message_box" %}
+            </div>
+          </div>
         </div>
       {% else %}
         <p>Pick a chat to continue</p>

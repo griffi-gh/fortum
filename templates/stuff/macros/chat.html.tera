@@ -54,10 +54,12 @@
 
 {% macro messages_view(items, class="") %}
   <div class="messages-view {{ class }}">
-    {% for item in items %}
-      {{ macros_chat::message_item(item = item) }}
-    {% else %}
-      {{ macros_misc::something_gone(text = "No messages") }}
-    {% endfor %}
+    <div class="message-view-inner">
+      {% for item in items %}
+        {{ macros_chat::message_item(item = item) }}
+      {% else %}
+        {{ macros_misc::something_gone(text = "No messages") }}
+      {% endfor %}
+    </div>
   </div>
 {% endmacro conversations_view %}

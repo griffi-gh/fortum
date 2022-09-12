@@ -35,6 +35,7 @@ impl MainDatabase {
   }
   
   pub async fn get_other_conv_user(db: &mut Connection<Self>, user_id: i32, conversation_id: i32) -> Option<i32> {
+    //TODO DO SOMETHING WITH get_other_conv_user
     let (user_a, user_b) = {
       let result = sqlx::query!(
         r#"

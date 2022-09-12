@@ -36,7 +36,7 @@ use endpoints::{
   topics_create::{topics_create, topics_create_get},
   misc::{sad, success},
   error::{default_catcher, display_error},
-  chat::{chat, conversation, new_conversation, send_message, send_message_form, events as chat_events}
+  chat::{chat, conversation, new_conversation, send_message_json, send_message_form, events as chat_events}
 };
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -76,7 +76,7 @@ fn rocket() -> _ {
       update_username,
       topic, /* topics, */
       topics_create, topics_create_get,
-      chat, conversation, new_conversation, send_message, send_message_form, chat_events,
+      chat, conversation, new_conversation, send_message_json, send_message_form, chat_events,
       sad, success,
     ])
     .register("/", catchers![default_catcher])
