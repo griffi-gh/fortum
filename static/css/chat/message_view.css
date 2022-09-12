@@ -5,7 +5,10 @@
   align-items: flex-end;
   gap: .5rem;
   padding: .25rem;
+  position: relative;
+  border-radius: .25rem;
 }
+/* message-content */
 .message-content {
   display: flex;
   flex-direction: column;
@@ -13,24 +16,44 @@
 .message-content > * {
   display: inline-block;
 }
-@media only screen and (max-width: 1200px) {
-  .chat-message.incoming {
-    flex-direction: row-reverse;
-  }
-  .chat-message.incoming .message-content {
-    align-items: flex-end;
-  }
+/* Shift to the right */
+.chat-message.incoming {
+  flex-direction: row-reverse;
 }
+.chat-message.incoming .message-content {
+  align-items: flex-end;
+}
+/* Pfp and username */
 .chat-message-pfp {
   border-radius: 50%;
 }
-/* Selects the first message in chain */
-.chat-message.incoming + .chat-message.outgoing:not(:last-child),
-.chat-message.outgoing + .chat-message.incoming:not(:last-child),
-.chat-message:first-child:not(:last-child) {
-  
+.message-content-username {
+  font-weight: bold;
 }
-/* Selects the next messages in chain */
+
+/* These ones selects the next messages in chain */
+
+/* line */
+.chat-message.outgoing + .chat-message.outgoing::before,
+.chat-message.incoming + .chat-message.incoming::before {
+  content: '';
+  display: block;
+  position: absolute;
+  --pos: calc(20px + .25rem - 1.5px);
+  top: -1px;
+  bottom: -1px;
+  right: unset;
+  left: var(--pos);
+  width: 3px;
+  background: gray;
+  border-radius: 99rem;
+}
+.chat-message.incoming + .chat-message.incoming::before { 
+  right: var(--pos);
+  left: unset;
+}
+
+/* hide username and pfp */
 .chat-message.outgoing + .chat-message.outgoing .chat-message-pfp,
 .chat-message.incoming + .chat-message.incoming .chat-message-pfp {
   visibility: hidden;
@@ -39,4 +62,27 @@
 .chat-message.outgoing + .chat-message.outgoing .message-content-username,
 .chat-message.incoming + .chat-message.incoming .message-content-username {
   display: none;
+}
+
+
+/* hover */
+.chat-message:hover {
+  background: rgba(0, 0, 0, .2);
+}
+/* Margins */
+.chat-message {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+@media only screen and (min-width: 1500px) {
+  .chat-message {
+    margin-left: 12vw;
+    margin-right: 12vw;
+  }
+}
+@media only screen and (min-width: 1700px) {
+  .chat-message {
+    margin-left: 16vw;
+    margin-right: 16vw;
+  }
 }
