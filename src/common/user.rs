@@ -24,4 +24,6 @@ pub struct User {
   pub last_activity: DateTime<Utc>,
   pub user_role: UserRole,
   pub token: String,
+  pub profile_image: Option<String>,
+  pub banner_image: Option<String>
 }

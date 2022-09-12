@@ -47,7 +47,11 @@
 {# MESSAGES #}
 
 {% macro message_item(item) %}
-  <div>
+  <div class="chat-message">
+    {% set pfp = macros_misc::profile_image(url = conversation.user_profile_image | default(value=""), usr = conversation.user_username, id = conversation.user_id) %}
+
+    {% set pfp = macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) %}
+    <img class="post-pfp" src='' width="40" height="40" alt="Profile image" loading="lazy">
     {{ item.content }}
   </div>
 {% endmacro message_item %}
