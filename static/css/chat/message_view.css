@@ -7,6 +7,7 @@
   padding: .25rem;
   position: relative;
   border-radius: .25rem;
+  /* overflow: hidden; */
 }
 /* message-content */
 .message-content {
@@ -48,10 +49,15 @@
   background: gray;
   border-radius: 99rem;
 }
+/* Line on the right side */
 .chat-message.incoming + .chat-message.incoming::before { 
   right: var(--pos);
   left: unset;
 }
+/* L - shape */
+/* .chat-message.incoming ~ :nth-last-of-type() { 
+  background: red !important;
+} */
 
 /* hide username and pfp */
 .chat-message.outgoing + .chat-message.outgoing .chat-message-pfp,
