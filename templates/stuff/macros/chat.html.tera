@@ -46,9 +46,9 @@
 
 {# MESSAGES #}
 
-{% macro message_item(item) %}
+{% macro message_item(item, class="") %}
   {% set is_out = item.relative_message_direction == 'outgoing' %}
-  <div class="chat-message {{ item.relative_message_direction }}">
+  <div class="chat-message {{ item.relative_message_direction }} {{ class }}">
     {% if is_out %}
       {% set pfp = macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) %}
     {% else %}
@@ -65,8 +65,18 @@
 {% macro messages_view(items, class="") %}
   <div class="messages-view {{ class }}">
     <div class="message-view-inner">
-      {% for item in items %}
-        {{ macros_chat::message_item(item = item) }}
+      {% set items_length = items | length %}
+      {% for i in range(end = items_length) %}
+        {% set next_i = i + 1 %}
+        {% set classes = "" %}
+        {% if next_i < items_length %}
+          {% if items[i].message_direction != items[next_i].message_direction %}
+            {% set classes = classes ~ "last-of-block " %}
+          {% endif %}
+        {% else %}
+          {% set classes = classes ~ "last-of-block " %}
+        {% endif %}
+        {{ macros_chat::message_item(item = items[i], class = classes) }}
       {% else %}
         {{ macros_misc::something_gone(text = "No messages") }}
       {% endfor %}

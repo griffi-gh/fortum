@@ -49,15 +49,29 @@
   background: gray;
   border-radius: 99rem;
 }
-/* Line on the right side */
+/* Move line to the right side in incoming messages */
 .chat-message.incoming + .chat-message.incoming::before { 
   right: var(--pos);
   left: unset;
 }
+
 /* L - shape */
-/* .chat-message.incoming ~ :nth-last-of-type() { 
-  background: red !important;
-} */
+#html .chat-message.last-of-block::before { 
+  bottom: 50%;
+  width: 10px;
+  border-radius: 0 0 7px 7px;
+  border: 3px solid gray;
+  background: transparent;
+  border-top: none;
+}
+#html .chat-message.outgoing.last-of-block::before { 
+  border-right: none;
+  border-bottom-right-radius: 0;
+}
+#html .chat-message.incoming.last-of-block::before { 
+  border-left: none;
+  border-bottom-left-radius: 0;
+}
 
 /* hide username and pfp */
 .chat-message.outgoing + .chat-message.outgoing .chat-message-pfp,
