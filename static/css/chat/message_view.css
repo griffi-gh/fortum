@@ -1,4 +1,5 @@
 .chat-message {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -84,11 +85,81 @@
   display: none;
 }
 
+/* Actions */
+.message-actions {
+  --pos: 1rem;
+  position: absolute;
+  right: var(--pos);
+  top: 0;
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  background: white;
+  border-radius: .33rem;
+  border: 1px solid gray;
+  transform: translateY(-50%);
+  overflow: hidden;
+}
+.chat-message:hover .message-actions {
+  opacity: .65;
+  pointer-events: unset;
+  transition: opacity .5s;
+}
+.message-actions.message-actions.message-actions:hover {
+  opacity: 1;
+}
+.message-action {
+  padding: .5rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  cursor: pointer;
+}
+.message-action-destructive {
+  color: var(--color-error);
+}
+/* Shift Actions to the left */
+/* .chat-message.incoming .message-actions {
+  right: unset;
+  left: var(--pos);
+} */
+
+/* Over-engineered background */
+/* case 1 - only one button */
+.message-action:first-child:last-child:hover {
+  background: var(--color-primary-light-slight);
+}
+/* case 2 - center button */
+.message-action:not(:first-child:last-child):hover {
+  background: linear-gradient(
+    to right, 
+    transparent, 
+    var(--color-primary-light-slight) 10%, 
+    var(--color-primary-light-slight) 90%, 
+    transparent
+  );
+}
+/* case 2 - first button */
+.message-action:not(:last-child):first-child:hover {
+  background: linear-gradient(
+    to right, 
+    var(--color-primary-light-slight) 90%, 
+    transparent
+  );
+}
+/* case 3 - last button */
+.message-action:not(:first-child):last-child:hover {
+  background: linear-gradient(
+    to right, 
+    transparent,
+    var(--color-primary-light-slight) 10%
+  );
+}
 
 /* hover */
 .chat-message:hover {
   background: rgba(0, 0, 0, .2);
 }
+
 /* Margins */
 .chat-message {
   margin-left: 1rem;

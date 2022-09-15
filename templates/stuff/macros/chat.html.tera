@@ -46,9 +46,16 @@
 
 {# MESSAGES #}
 
-{% macro message_item(item, class="") %}
-  {% set is_out = item.relative_message_direction == 'outgoing' %}
-  <div class="chat-message {{ item.relative_message_direction }} {{ class }}">
+{% macro message_item(item, class="", id_prefix="", l_conversation=false) %}
+  {% if l_conversation %}
+    {% set conversation = l_conversation %}
+  {% endif %}
+  {% set mdir = item.relative_message_direction %}
+  {% if not item.relative_message_direction %}
+    {% set mdir = item.message_direction %}
+  {% endif %}
+  {% set is_out = mdir == 'outgoing' %}
+  <div class="chat-message {{ mdir }} {{ class }}" id="{{ id_prefix }}{% if id_prefix %}-{%endif%}chat-message-id-{{item.message_id}}">
     {% if is_out %}
       {% set pfp = macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) %}
     {% else %}
@@ -58,6 +65,16 @@
     <div class="message-content">
       <span class="message-content-username">{% if is_out %}{{ vars.user.username }}{% else %}{{conversation.user_username}}{% endif %}</span>
       <span class="message-content-content">{{ item.content }}</span>
+    </div>
+    <div class="message-actions">
+      {% if is_out %}
+        <div class="message-action message-action-destructive message-action-delete" aria-label="Delete" tabindex="0">
+          <i class="fa-solid fa-trash"></i>
+        </div>
+      {% endif %}
+      <div class="message-action message-action-reply" aria-label="Reply" tabindex="0">
+        <i class="fa-solid fa-reply"></i>
+      </div>
     </div>
   </div>
 {% endmacro message_item %}

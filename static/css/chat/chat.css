@@ -61,6 +61,7 @@
   position: relative;
   bottom: unset;
   overflow: visible;
+  z-index: 10;
 }
 #sse-state-inner {
   display: block;
