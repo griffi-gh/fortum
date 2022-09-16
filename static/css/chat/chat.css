@@ -75,6 +75,10 @@
   line-height: 1em;
   margin-right: .25rem;
 }
+/* todo this breaks animation */
+#sse-state:not(.closed).delay {
+  display: none;
+}
 /* Connected */
 #sse-state.open {
   height: 0;

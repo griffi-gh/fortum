@@ -38,21 +38,21 @@
 /* line */
 .chat-message.outgoing + .chat-message.outgoing::before,
 .chat-message.incoming + .chat-message.incoming::before {
+  --line-pos: calc(20px + .25rem - 1.5px);
   content: '';
   display: block;
   position: absolute;
-  --pos: calc(20px + .25rem - 1.5px);
   top: -1px;
   bottom: -1px;
   right: unset;
-  left: var(--pos);
+  left: var(--line-pos);
   width: 3px;
   background: gray;
   border-radius: 99rem;
 }
 /* Move line to the right side in incoming messages */
 .chat-message.incoming + .chat-message.incoming::before { 
-  right: var(--pos);
+  right: var(--line-pos);
   left: unset;
 }
 
@@ -65,6 +65,19 @@
   background: transparent;
   border-top: none;
 }
+/* line cap */
+#html .chat-message.last-of-block::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 50%;
+  top: calc(50% - 3px);
+  --line-cap-pos: calc(20px + .25rem + 10px);
+  background: gray;
+}
 #html .chat-message.outgoing.last-of-block::before { 
   border-right: none;
   border-bottom-right-radius: 0;
@@ -72,6 +85,12 @@
 #html .chat-message.incoming.last-of-block::before { 
   border-left: none;
   border-bottom-left-radius: 0;
+}
+.chat-message.outgoing.last-of-block::after { 
+  left: var(--line-cap-pos);
+}
+.chat-message.incoming.last-of-block::after { 
+  right: var(--line-cap-pos);
 }
 
 /* hide username and pfp */
@@ -87,9 +106,9 @@
 
 /* Actions */
 .message-actions {
-  --pos: 1rem;
+  --line-pos: 1rem;
   position: absolute;
-  right: var(--pos);
+  right: var(--line-pos);
   top: 0;
   display: flex;
   opacity: 0;
@@ -120,7 +139,7 @@
 /* Shift Actions to the left */
 /* .chat-message.incoming .message-actions {
   right: unset;
-  left: var(--pos);
+  left: var(--line-pos);
 } */
 
 /* Over-engineered background */

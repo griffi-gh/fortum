@@ -1,5 +1,6 @@
 "use strict";
 
+/* sse states */
 const sseStates = ['connecting', 'open', 'closed'];
 const sseMessages = ['Connecting...', 'Connected', 'Disconnected'];
 const sseLogFn = [console.warn, console.log, console.error];
@@ -30,6 +31,12 @@ evtSource.addEventListener('message', event => {
 });
 onSseStateChange(evtSource.readyState);
 
+/* Dont show sse state for a while */
+setTimeout(() => {
+  sseStateEl.classList.remove('delay');
+}, 500);
+
+/* MsgBox and message send */
 const msgBoxEl = document.getElementsByClassName('message-box')[0];
 const sendButtonEl = document.getElementsByClassName('message-box-submit')[0];
 

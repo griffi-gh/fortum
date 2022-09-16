@@ -31,7 +31,7 @@
           <div id="mobile-header-title">Conversation</div>
           <div class="dummy"></div>
         </div>
-        <div id="sse-state" class="script-only">
+        <div id="sse-state" class="delay script-only">
           <div id="sse-state-inner" class="font-pseudo"></div>
         </div>
       {% endif %}
