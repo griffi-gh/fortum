@@ -36,6 +36,7 @@ setTimeout(() => {
   sseStateEl.classList.remove('delay');
 }, 500);
 
+/* Render message */
 /* MsgBox and message send */
 const msgBoxEl = document.getElementsByClassName('message-box')[0];
 const sendButtonEl = document.getElementsByClassName('message-box-submit')[0];

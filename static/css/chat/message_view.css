@@ -179,6 +179,14 @@
   background: rgba(0, 0, 0, .2);
 }
 
+/* message-*-only */
+#html .chat-message.incoming .message-out-only {
+  display: none;
+}
+#html .chat-message.outgoing .message-in-only {
+  display: none;
+}
+
 /* Margins */
 .chat-message {
   margin-left: 1rem;

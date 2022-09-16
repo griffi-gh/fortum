@@ -41,6 +41,7 @@
       {% if conversation_id %}
         <div id="message-scrollable">
           <div id="message-scrollable-inner">
+            {{ macros_chat::dummy_message_item() }}
             {{ macros_chat::messages_view(items = messages, class="main-msg-view") }}
             <div class="main-msg-box-wrapper">
               {% include "stuff/chat_message_box" %}
