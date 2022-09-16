@@ -80,7 +80,7 @@
 {% endmacro message_item %}
 
 {% macro dummy_message_item(class="", id_prefix="") %}
-  <div class="chat-message {{ class }}" id="{{ id_prefix }}{% if id_prefix %}-{% endif %}chat-message-id-__CHAT_MESSAGE_ID__">
+  <div class="chat-message {#__RELATIVE_MESSAGE_DIRECTION__#} {{ class }}" id="{{ id_prefix }}{% if id_prefix %}-{% endif %}chat-message-id-{#__CHAT_MESSAGE_ID__#}">
     <img class="chat-message-pfp" src="__MESSAGE_PFP_URL__" width="40" height="40" alt="Profile image" loading="lazy">
     <div class="message-content">
       <span class="message-content-username">__MESSAGE_USERNAME__</span>

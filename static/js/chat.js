@@ -37,6 +37,13 @@ setTimeout(() => {
 }, 500);
 
 /* Render message */
+const dummy = document.getElementById('message-dummy').childNodes[0];
+function renderMessage(message) {
+  const dummy = dummy.cloneNode();
+  dummy.classList.add(message.relative_message_direction || message.computed_direction);
+  dummy.id += message.message_id;
+}
+
 /* MsgBox and message send */
 const msgBoxEl = document.getElementsByClassName('message-box')[0];
 const sendButtonEl = document.getElementsByClassName('message-box-submit')[0];
