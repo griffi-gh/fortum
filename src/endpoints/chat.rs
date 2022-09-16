@@ -25,6 +25,7 @@ pub async fn conversation(
   conversation: i32,
   err: Option<FlashMessage<'_>>
 ) -> Result<Template, Flash<Redirect>> {
+  // ? | No need, get_conversation checks access
   // if !MainDatabase::check_access(&mut db, auth.user_id, conversation).await {
   //   return None;
   // }
@@ -135,7 +136,8 @@ pub async fn events(auth: Authentication, queue: &State<Sender<MessageEventData>
         _ = &mut end => break,
       };
       if msg.recv_user_id == auth.user_id {
-        yield Event::json(&msg).event("new_message");
+        yield Event::json(&msg);
+        //yield Event::json(&msg).event("new_message");
       }
     }
   }

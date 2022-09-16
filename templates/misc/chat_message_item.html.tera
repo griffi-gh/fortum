@@ -1,0 +1,5 @@
+{% import "stuff/macros/misc" as macros_misc %}
+{% import "stuff/macros/inputs" as macros_inputs %}
+{% import "stuff/macros/posts" as macros_posts %}
+{% import "stuff/macros/chat" as macros_chat %}
+{{ macros_chat::message_item(item=message, class="last-of-block") }}

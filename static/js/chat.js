@@ -27,7 +27,7 @@ evtSource.addEventListener('error', error => {
   onSseStateChange(evtSource.readyState);
 });
 evtSource.addEventListener('message', event => {
-  console.log(event.data);
+  console.log(event);
 });
 onSseStateChange(evtSource.readyState);
 

@@ -74,6 +74,7 @@ pub struct MessageEventData {
   pub recv_user_id: i32,
   pub conversation_id: i32,
   pub message: Message,
+  // pub rendered: String
 }
 
 // Authorization 
