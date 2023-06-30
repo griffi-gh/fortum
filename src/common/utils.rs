@@ -1,10 +1,12 @@
 use sqlx::Postgres;
 use sqlx::pool::PoolConnection;
 use rand::{Rng, thread_rng};
+use base64::Engine;
 use rocket_db_pools::Connection;
 use rocket::http::{CookieJar, Cookie, SameSite};
 use crate::db::MainDatabase;
 use crate::consts::AUTH_COOKIE_NAME;
+use crate::consts::BASE64_CFG;
 
 pub fn div_up(a: usize, b: usize) -> usize {
   (a + (b - 1)) / b
@@ -33,5 +35,5 @@ pub fn get_token(cookies: &CookieJar<'_>) -> Option<String> {
 pub fn generate_token() -> String {
   let mut data = [0u8; 16];
   thread_rng().fill(&mut data);
-  base64::encode_config(data, base64::URL_SAFE)
+  BASE64_CFG.encode(data)
 }

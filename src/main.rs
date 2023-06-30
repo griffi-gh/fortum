@@ -1,14 +1,13 @@
 #![allow(clippy::unnecessary_lazy_evaluations)] // `FromForm` warnings fix :p 
 
 #[macro_use] extern crate rocket;
-#[macro_use] extern crate lazy_static;
 use figment::{providers::Env, util::map};
 use serde::{Serialize, Deserialize};
 use rocket::tokio::sync::broadcast::channel;
 use rocket::fairing::AdHoc;
 use rocket_dyn_templates::Template;
 use rocket_db_pools::Database;
-use dotenv::dotenv;
+use dotenvy::dotenv;
 use std::env;
 
 pub mod db;
@@ -62,7 +61,7 @@ fn rocket() -> _ {
     .attach(Template::fairing())
     .manage(channel::<MessageEventData>(1024).0)
     .mount("/", routes![
-      index, 
+      index,
       register, post_register,
       login, post_login,
       logout, super_logout,

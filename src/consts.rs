@@ -1,8 +1,14 @@
+use lazy_static::lazy_static;
 use regex::Regex;
 
+//AUTH
 pub const AUTH_COOKIE_NAME: &str = "auth";
 
+//CHAT
 pub const MAX_CHAT_MESSAGE_LEN: usize = 512;
+
+//BASE64
+pub(crate) const BASE64_CFG: base64::engine::general_purpose::GeneralPurpose = base64::engine::general_purpose::URL_SAFE_NO_PAD;
 
 //REGEX
 pub const EMAIL_REGEX_STR: &str = r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6})";
