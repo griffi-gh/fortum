@@ -1,4 +1,4 @@
 [default]
-versioning = 7
+versioning = 8
 results_per_page = 25
 cache_length = 1209600 # 2 weeks
