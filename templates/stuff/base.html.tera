@@ -9,6 +9,7 @@
       {# meta tags #}
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="description" content="Fortum: Explore amazing content!">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="theme-color" content="#AAAAFF">
 
@@ -46,16 +47,16 @@
   </head>
   <body class="{% block body_class %}{% endblock body_class %}" id="body">
     {% block meta %}{% endblock meta %}
-    <a id="top"></a>
+    <section id="top"></section>
     {% block body_top %}{% endblock body_top %}
     {% include "stuff/header" %}
-    <a id="skip-to-content"></a>
+    <section id="skip-to-content"></section>
     <main id="content" class="content main">
       {% block content %}{% endblock content %}
     </main>
     {% include "stuff/footer" %}
     {% include "stuff/share_modal" %}
-    <a id="bottom"></a>
+    <section id="bottom"></section>
     <script> </script>
   </body>
 </html>

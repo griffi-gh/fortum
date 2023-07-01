@@ -1,6 +1,6 @@
 <div id="landing">
   <div id="landing-bg">
-    <img src="/static/images/background/1.jpg" alt="Background image">
+    <img src="/static/images/background/1.jpg" width="1920" height="1080" alt="Background image" aria-hidden="true">
   </div>
   <div id="landing-content">
     <h1 id="landing-tagline">

@@ -17,7 +17,7 @@
         required = true,
         size = 1
       )}}
-      <button type="submit" id="header-search-submit" mozactionhint="search">
+      <button type="submit" id="header-search-submit" mozactionhint="search" aria-label="Search">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </form>
@@ -66,7 +66,7 @@
         </div>
       </div>
     {% else %}
-      <a href="/register" id="header-login" class="styled-button style-outline">
+      <a href="/register" id="header-register" class="styled-button style-outline">
         Sign up
       </a>
       <a href="/login" id="header-login" class="styled-button with-shadow">
