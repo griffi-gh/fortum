@@ -101,6 +101,93 @@
     },
     "query": "\n          SELECT \n            user_a AS \"user_a?\", \n            user_b AS \"user_b?\"\n          FROM conversations \n          WHERE (user_a = $1 OR user_b = $1) AND (conversation_id = $2)\n        "
   },
+  "13453b5fcb0ce5990aa2b0071f55044c93c2503d842339d3a558338d046a335e": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "username",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "password_hash",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "created_on",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "last_activity",
+          "ordinal": 5,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "user_role!: _",
+          "ordinal": 6,
+          "type_info": {
+            "Custom": {
+              "kind": {
+                "Enum": [
+                  "banned",
+                  "unverified",
+                  "user",
+                  "moderator",
+                  "admin"
+                ]
+              },
+              "name": "role_type"
+            }
+          }
+        },
+        {
+          "name": "token",
+          "ordinal": 7,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "profile_image",
+          "ordinal": 8,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "banner_image",
+          "ordinal": 9,
+          "type_info": "Varchar"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n      SELECT \n        user_id, \n        username, \n        email, \n        password_hash,\n        created_on,\n        last_activity,\n        user_role AS \"user_role!: _\",\n        token,\n        profile_image,\n        banner_image\n      FROM users WHERE token = $1"
+  },
   "27fb102c295929437e3fa5368fac1b5092bf096fbbfeb36634979aa5b3874a60": {
     "describe": {
       "columns": [
@@ -450,6 +537,93 @@
       }
     },
     "query": "\n      SELECT \n        conversations.conversation_id,\n        users.user_id AS \"user_id?\",\n        users.username AS \"user_username?\",\n        users.profile_image AS \"user_profile_image?\",\n        (\n          SELECT content\n          FROM messages AS msg\n          WHERE msg.conversation_id = conversations.conversation_id\n          ORDER BY msg.created_on DESC\n          LIMIT 1\n        ) as \"last_message?\"\n      FROM conversations\n      LEFT JOIN users \n        ON users.user_id = (\n          CASE WHEN \n            conversations.user_a = $1 \n          THEN \n            conversations.user_b\n          ELSE \n            conversations.user_a \n          END\n        )\n      WHERE (user_a = $1 OR user_b = $1)\n    "
+  },
+  "d9410724d50c92132dc8732f95d3000a2719936ef0537ce6a9818dc5e358be5f": {
+    "describe": {
+      "columns": [
+        {
+          "name": "user_id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "username",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "email",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "password_hash",
+          "ordinal": 3,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "created_on",
+          "ordinal": 4,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "last_activity",
+          "ordinal": 5,
+          "type_info": "Timestamptz"
+        },
+        {
+          "name": "user_role!: _",
+          "ordinal": 6,
+          "type_info": {
+            "Custom": {
+              "kind": {
+                "Enum": [
+                  "banned",
+                  "unverified",
+                  "user",
+                  "moderator",
+                  "admin"
+                ]
+              },
+              "name": "role_type"
+            }
+          }
+        },
+        {
+          "name": "token",
+          "ordinal": 7,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "profile_image",
+          "ordinal": 8,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "banner_image",
+          "ordinal": 9,
+          "type_info": "Varchar"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n      SELECT \n        user_id, \n        username, \n        email, \n        password_hash,\n        created_on,\n        last_activity,\n        user_role AS \"user_role!: _\",\n        token,\n        profile_image,\n        banner_image\n      FROM users WHERE user_id = $1"
   },
   "e48f3e034a0d887b66e4d9ddf6e6aef8713decd52b8a7048e622ef74a07cef01": {
     "describe": {
