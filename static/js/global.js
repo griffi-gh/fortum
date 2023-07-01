@@ -32,3 +32,13 @@ window.wait = (time = 0) => (new Promise((resolve, _reject) => {
   }
 }));
 window.car = fn => { fn(); return fn };
+
+//get js data
+{
+  const jsData = {};
+  Array.from(document.getElementsByClassName("js-data")).forEach(dataElement => {
+    Object.assign(jsData, dataElement?.dataset ?? {});
+  });
+  console.log("jsData", jsData);
+  window.jsData = jsData;
+}

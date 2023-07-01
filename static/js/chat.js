@@ -15,7 +15,7 @@ function onSseStateChange(state) {
   sseStateInnerEl.textContent = sseMessages[state];
 }
 
-const evtSource = new EventSource('/chat/events'); 
+const evtSource = new EventSource('/chat/events');
 evtSource.addEventListener('open', () => {
   onSseStateChange(evtSource.readyState);
 });
@@ -28,6 +28,10 @@ evtSource.addEventListener('error', error => {
 });
 evtSource.addEventListener('message', event => {
   console.log(event);
+  //TODO check conversation id
+  const parsedData = JSON.parse(event.data);
+  console.log(parsedData);
+  addMessage(parsedData.message);
 });
 onSseStateChange(evtSource.readyState);
 
@@ -37,11 +41,43 @@ setTimeout(() => {
 }, 500);
 
 /* Render message */
-const dummy = document.getElementById('message-dummy').childNodes[0];
+const dummyEl = document.getElementById('message-dummy').firstElementChild;
 function renderMessage(message) {
-  const dummy = dummy.cloneNode();
-  dummy.classList.add(message.relative_message_direction || message.computed_direction);
+  const dummy = dummyEl.cloneNode(true);
+  dummy.classList.add(message.relative_message_direction);
   dummy.id += message.message_id;
+  dummy.getElementsByClassName('message-content-content')[0].textContent = message.content;
+  dummy.getElementsByClassName('message-content-username')[0].textContent = (
+    message.relative_message_direction == "outgoing" ? jsData.userAUsername : jsData.userBUsername
+  );
+  dummy.getElementsByClassName('chat-message-pfp')[0].src = (
+    message.relative_message_direction == "outgoing" ? jsData.userAProfileImage : jsData.userBProfileImage
+  ) || (`/dyn/profile_image.svg?usr=${encodeURIComponent(
+    message.relative_message_direction == "outgoing" ? jsData.userAUsername : jsData.userBUsername
+  )}&id=${encodeURIComponent(
+    message.relative_message_direction == "outgoing" ? jsData.userAId : jsData.userBId
+  )}`);
+  return dummy;
+}
+
+/* Add message */
+const msgViewInnerEl = document.getElementsByClassName("message-view-inner")[0];
+function addMessage(message) {
+  //Remove no chat messages message
+  msgViewInnerEl.querySelector(".something-gone")?.remove();
+  //Only remove last-of-block if same direction
+  if (msgViewInnerEl.lastElementChild) {
+    if (!(
+      (msgViewInnerEl.lastElementChild.classList.contains("incoming") && (message.relative_message_direction == "outgoing")) ||
+      (msgViewInnerEl.lastElementChild.classList.contains("outgoing") && (message.relative_message_direction == "incoming"))
+    )) {
+      msgViewInnerEl.lastElementChild.classList.remove("last-of-block");
+    }
+  }
+  const element = renderMessage(message);
+  element.classList.add("last-of-block");
+  msgViewInnerEl.appendChild(element);
+  return element;
 }
 
 /* MsgBox and message send */
@@ -51,12 +87,24 @@ const sendButtonEl = document.getElementsByClassName('message-box-submit')[0];
 sendButtonEl.addEventListener('click', async event => {
   event.preventDefault();
   const formData = new FormData(msgBoxEl);
-  await fetch('/chat/send_message', {
+  const data = {
+    content: formData.get('content'),
+    conversation_id: parseInt(formData.get('conversation_id')),
+  };
+  if (!data.content) return;
+  //clear out
+  msgBoxEl.querySelector(".message-box-input input").value = "";
+  const element = addMessage({
+    content: data.content,
+    relative_message_direction: "outgoing"
+  });
+  element.classList.add("pending");
+  const res = await fetch('/chat/send_message', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      conversation_id: parseInt(formData.get('conversation_id')),
-      content: formData.get('content'),
-    })
-  })
+    body: JSON.stringify(data)
+  }).catch(() => element.remove());
+  if (res && !res.ok) element.remove();
+  msgViewInnerEl.lastElementChild.classList.add("last-of-block");
+  element.classList.remove("pending");
 });

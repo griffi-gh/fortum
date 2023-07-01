@@ -45,6 +45,14 @@ pub enum AbsoluteMessageDirection {
   #[serde(rename="b_to_a")]
   BtoA
 }
+impl AbsoluteMessageDirection {
+  pub fn reverse(self) -> Self {
+    match self {
+      Self::AToB => Self::BtoA,
+      Self::BtoA => Self::AToB,
+    }
+  }
+}
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, sqlx::Type)]
 #[sqlx(type_name = "message_direction_type")]
@@ -55,6 +63,14 @@ pub enum RelativeMessageDirection {
   #[sqlx(rename="b_to_a")]
   #[serde(rename="incoming")]
   Incoming
+}
+impl RelativeMessageDirection {
+  pub fn reverse(self) -> Self {
+    match self {
+      Self::Incoming => Self::Outgoing,
+      Self::Outgoing => Self::Incoming,
+    }
+  }
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

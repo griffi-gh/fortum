@@ -45,6 +45,7 @@
     {% endblock head %}
   </head>
   <body class="{% block body_class %}{% endblock body_class %}" id="body">
+    {% block meta %}{% endblock meta %}
     <a id="top"></a>
     {% block body_top %}{% endblock body_top %}
     {% include "stuff/header" %}

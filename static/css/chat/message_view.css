@@ -18,6 +18,10 @@
 .message-content > * {
   display: inline-block;
 }
+/* if pending, fade */
+.chat-message.pending .message-content {
+  opacity: .5;
+}
 /* Shift to the right */
 .chat-message.incoming {
   flex-direction: row-reverse;

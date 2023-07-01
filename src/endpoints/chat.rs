@@ -10,7 +10,7 @@ use rocket::tokio::select;
 use rocket::tokio::sync::broadcast::{Sender, error::RecvError};
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::{Template, context};
-use crate::common::chat::MessageEventData;
+use crate::common::chat::{MessageEventData, RelativeMessageDirection};
 use crate::db::MainDatabase;
 use crate::common::template_vars::TemplateVars;
 use crate::common::authentication::Authentication;
@@ -25,7 +25,7 @@ pub async fn conversation(
   conversation: i32,
   err: Option<FlashMessage<'_>>
 ) -> Result<Template, Flash<Redirect>> {
-  // ? | No need, get_conversation checks access
+  // XXX: No need, get_conversation checks access
   // if !MainDatabase::check_access(&mut db, auth.user_id, conversation).await {
   //   return None;
   // }
@@ -82,14 +82,15 @@ pub async fn send_message(mut db: Connection<MainDatabase>, auth: Authentication
     Ok(message_id) => {
       //two checks/db requests :p
       if let Some(o_user_id) = MainDatabase::get_receiver_user_id(&mut db, auth.user_id, data.conversation_id).await {
-        if let Some(message) = MainDatabase::get_message(&mut db, message_id).await { // <-- This is stupid
+        if let Some(mut message) = MainDatabase::get_message(&mut db, message_id).await { // <-- This is stupid
+          message.relative_message_direction = Some(RelativeMessageDirection::Incoming);
           //Only fails if no subscribers so we can safely ignore the error :p
           let _ = queue.send(MessageEventData {
             recv_user_id: o_user_id,
             conversation_id: data.conversation_id,
             message
           });
-        } 
+        }
       }
       Ok(message_id)
     },

@@ -19,7 +19,7 @@
 {% endblock head %}
 
 {% block content %}
-  <div id="layout"> 
+  <div id="layout">
     {{ macros_chat::conversations_view(items = conversations, class = "scale layout-left bg") }}
     <div class="layout-right">
       {% if conversation_id %}
@@ -28,7 +28,7 @@
             <i class="fa-solid fa-arrow-left"></i>
             <span>BACK</span>
           </a>
-          <div id="mobile-header-title">Conversation</div>
+          <div id="mobile-header-title">{{conversation.user_username}}</div>
           <div class="dummy"></div>
         </div>
         <div id="sse-state" class="delay script-only">
@@ -56,3 +56,19 @@
     </div>
   </div>
 {% endblock content %}
+
+{% block meta %}
+  {% if conversation_id %}
+    <section class="js-data" aria-hidden="true"
+      data-conversation-id="{{ conversation.conversation_id }}"
+
+      data-user-a-id="{{ vars.user.user_id }}"
+      data-user-a-username="{{ vars.user.username }}"
+      data-user-a-profile-image="{{ vars.user.profile_image }}"
+
+      data-user-b-id="{{ conversation.user_id }}"
+      data-user-b-username="{{ conversation.user_username }}"
+      data-user-b-profile-image="{{ conversation.user_profile_image }}"
+    ></section>
+  {% endif %}
+{% endblock meta %}

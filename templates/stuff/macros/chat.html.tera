@@ -61,6 +61,7 @@
     {% else %}
       {% set pfp = macros_misc::profile_image(url = conversation.user_profile_image | default(value=""), usr = conversation.user_username, id = conversation.user_id) %}
     {% endif %}
+    {# TODO click on pfp to open profile page #}
     <img class="chat-message-pfp" src="{{ pfp }}" width="40" height="40" alt="Profile image" loading="lazy">
     <div class="message-content">
       <span class="message-content-username">{% if is_out %}{{ vars.user.username }}{% else %}{{conversation.user_username}}{% endif %}</span>
