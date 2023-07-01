@@ -1,9 +1,9 @@
 <form action="/chat/send_message_form" method="POST" class="message-box">
   <input type="hidden" name="conversation_id" value="{{ conversation_id }}">
   {{ macros_inputs::styled_input(
-    name="content", 
-    placeholder="Type your message", 
-    no_padding = true, 
+    name="content",
+    placeholder="Type your message",
+    no_padding = true,
     class="rectangular message-box-input",
     autocomplete = "off",
     required = true

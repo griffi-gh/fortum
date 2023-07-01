@@ -44,6 +44,7 @@ setTimeout(() => {
 
 /* Render message */
 const dummyEl = document.getElementById('message-dummy').firstElementChild;
+dummyEl.remove();
 function renderMessage(message) {
   const dummy = dummyEl.cloneNode(true);
   dummy.classList.add(message.relative_message_direction);
@@ -59,6 +60,11 @@ function renderMessage(message) {
   )}&id=${encodeURIComponent(
     message.relative_message_direction == "outgoing" ? jsData.userAId : jsData.userBId
   )}`);
+  if (message.relative_message_direction == "outgoing") {
+    Array.from(dummy.querySelectorAll(".message-in-only")).forEach(x => x.remove());
+  } else if (message.relative_message_direction == "incoming") {
+    Array.from(dummy.querySelectorAll(".message-out-only")).forEach(x => x.remove());
+  }
   return dummy;
 }
 
@@ -89,10 +95,29 @@ function updateLastMessage(conv_id, messageContent) {
   document.querySelector(query).textContent = messageContent;
 }
 
-/* MsgBox and message send */
+/* Reply logic */
+let replyingTo = null;
+function setReplyTo(msgId) {
+  console.log("replying to ", msgId);
+  if (msgId == null) {
+    //TODO
+    return
+  }
+  //TODO
+}
+
+/* Message events */
+function connectEvents(message) {
+  message.querySelector(".message-action-reply").addEventListener("click", () => {
+    setReplyTo(message.dataset.messadeId | 0);
+  });
+}
+Array.from(document.querySelectorAll(".chat-message")).forEach(connectEvents);
+
+
+/* MsgBox and MESSAGE SEND LOGIC */
 const msgBoxEl = document.getElementsByClassName('message-box')[0];
 const sendButtonEl = document.getElementsByClassName('message-box-submit')[0];
-
 sendButtonEl.addEventListener('click', async event => {
   event.preventDefault();
   const formData = new FormData(msgBoxEl);

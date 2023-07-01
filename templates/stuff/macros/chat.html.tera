@@ -59,7 +59,11 @@
     {% set mdir = item.message_direction %}
   {% endif %}
   {% set is_out = mdir == 'outgoing' %}
-  <div class="chat-message {{ mdir }} {{ class }}" id="{{ id_prefix }}{% if id_prefix %}-{%endif%}chat-message-id-{{item.message_id}}">
+  <div
+    class="chat-message {{ mdir }} {{ class }}"
+    id="{{ id_prefix }}{% if id_prefix %}-{%endif%}chat-message-id-{{item.message_id}}"
+    data-message-id="{{item.message_id}}"
+  >
     {% if is_out %}
       {% set pfp = macros_misc::profile_image(url = vars.user.profile_image | default(value=""), usr = vars.user.username, id = vars.user.user_id) %}
     {% else %}
@@ -85,7 +89,10 @@
 {% endmacro message_item %}
 
 {% macro dummy_message_item(class="", id_prefix="") %}
-  <div class="chat-message {#__RELATIVE_MESSAGE_DIRECTION__#} {{ class }}" id="{{ id_prefix }}{% if id_prefix %}-{% endif %}chat-message-id-{#__CHAT_MESSAGE_ID__#}">
+  <div
+    class="chat-message {#__RELATIVE_MESSAGE_DIRECTION__#} {{ class }}"
+    id="{{ id_prefix }}{% if id_prefix %}-{% endif %}chat-message-id-{#__CHAT_MESSAGE_ID__#}"
+  >
     <img class="chat-message-pfp" src="__MESSAGE_PFP_URL__" width="40" height="40" alt="Profile image" loading="lazy">
     <div class="message-content">
       <span class="message-content-username">__MESSAGE_USERNAME__</span>
