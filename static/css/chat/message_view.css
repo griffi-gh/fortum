@@ -23,10 +23,10 @@
   opacity: .5;
 }
 /* Shift to the right */
-.chat-message.incoming {
+.chat-message.outgoing {
   flex-direction: row-reverse;
 }
-.chat-message.incoming .message-content {
+.chat-message.outgoing .message-content {
   align-items: flex-end;
 }
 /* Pfp and username */
@@ -40,8 +40,8 @@
 /* These ones selects the next messages in chain */
 
 /* line */
-.chat-message.outgoing + .chat-message.outgoing::before,
-.chat-message.incoming + .chat-message.incoming::before {
+.chat-message.incoming + .chat-message.incoming::before,
+.chat-message.outgoing + .chat-message.outgoing::before {
   --line-pos: calc(20px + .25rem - 1.5px);
   content: '';
   display: block;
@@ -54,8 +54,8 @@
   background: gray;
   border-radius: 99rem;
 }
-/* Move line to the right side in incoming messages */
-.chat-message.incoming + .chat-message.incoming::before { 
+/* Move line to the right side in outgoing messages */
+.chat-message.outgoing + .chat-message.outgoing::before {
   right: var(--line-pos);
   left: unset;
 }
@@ -82,29 +82,29 @@
   --line-cap-pos: calc(20px + .25rem + 10px);
   background: gray;
 }
-#html .chat-message + .chat-message.outgoing.last-of-block::before { 
+#html .chat-message + .chat-message.incoming.last-of-block::before {
   border-right: none;
   border-bottom-right-radius: 0;
 }
-#html .chat-message + .chat-message.incoming.last-of-block::before { 
+#html .chat-message + .chat-message.outgoing.last-of-block::before {
   border-left: none;
   border-bottom-left-radius: 0;
 }
-.chat-message + .chat-message.outgoing.last-of-block::after { 
+.chat-message + .chat-message.incoming.last-of-block::after {
   left: var(--line-cap-pos);
 }
-.chat-message + .chat-message.incoming.last-of-block::after { 
+.chat-message + .chat-message.outgoing.last-of-block::after {
   right: var(--line-cap-pos);
 }
 
 /* hide username and pfp */
-.chat-message.outgoing + .chat-message.outgoing .chat-message-pfp,
-.chat-message.incoming + .chat-message.incoming .chat-message-pfp {
+.chat-message.incoming + .chat-message.incoming .chat-message-pfp,
+.chat-message.outgoing + .chat-message.outgoing .chat-message-pfp {
   visibility: hidden;
   height: 0px;
 }
-.chat-message.outgoing + .chat-message.outgoing .message-content-username,
-.chat-message.incoming + .chat-message.incoming .message-content-username {
+.chat-message.incoming + .chat-message.incoming .message-content-username,
+.chat-message.outgoing + .chat-message.outgoing .message-content-username {
   display: none;
 }
 
@@ -141,7 +141,7 @@
   color: var(--color-error);
 }
 /* Shift Actions to the left */
-/* .chat-message.incoming .message-actions {
+/* .chat-message.outgoing .message-actions {
   right: unset;
   left: var(--line-pos);
 } */
@@ -184,10 +184,10 @@
 }
 
 /* message-*-only */
-#html .chat-message.incoming .message-out-only {
+#html .chat-message.outgoing .message-in-only {
   display: none;
 }
-#html .chat-message.outgoing .message-in-only {
+#html .chat-message.incoming .message-out-only {
   display: none;
 }
 

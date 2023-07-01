@@ -2,15 +2,19 @@
 
 {% macro conversation_item(item) %}
   <a
-    href="/chat?conversation={{ item.conversation_id }}" 
+    href="/chat?conversation={{item.conversation_id}}"
     tabindex="0"
     class="
-      conversation-item 
+      conversation-item
+      conversation-id-{{item.conversation_id}}
+      conversation-user-id-{{item.user_id}}
       {% if conversation_id %}
-        {% if item.conversation_id == conversation_id %} 
-          active 
+        {% if item.conversation_id == conversation_id %}
+          active
         {% endif %}
       {% endif %}"
+    data-conversation-id="{{item.conversation_id}}"
+    data-user-id="{{item.user_id}}"
   >
     <div class="conv-pfp-area">
       <img 

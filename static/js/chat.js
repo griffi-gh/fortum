@@ -27,11 +27,13 @@ evtSource.addEventListener('error', error => {
   onSseStateChange(evtSource.readyState);
 });
 evtSource.addEventListener('message', event => {
-  console.log(event);
-  //TODO check conversation id
+  console.log("msg event:", event);
   const parsedData = JSON.parse(event.data);
-  console.log(parsedData);
-  addMessage(parsedData.message);
+  console.log("msg data:", parsedData);
+  if ((jsData.conversationId | 0) == parsedData.conversation_id) {
+    addMessage(parsedData.message);
+  }
+  updateLastMessage(parsedData.conversation_id, parsedData.message.content);
 });
 onSseStateChange(evtSource.readyState);
 
@@ -80,6 +82,13 @@ function addMessage(message) {
   return element;
 }
 
+/* upd last msg*/
+function updateLastMessage(conv_id, messageContent) {
+  const query = `.layout-left .conversation-item.conversation-id-${(conv_id | 0).toString()} .conv-last-msg`;
+  console.log("last msg query:", query);
+  document.querySelector(query).textContent = messageContent;
+}
+
 /* MsgBox and message send */
 const msgBoxEl = document.getElementsByClassName('message-box')[0];
 const sendButtonEl = document.getElementsByClassName('message-box-submit')[0];
@@ -103,8 +112,12 @@ sendButtonEl.addEventListener('click', async event => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).catch(() => element.remove());
-  if (res && !res.ok) element.remove();
-  msgViewInnerEl.lastElementChild.classList.add("last-of-block");
+  });
+  if (res && !res.ok) {
+    element.remove();
+    msgViewInnerEl.lastElementChild.classList.add("last-of-block");
+    return;
+  }
   element.classList.remove("pending");
+  updateLastMessage(jsData.conversationId, data.content);
 });
