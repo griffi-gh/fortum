@@ -39,7 +39,7 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--color-background);
-  font-family: 'Google Sans', Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Google Sans', Verdana, Geneva, Tahoma, Arial, sans-serif;
   text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
